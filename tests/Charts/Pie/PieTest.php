@@ -2,7 +2,6 @@
 
 namespace App\Tests\Charts\Pie;
 
-use App\Charts\ChartPdf;
 use App\Charts\Pie\DataPie;
 use App\Charts\Pie\Pie;
 use App\Tests\Charts\TestCaseChartPdf;
@@ -30,17 +29,6 @@ class PieTest extends TestCaseChartPdf
         $result = $pdf->Output('pie01.pdf', Destination::STRING_RETURN);
         $expected = file_get_contents(__DIR__ . '/../../files/pie01.pdf');
         $this->compararPdf($expected, $result);
-    }
-
-    /**
-     * Chart pdf instance
-     * @return ChartPdf
-     */
-    protected function getPdfInstance(): ChartPdf
-    {
-        $pdf = new ChartPdf();
-        $pdf->AddPage();
-        return $pdf;
     }
 
     /**

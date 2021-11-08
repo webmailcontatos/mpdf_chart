@@ -49,7 +49,7 @@ abstract class Chart
      * Return x position (center of de circle)
      * @return float
      */
-    public function getX(): float
+    protected function getX(): float
     {
         return $this->x;
     }
@@ -69,7 +69,7 @@ abstract class Chart
      * Return y postion (center of circle)
      * @return float
      */
-    public function getY(): float
+    protected function getY(): float
     {
         return $this->y;
     }

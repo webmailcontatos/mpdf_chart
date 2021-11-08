@@ -2,12 +2,24 @@
 
 namespace App\Tests\Charts;
 
+use App\Charts\ChartPdf;
 use Imagick;
 use ImagickException;
 use PHPUnit\Framework\TestCase;
 
 class TestCaseChartPdf extends TestCase
 {
+    /**
+     * Chart pdf instance
+     * @return ChartPdf
+     */
+    protected function getPdfInstance(): ChartPdf
+    {
+        $pdf = new ChartPdf();
+        $pdf->AddPage();
+        return $pdf;
+    }
+
     /**
      * Make compare
      * @param string  $expected Content expected
