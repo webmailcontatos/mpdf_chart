@@ -22,6 +22,18 @@ class Line
     protected array $points;
 
     /**
+     * Se true set point
+     * @var boolean
+     */
+    protected bool $showPoint = true;
+
+    /**
+     * Point config
+     * @var Point
+     */
+    protected Point $point;
+
+    /**
      * Return color attribute
      * @return array
      */
@@ -58,6 +70,46 @@ class Line
     public function setPoints(array $points): Line
     {
         $this->points = $points;
+        return $this;
+    }
+
+    /**
+     * If true set point
+     * @return boolean
+     */
+    public function showPoint(): bool
+    {
+        return $this->showPoint;
+    }
+
+    /**
+     * Set attribute set point
+     * @param boolean $setPoint Set point
+     * @return Line
+     */
+    public function setShowPoint(bool $setPoint): Line
+    {
+        $this->showPoint = $setPoint;
+        return $this;
+    }
+
+    /**
+     * Return config point
+     * @return Point
+     */
+    public function getPoint(): Point
+    {
+        return $this->point;
+    }
+
+    /**
+     * Set config point
+     * @param Point $point Config Point
+     * @return Line
+     */
+    public function setPoint(Point $point): Line
+    {
+        $this->point = $point;
         return $this;
     }
 

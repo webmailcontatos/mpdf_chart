@@ -6,6 +6,7 @@ use App\Charts\Line;
 use App\Charts\LineChart;
 use App\Charts\PdfChart;
 use App\Charts\PieChart;
+use App\Charts\Point;
 use App\Entity\DataBarChart;
 use App\Entity\DataLineChart;
 use App\Entity\DataPieChart;
@@ -43,6 +44,9 @@ class ChartTest extends TestCase
         $pdf->AddPage();
         $this->setLineChartGradient($pdf);
         $this->setLineChartTriangleSimbols($pdf);
+        $pdf->AddPage();
+        $this->setLineChartWithoutPointSet($pdf);
+        $this->setLineChartPointColor($pdf);
         $result = $pdf->Output('samples.pdf', Destination::STRING_RETURN);
         $expected = file_get_contents(__DIR__ . '/../files/samples.pdf');
         $this->compararPdf($expected, $result);
@@ -746,8 +750,13 @@ class ChartTest extends TestCase
             $dataBarChart->setSymbol($symbol);
             $bars[] = $dataBarChart;
         }
+        $point = new Point();
+        $point->setColor([0, 0, 0]);
+        $point->setSymbol(DataLineChart::CIRCLE);
+        $point->setFillColor([0, 0, 0]);
         $line = new Line();
         $line->setPoints($bars);
+        $line->setPoint($point);
         $lineChart->setLinesData([$line]);
         return $lineChart;
     }
@@ -807,9 +816,66 @@ class ChartTest extends TestCase
         $dataChartLine = $this->mountDataChartLine($data, $pdfChart, DataLineChart::TRIANGLE);
         $dataChartLine->setFillColorLine([0, 0, 0]);
         $dataChartLine->setDrawColorLine([0, 0, 0]);
+        $point = new Point();
+        $point->setColor([0, 0, 0]);
+        $point->setSymbol(DataLineChart::CIRCLE);
+        $point->setFillColor([0, 0, 0]);
         $line = new Line();
         $line->setPoints($bars);
         $line->setColor([255, 0, 0]);
+        $line->setPoint($point);
+        $data = $dataChartLine->getData();
+        $data[] = $line;
+        $dataChartLine->setLinesData($data);
+        $dataChartLine->setX(35);
+        $dataChartLine->setY(220);
+        $dataChartLine->write();
+    }
+
+    /**
+     * Linechart sample test
+     * @param PdfChart $pdfChart Pdf lib
+     * @return void
+     */
+    public function setLineChartWithoutPointSet(PdfChart $pdfChart): void
+    {
+        $data = $this->getDataChartLine();
+        $dataChartLine = $this->mountDataChartLine($data, $pdfChart);
+        $lines = $dataChartLine->getData();
+        $lines[0]->setShowPoint(false);
+        $dataChartLine->setLinesData($lines);;
+        $dataChartLine->setX(35);
+        $dataChartLine->setY(90);
+        $dataChartLine->write();
+    }
+
+    /**
+     * Linechart sample test
+     * @param PdfChart $pdfChart Pdf lib
+     * @return void
+     */
+    public function setLineChartPointColor(PdfChart $pdfChart): void
+    {
+        $bars = [];
+        $data = $this->getDataChartLine();
+        foreach ($data['data'] as $bar) {
+            $dataBarChart = new DataLineChart();
+            $dataBarChart->setColor($bar['color']);
+            $dataBarChart->setX($bar['x']);
+            $dataBarChart->setY($bar['y'] * 0.3);
+            $dataBarChart->setSymbol(DataLineChart::CIRCLE);
+            $bars[] = $dataBarChart;
+        }
+        $dataChartLine = $this->mountDataChartLine($data, $pdfChart, DataLineChart::TRIANGLE);
+        $dataChartLine->setFillColorLine([0, 0, 0]);
+        $dataChartLine->setDrawColorLine([0, 0, 0]);
+        $point = new Point();
+        $point->setSymbol(DataLineChart::CIRCLE);
+        $point->setColor([255, 0, 0]);
+        $line = new Line();
+        $line->setPoints($bars);
+        $line->setColor([255, 0, 0]);
+        $line->setPoint($point);
         $data = $dataChartLine->getData();
         $data[] = $line;
         $dataChartLine->setLinesData($data);

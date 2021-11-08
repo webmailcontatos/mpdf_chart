@@ -342,13 +342,21 @@ class LineChart extends BarChart
         $datas = $this->getData();
         $space = $this->getXInitChart();
         foreach ($datas as $data) {
+            $setPoint = $data->showPoint();
+            if ($setPoint === false) {
+                continue;
+            }
             $linePoint = $data->getPoints();
+            $pointConfig = $data->getPoint();
             foreach ($linePoint as $points) {
                 $x = $this->getXPostion($points->getX());
                 $y = $this->getYPosition($points->getY());
-                $color = $points->getColor();
+                $color = $pointConfig->getFillColor();
+                $drawColor = $pointConfig->getColor();
                 $this->setFillColor($color);
-                $this->setPoint(($x + $space), $y, $points->getSymbol());
+                $this->setDrawColorLine($drawColor);
+                $style = $color === [255, 255, 255] ? 'DF' : 'F';
+                $this->setPoint(($x + $space), $y, $points->getSymbol(), $style);
             }
         }
     }
@@ -360,10 +368,10 @@ class LineChart extends BarChart
      * @param integer $type Type symbols
      * @return void
      */
-    protected function setPoint(float $x, float $y, int $type): void
+    protected function setPoint(float $x, float $y, int $type, string $style = 'F'): void
     {
         if ($type === DataLineChart::CIRCLE) {
-            $this->setCirclePoint($x, $y);
+            $this->setCirclePoint($x, $y, 1, $style);
             return;
         }
         if ($type === DataLineChart::TRIANGLE) {

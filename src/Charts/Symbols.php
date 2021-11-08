@@ -36,8 +36,8 @@ trait Symbols
      * @param float|integer $radiusPoint Radius of circle
      * @return void
      */
-    protected function setCirclePoint(float $x, float $y, float $radiusPoint = 1): void
+    protected function setCirclePoint(float $x, float $y, float $radiusPoint = 1, string $style = 'F'): void
     {
-        $this->pdf->Circle($x, $y, $radiusPoint, 0, 360, 'F');
+        $this->pdf->Circle($x, $y, $radiusPoint, 0, 360, $style);
     }
 }

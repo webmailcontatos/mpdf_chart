@@ -3,6 +3,7 @@
 use App\Charts\Line;
 use App\Charts\LineChart;
 use App\Charts\PdfChart;
+use App\Charts\Point;
 use App\Entity\DataBarChart;
 use App\Entity\DataLineChart;
 use Mpdf\Output\Destination;
@@ -131,8 +132,13 @@ class LineChartTest extends TestCase
             $dataBarChart->setY($bar['y']);
             $bars[] = $dataBarChart;
         }
+        $point = new Point();
+        $point->setColor([0, 0, 0]);
+        $point->setSymbol(DataLineChart::CIRCLE);
+        $point->setFillColor([0, 0, 0]);
         $line = new Line();
         $line->setPoints($bars);
+        $line->setPoint($point);
         $lineChart->setLinesData([$line]);
         return $lineChart;
     }
