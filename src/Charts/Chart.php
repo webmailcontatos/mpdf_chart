@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Charts\Pie;
+namespace App\Charts;
 /**
  * Chart abstract class
  */

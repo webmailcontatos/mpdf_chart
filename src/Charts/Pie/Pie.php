@@ -2,6 +2,7 @@
 
 namespace App\Charts\Pie;
 
+use App\Charts\Chart;
 use App\Charts\ChartPdf;
 
 /**
