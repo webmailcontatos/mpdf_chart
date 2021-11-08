@@ -150,7 +150,7 @@ class Pie extends Chart
             return;
         }
         $start = -90;//init sector
-        $heightLegend = 3;
+        $heightLegend = 0;
         $percentLegendRadius = $this->getRadiusLegend();
         $textWidth = $this->pdf->GetStringWidth($text);
         $offSetTextX = ($textWidth / 2);
