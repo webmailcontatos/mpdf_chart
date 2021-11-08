@@ -32,6 +32,12 @@ class DataPie
     protected string $legend;
 
     /**
+     * Sector alpha
+     * @var boolean
+     */
+    protected bool $alpha = false;
+
+    /**
      * Return fill color
      * @return array
      */
@@ -110,4 +116,25 @@ class DataPie
         $this->colorDraw = $colorDraw;
         return $this;
     }
+
+    /**
+     * Return true if sector is alpha
+     * @return boolean
+     */
+    public function isAlpha(): bool
+    {
+        return $this->alpha;
+    }
+
+    /**
+     * Set alpha flag
+     * @param boolean $alpha Flag alpha
+     * @return DataPie
+     */
+    public function setAlpha(bool $alpha): DataPie
+    {
+        $this->alpha = $alpha;
+        return $this;
+    }
+
 }

@@ -26,6 +26,11 @@ class Pie extends Chart
     protected float $innerRadius;
 
     /**
+     * Alpha param
+     * @var float
+     */
+    protected float $alpha = 0.1;
+    /**
      * X position on pdf
      * @var float
      */
@@ -87,8 +92,9 @@ class Pie extends Chart
         $sumData = $this->sumData();
         foreach ($data as $item) {
             $this->setConfiSector($item);
-            $percent = ($item->getData() * 100) / $sumData;
-            $finishAngle = ($percent * 360) + $initAngle;
+            $data = $item->getData();
+            $percent = ($data * 100) / $sumData;
+            $finishAngle = (($percent / 100) * 360) + $initAngle;
             $this->pdf->Sector($xInit, $yInit, $radius, $initAngle, $finishAngle);
             $initAngle = $finishAngle;
         }
@@ -195,9 +201,14 @@ class Pie extends Chart
      */
     protected function setConfiSector(DataPie $dataPie): void
     {
+        $isAlpha = $dataPie->isAlpha();
         $drawColor = $dataPie->getColorDraw();
         $colorFill = $dataPie->getColorFill();
         $this->pdf->SetDrawColor($drawColor[0], $drawColor[1], $drawColor[2]);
         $this->pdf->SetFillColor($colorFill[0], $colorFill[1], $colorFill[2]);
+        $this->pdf->SetAlpha(1);//no alpha
+        if ($isAlpha === true) {
+            $this->pdf->SetAlpha($this->alpha);
+        }
     }
 }
