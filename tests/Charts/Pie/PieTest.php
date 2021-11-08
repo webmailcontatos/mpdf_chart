@@ -1,14 +1,17 @@
 <?php
 
+namespace App\Tests\Charts\Pie;
+
 use App\Charts\ChartPdf;
 use App\Charts\Pie\DataPie;
 use App\Charts\Pie\Pie;
-use PHPUnit\Framework\TestCase;
+use App\Tests\Charts\TestCaseChartPdf;
+use Mpdf\Output\Destination;
 
 /**
  * Pie chart test
  */
-class PieTest extends TestCase
+class PieTest extends TestCaseChartPdf
 {
     /**
      * Pie test sample
@@ -21,9 +24,12 @@ class PieTest extends TestCase
         $pieChart->setRadius(35);
         $pieChart->setX(50);
         $pieChart->setY(50);
-        $pieChart->setColorDraw([255, 100, 0]);
         $pieChart->setInnerRadius(0);
         $pieChart->setData($data);
+        $pieChart->write();
+        $result = $pdf->Output('pie01.pdf', Destination::STRING_RETURN);
+        $expected = file_get_contents(__DIR__ . '/../../files/pie01.pdf');
+        $this->compararPdf($expected, $result);
     }
 
     /**
@@ -45,21 +51,21 @@ class PieTest extends TestCase
     {
         $return = [];
         $dataPie = new DataPie();
-        $dataPie->setPercent(33);
+        $dataPie->setData(33);
         $dataPie->setColorFill([239, 124, 142]);
-        $dataPie->setColorDraw([255, 0, 0]);
+        $dataPie->setColorDraw([255, 255, 255]);
         $dataPie->setLegend('A');
         $return[] = $dataPie;
         $dataPie = new DataPie();
-        $dataPie->setPercent(33);
+        $dataPie->setData(33);
         $dataPie->setColorFill([250, 232, 224]);
-        $dataPie->setColorDraw([255, 0, 0]);
+        $dataPie->setColorDraw([255, 255, 255]);
         $dataPie->setLegend('B');
         $return[] = $dataPie;
         $dataPie = new DataPie();
-        $dataPie->setPercent(33);
+        $dataPie->setData(33);
         $dataPie->setColorFill([182, 226, 211]);
-        $dataPie->setColorDraw([255, 0, 0]);
+        $dataPie->setColorDraw([255, 255, 255]);
         $dataPie->setLegend('C');
         $return[] = $dataPie;
         return $return;
