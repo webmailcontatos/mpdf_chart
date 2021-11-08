@@ -38,6 +38,12 @@ class DataPie
     protected bool $alpha = false;
 
     /**
+     * Radius sector
+     * @var float|integer
+     */
+    protected float $radius = 0;
+
+    /**
      * Return fill color
      * @return array
      */
@@ -134,6 +140,26 @@ class DataPie
     public function setAlpha(bool $alpha): DataPie
     {
         $this->alpha = $alpha;
+        return $this;
+    }
+
+    /**
+     * Return radius sector
+     * @return float|integer
+     */
+    public function getRadius(): float
+    {
+        return $this->radius;
+    }
+
+    /**
+     * Set radius sector
+     * @param float|integer $radius Radius
+     * @return DataPie
+     */
+    public function setRadius($radius): DataPie
+    {
+        $this->radius = $radius;
         return $this;
     }
 

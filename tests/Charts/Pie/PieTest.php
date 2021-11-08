@@ -205,4 +205,24 @@ class PieTest extends TestCaseChartPdf
         $expected = file_get_contents(__DIR__ . '/../../files/pie04.pdf');
         $this->compararPdf($expected, $result);
     }
+
+    /**
+     * Pie test sample
+     */
+    public function testPieSepareted(): void
+    {
+        $pdf = $this->getPdfInstance();
+        $data = $this->getDataPie01();
+        $data[0]->setRadius(40);
+        $pieChart = new Pie($pdf);
+        $pieChart->setRadius(35);
+        $pieChart->setX(50);
+        $pieChart->setY(50);
+        $pieChart->setInnerRadius(0);
+        $pieChart->setData($data);
+        $pieChart->write();
+        $result = $pdf->Output('pie05.pdf', Destination::STRING_RETURN);
+        $expected = file_get_contents(__DIR__ . '/../../files/pie05.pdf');
+        $this->compararPdf($expected, $result);
+    }
 }

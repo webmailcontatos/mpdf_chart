@@ -51,12 +51,12 @@ class Pie extends Chart
         $data = $this->getData();
         $xInit = $this->getX();
         $yInit = $this->getY();
-        $radius = $this->getRadius();
         $initAngle = 0;
         $sumData = $this->sumData();
         foreach ($data as $item) {
             $this->setConfiSector($item);
             $data = $item->getData();
+            $radius = empty($item->getRadius()) ? $this->getRadius() : $item->getRadius();
             $percent = $data / $sumData;
             $finishAngle = ($percent * 360) + $initAngle;
             $this->pdf->Sector($xInit, $yInit, $radius, $initAngle, $finishAngle);
@@ -82,26 +82,6 @@ class Pie extends Chart
     public function setData(array $data): Pie
     {
         $this->data = $data;
-        return $this;
-    }
-
-    /**
-     * Return radius
-     * @return float
-     */
-    public function getRadius(): float
-    {
-        return $this->radius;
-    }
-
-    /**
-     * Set radius
-     * @param float $radius Radius
-     * @return Pie
-     */
-    public function setRadius(float $radius): Pie
-    {
-        $this->radius = $radius;
         return $this;
     }
 
@@ -135,6 +115,26 @@ class Pie extends Chart
         if ($isAlpha === true) {
             $this->pdf->SetAlpha($this->alpha);
         }
+    }
+
+    /**
+     * Return radius
+     * @return float
+     */
+    public function getRadius(): float
+    {
+        return $this->radius;
+    }
+
+    /**
+     * Set radius
+     * @param float $radius Radius
+     * @return Pie
+     */
+    public function setRadius(float $radius): Pie
+    {
+        $this->radius = $radius;
+        return $this;
     }
 
     /**
