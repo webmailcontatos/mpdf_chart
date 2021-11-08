@@ -181,4 +181,28 @@ class PieTest extends TestCaseChartPdf
 
         return $return;
     }
+
+    /**
+     * Pie test sample
+     */
+    public function testPieWithLegendDonut(): void
+    {
+        $pdf = $this->getPdfInstance();
+        $data = $this->getDataPie03();
+        $pieChart = new Pie($pdf);
+        $pieChart->setRadius(35);
+        $pieChart->setX(50);
+        $pieChart->setY(50);
+        $pieChart->setInnerRadius(17.5);
+        $pieChart->setData($data);
+        $sum = $pieChart->sumData();
+        foreach ($data as $item) {///set legend
+            $legend = round(($item->getData() / $sum) * 100) . '%';
+            $item->setLegend($legend);
+        }
+        $pieChart->write();
+        $result = $pdf->Output('pie04.pdf', Destination::STRING_RETURN);
+        $expected = file_get_contents(__DIR__ . '/../../files/pie04.pdf');
+        $this->compararPdf($expected, $result);
+    }
 }

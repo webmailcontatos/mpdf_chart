@@ -60,30 +60,20 @@ class Pie extends Chart
     }
 
     /**
-     * Return inner radius
-     * @return float
-     */
-    public function getInnerRadius(): float
-    {
-        return $this->innerRadius;
-    }
-
-    /**
-     * Set inner radius
-     * @param float $innerRadius Inner radius
-     * @return Pie
-     */
-    public function setInnerRadius(float $innerRadius): Pie
-    {
-        $this->innerRadius = $innerRadius;
-        return $this;
-    }
-
-    /**
      * Write chart on the pdf
      * @return void
      */
     protected function load(): void
+    {
+        $this->setSectors();
+        $this->setInnerRadiusCircle();
+    }
+
+    /**
+     * Set sectores
+     * @return void
+     */
+    protected function setSectors(): void
     {
         $data = $this->getData();
         $xInit = $this->getX();
@@ -226,16 +216,73 @@ class Pie extends Chart
         if (empty($text)) {
             return;
         }
-        $xInit = $this->x;
-        $yInit = $this->y;
-        $widthText = $this->pdf->GetStringWidth($text);
-        $middle = (($finishAngle - $angle) / 2);
-        $angle = (($angle - 90) + $middle);
-        $defaultRadius = $this->getRadius();
-        $radius = $defaultRadius * 0.65;
-        $x = $radius * cos(deg2rad($angle)) + ($xInit - ($widthText / 2));
-        $y = $radius * sin(deg2rad($angle)) + $yInit;
+        $start = -90;//init sector
+        $heightLegend = 3;
+        $percentLegendRadius = $this->getRadiusLegend();
+        $textWidth = $this->pdf->GetStringWidth($text);
+        $offSetTextX = ($textWidth / 2);
+        $offSetTextY = ($heightLegend / 2);
+        $xInit = $this->getX();
+        $yInit = $this->getY();
+        $radius = $this->getRadius();
+        $angleLegend = ($start + $angle) + (($finishAngle - $angle) / 2);
+        $x = $radius * $percentLegendRadius * cos(deg2rad($angleLegend)) + $xInit;
+        $y = $radius * $percentLegendRadius * sin(deg2rad($angleLegend)) + $yInit;
         $this->pdf->SetAlpha(1);
-        $this->pdf->Text($x, $y, $text);
+        $this->pdf->SetXY(($x - $offSetTextX), ($y - $offSetTextY));
+        $this->pdf->Cell($textWidth, $heightLegend, $text);
+    }
+
+    /**
+     * Return radius legend
+     * @return float
+     */
+    protected function getRadiusLegend(): float
+    {
+        $defaultPercent = 0.65;
+        $radius = $this->getRadius();
+        $innerRadius = $this->getInnerRadius();
+        $diff = ($radius - $innerRadius);
+        $newRadius = $innerRadius + ($diff / 2);
+        if ($innerRadius) {
+            return ($newRadius / $radius);
+        }
+        return $defaultPercent;
+    }
+
+    /**
+     * Return inner radius
+     * @return float
+     */
+    public function getInnerRadius(): float
+    {
+        return $this->innerRadius;
+    }
+
+    /**
+     * Set inner radius
+     * @param float $innerRadius Inner radius
+     * @return Pie
+     */
+    public function setInnerRadius(float $innerRadius): Pie
+    {
+        $this->innerRadius = $innerRadius;
+        return $this;
+    }
+
+    /**
+     * Set inner circle
+     * @return void
+     */
+    protected function setInnerRadiusCircle(): void
+    {
+        $innerRadius = $this->getInnerRadius();
+        if (empty($innerRadius)) {
+            return;
+        }
+        $x = $this->getX();
+        $y = $this->getY();
+        $this->pdf->SetFillColor(255, 255, 255);
+        $this->pdf->Sector($x, $y, $innerRadius, 0, 360, 'F');
     }
 }
