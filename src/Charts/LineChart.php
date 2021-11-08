@@ -128,7 +128,7 @@ class LineChart extends BarChart
      * Get value attribute gradient
      * @return bool
      */
-    public function isGradient(): bool
+    protected function isGradient(): bool
     {
         return $this->gradient;
     }
@@ -148,7 +148,7 @@ class LineChart extends BarChart
      * Return color gradient
      * @return array|int[]
      */
-    public function getColorInitGradiente(): array
+    protected function getColorInitGradiente(): array
     {
         return $this->colorInitGradiente;
     }
@@ -225,7 +225,7 @@ class LineChart extends BarChart
      * Get attribute fill
      * @return boolean
      */
-    public function isFill(): bool
+    protected function isFill(): bool
     {
         return $this->fill;
     }
@@ -245,7 +245,7 @@ class LineChart extends BarChart
      * Return fill color attribute
      * @return array
      */
-    public function getFillColor(): array
+    protected function getFillColor(): array
     {
         return $this->fillColor;
     }
@@ -254,7 +254,7 @@ class LineChart extends BarChart
      * Return drawColor attribute
      * @return array
      */
-    public function getDrawColorLine(): array
+    protected function getDrawColorLine(): array
     {
         return $this->drawColor;
     }

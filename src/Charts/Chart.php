@@ -24,12 +24,6 @@ abstract class Chart
      * @var float
      */
     protected float $height;
-
-    /**
-     * Margin chart
-     * @var float
-     */
-    protected float $margin;
     /**
      * X position
      * @var float
@@ -55,7 +49,7 @@ abstract class Chart
      * Return width chart
      * @return float
      */
-    public function getWidth(): float
+    protected function getWidth(): float
     {
         return $this->width;
     }
@@ -75,7 +69,7 @@ abstract class Chart
      * Return Chart height
      * @return float
      */
-    public function getHeight(): float
+    protected function getHeight(): float
     {
         return $this->height;
     }
@@ -88,26 +82,6 @@ abstract class Chart
     public function setHeight(float $height): Chart
     {
         $this->height = $height;
-        return $this;
-    }
-
-    /**
-     * Return margin chart
-     * @return float
-     */
-    public function getMargin(): float
-    {
-        return $this->margin;
-    }
-
-    /**
-     * Set margin chart
-     * @param float $margin
-     * @return Chart
-     */
-    public function setMargin(float $margin): Chart
-    {
-        $this->margin = $margin;
         return $this;
     }
 
@@ -132,7 +106,7 @@ abstract class Chart
      * Return x0
      * @return float
      */
-    public function getX(): float
+    protected function getX(): float
     {
         return $this->x;
     }
@@ -152,7 +126,7 @@ abstract class Chart
      * Return y0
      * @return float
      */
-    public function getY(): float
+    protected function getY(): float
     {
         return $this->y;
     }

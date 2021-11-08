@@ -106,7 +106,7 @@ class BarChart extends Chart
      * Return line width attribute
      * @return float
      */
-    public function getLineWidth(): float
+    protected function getLineWidth(): float
     {
         return $this->lineWidth;
     }
@@ -140,7 +140,7 @@ class BarChart extends Chart
      * Return axis y
      * @return array
      */
-    public function getAxisY(): array
+    protected function getAxisY(): array
     {
         return $this->axisY;
     }
@@ -192,7 +192,7 @@ class BarChart extends Chart
      * Return axis x
      * @return array
      */
-    public function getAxisX(): array
+    protected function getAxisX(): array
     {
         return $this->axisX;
     }
@@ -356,7 +356,7 @@ class BarChart extends Chart
      * Return true if alpha is seted
      * @return boolean
      */
-    public function isAlphaBar(): bool
+    protected function isAlphaBar(): bool
     {
         return $this->alphaBar;
     }
@@ -376,7 +376,7 @@ class BarChart extends Chart
      * Return true if border bar is seted
      * @return boolean
      */
-    public function isBorderBar(): bool
+    protected function isBorderBar(): bool
     {
         return $this->borderBar;
     }

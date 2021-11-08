@@ -83,7 +83,6 @@ class ChartTest extends TestCase
         ];
         $dataChartPie = $this->mountDataChart($data);
         $pieChart = new PieChart($pdfChart);
-        $pieChart->setMargin(20);
         $pieChart->setWidth(75);
         $pieChart->setHeight(75);
         $pieChart->setDrawColorLine([255, 255, 255]);
@@ -150,7 +149,6 @@ class ChartTest extends TestCase
         ];
         $dataChartPie = $this->mountDataChart($data);
         $pieChart = new PieChart($pdfChart);
-        $pieChart->setMargin(20);
         $pieChart->setWidth(75);
         $pieChart->setHeight(75);
         $pieChart->setData($dataChartPie);
@@ -192,7 +190,6 @@ class ChartTest extends TestCase
         ];
         $dataChartPie = $this->mountDataChart($data);
         $pieChart = new PieChart($pdfChart);
-        $pieChart->setMargin(20);
         $pieChart->setWidth(75);
         $pieChart->setHeight(75);
         $pieChart->setData($dataChartPie);
@@ -235,7 +232,6 @@ class ChartTest extends TestCase
         ];
         $dataChartPie = $this->mountDataChart($data);
         $pieChart = new InfoGraphics($pdfChart);
-        $pieChart->setMargin(20);
         $pieChart->setWidth(110);
         $pieChart->setHeight(110);
         $pieChart->setData($dataChartPie);
@@ -270,7 +266,6 @@ class ChartTest extends TestCase
         ];
         $dataChartPie = $this->mountDataChart($data);
         $pieChart = new PieChart($pdfChart);
-        $pieChart->setMargin(20);
         $pieChart->setWidth(75);
         $pieChart->setHeight(75);
         $pieChart->setData($dataChartPie);
@@ -312,7 +307,6 @@ class ChartTest extends TestCase
         ];
         $dataChartPie = $this->mountDataChart($data);
         $pieChart = new PieChart($pdfChart);
-        $pieChart->setMargin(20);
         $pieChart->setWidth(75);
         $pieChart->setHeight(75);
         $pieChart->setData($dataChartPie);
