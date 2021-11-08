@@ -3,18 +3,12 @@
 namespace App\Charts\Pie;
 
 use App\Charts\Chart;
-use App\Charts\ChartPdf;
 
 /**
  * Pie chart class
  */
 class Pie extends Chart
 {
-    /**
-     * Pdf lib
-     * @var ChartPdf
-     */
-    protected ChartPdf $pdf;
     /**
      * Radius circle
      * @var float
@@ -31,33 +25,12 @@ class Pie extends Chart
      * @var float
      */
     protected float $alpha = 0.1;
-    /**
-     * X position on pdf
-     * @var float
-     */
-    protected float $x;
-
-    /**
-     * Y position on pdf
-     * @var float
-     */
-    protected float $y;
-
 
     /**
      * Data pie list
      * @var DataPie[]
      */
     protected array $data;
-
-    /**
-     * Constructor class
-     * @param ChartPdf $pdf Pdf lib
-     */
-    public function __construct(ChartPdf $pdf)
-    {
-        $this->pdf = $pdf;
-    }
 
     /**
      * Write chart on the pdf
@@ -109,46 +82,6 @@ class Pie extends Chart
     public function setData(array $data): Pie
     {
         $this->data = $data;
-        return $this;
-    }
-
-    /**
-     * Return x position (center of de circle)
-     * @return float
-     */
-    public function getX(): float
-    {
-        return $this->x;
-    }
-
-    /**
-     * Set x postion (center of de circle)
-     * @param float $x x position
-     * @return Pie
-     */
-    public function setX(float $x): Pie
-    {
-        $this->x = $x;
-        return $this;
-    }
-
-    /**
-     * Return y postion (center of circle)
-     * @return float
-     */
-    public function getY(): float
-    {
-        return $this->y;
-    }
-
-    /**
-     * Set y position
-     * @param float $y Y position
-     * @return Pie
-     */
-    public function setY(float $y): Pie
-    {
-        $this->y = $y;
         return $this;
     }
 
