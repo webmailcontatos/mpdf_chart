@@ -19,8 +19,8 @@ class PieTest extends TestCase
         $data = $this->getDataPie();
         $pieChart = new Pie($pdf);
         $pieChart->setRadius(35);
-        $pieChart->setX();
-        $pieChart->setY();
+        $pieChart->setX(50);
+        $pieChart->setY(50);
         $pieChart->setColorDraw([255, 100, 0]);
         $pieChart->setInnerRadius(0);
         $pieChart->setData($data);
