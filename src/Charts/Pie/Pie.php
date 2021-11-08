@@ -93,9 +93,10 @@ class Pie extends Chart
         foreach ($data as $item) {
             $this->setConfiSector($item);
             $data = $item->getData();
-            $percent = ($data * 100) / $sumData;
-            $finishAngle = (($percent / 100) * 360) + $initAngle;
+            $percent = $data / $sumData;
+            $finishAngle = ($percent * 360) + $initAngle;
             $this->pdf->Sector($xInit, $yInit, $radius, $initAngle, $finishAngle);
+            $this->setLegend($item, $finishAngle, $initAngle);
             $initAngle = $finishAngle;
         }
     }
@@ -210,5 +211,30 @@ class Pie extends Chart
         if ($isAlpha === true) {
             $this->pdf->SetAlpha($this->alpha);
         }
+    }
+
+    /**
+     * Set legend pie
+     * @param DataPie $dataPie     Data pie
+     * @param float   $finishAngle Finishi angle
+     * @param float   $angle       Init angle
+     */
+    protected function setLegend(DataPie $dataPie, float $finishAngle, float $angle): void
+    {
+        $text = $dataPie->getLegend();
+        if (empty($text)) {
+            return;
+        }
+        $xInit = $this->x;
+        $yInit = $this->y;
+        $widthText = $this->pdf->GetStringWidth($text);
+        $middle = (($finishAngle - $angle) / 2);
+        $angle = (($angle - 90) + $middle);
+        $defaultRadius = $this->getRadius();
+        $radius = $defaultRadius * 0.65;
+        $x = $radius * cos(deg2rad($angle)) + ($xInit - ($widthText / 2));
+        $y = $radius * sin(deg2rad($angle)) + $yInit;
+        $this->pdf->SetAlpha(1);
+        $this->pdf->Text($x, $y, $text);
     }
 }

@@ -54,19 +54,16 @@ class PieTest extends TestCaseChartPdf
         $dataPie->setData(33);
         $dataPie->setColorFill([239, 124, 142]);
         $dataPie->setColorDraw([255, 255, 255]);
-        $dataPie->setLegend('A');
         $return[] = $dataPie;
         $dataPie = new DataPie();
         $dataPie->setData(33);
         $dataPie->setColorFill([250, 232, 224]);
         $dataPie->setColorDraw([255, 255, 255]);
-        $dataPie->setLegend('B');
         $return[] = $dataPie;
         $dataPie = new DataPie();
         $dataPie->setData(33);
         $dataPie->setColorFill([182, 226, 211]);
         $dataPie->setColorDraw([255, 255, 255]);
-        $dataPie->setLegend('C');
         $return[] = $dataPie;
         return $return;
     }
@@ -102,7 +99,6 @@ class PieTest extends TestCaseChartPdf
         $dataPie->setData(44);
         $dataPie->setColorFill([0, 0, 0]);
         $dataPie->setColorDraw([255, 255, 255]);
-        $dataPie->setLegend('A');
         $dataPie->setAlpha(true);
         $return[] = $dataPie;
 
@@ -110,21 +106,77 @@ class PieTest extends TestCaseChartPdf
         $dataPie->setData(22);
         $dataPie->setColorFill([180, 248, 200]);
         $dataPie->setColorDraw([255, 255, 255]);
-        $dataPie->setLegend('B');
         $return[] = $dataPie;
 
         $dataPie = new DataPie();
         $dataPie->setData(54);
         $dataPie->setColorFill([160, 231, 229]);
         $dataPie->setColorDraw([255, 255, 255]);
-        $dataPie->setLegend('C');
         $return[] = $dataPie;
 
         $dataPie = new DataPie();
         $dataPie->setData(66);
         $dataPie->setColorFill([255, 174, 188]);
         $dataPie->setColorDraw([255, 255, 255]);
-        $dataPie->setLegend('D');
+        $return[] = $dataPie;
+
+        return $return;
+    }
+
+    /**
+     * Pie test sample
+     */
+    public function testPieWithLegend(): void
+    {
+        $pdf = $this->getPdfInstance();
+        $data = $this->getDataPie03();
+        $pieChart = new Pie($pdf);
+        $pieChart->setRadius(35);
+        $pieChart->setX(50);
+        $pieChart->setY(50);
+        $pieChart->setInnerRadius(0);
+        $pieChart->setData($data);
+        $sum = $pieChart->sumData();
+        foreach ($data as $item) {///set legend
+            $legend = round(($item->getData() / $sum) * 100) . '%';
+            $item->setLegend($legend);
+        }
+        $pieChart->write();
+        $result = $pdf->Output('pie03.pdf', Destination::STRING_RETURN);
+        $expected = file_get_contents(__DIR__ . '/../../files/pie03.pdf');
+        $this->compararPdf($expected, $result);
+    }
+
+    /**
+     * Return data pie
+     * @return DataPie[]
+     */
+    protected function getDataPie03(): array
+    {
+        $return = [];
+
+        $dataPie = new DataPie();
+        $dataPie->setData(44);
+        $dataPie->setColorFill([22, 125, 127]);
+        $dataPie->setColorDraw([255, 255, 255]);
+        $return[] = $dataPie;
+
+        $dataPie = new DataPie();
+        $dataPie->setData(22);
+        $dataPie->setColorFill([180, 248, 200]);
+        $dataPie->setColorDraw([255, 255, 255]);
+        $return[] = $dataPie;
+
+        $dataPie = new DataPie();
+        $dataPie->setData(54);
+        $dataPie->setColorFill([160, 231, 229]);
+        $dataPie->setColorDraw([255, 255, 255]);
+        $return[] = $dataPie;
+
+        $dataPie = new DataPie();
+        $dataPie->setData(66);
+        $dataPie->setColorFill([255, 174, 188]);
+        $dataPie->setColorDraw([255, 255, 255]);
         $return[] = $dataPie;
 
         return $return;

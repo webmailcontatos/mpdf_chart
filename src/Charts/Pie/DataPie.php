@@ -29,7 +29,7 @@ class DataPie
      * Legend
      * @var string
      */
-    protected string $legend;
+    protected ?string $legend = null;
 
     /**
      * Sector alpha
@@ -81,7 +81,7 @@ class DataPie
      * Return legend
      * @return string
      */
-    public function getLegend(): string
+    public function getLegend(): ?string
     {
         return $this->legend;
     }
