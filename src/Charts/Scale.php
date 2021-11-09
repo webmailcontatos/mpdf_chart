@@ -2,8 +2,6 @@
 
 namespace App\Charts;
 
-use App\Charts\Line\Line;
-
 /**
  * Scale chart class
  */
@@ -86,7 +84,7 @@ class Scale extends Chart
      * @param boolean $horizontalGrid Horizontal grid flag
      * @return Scale
      */
-    public function setHorizontalGrid(bool $horizontalGrid): Line
+    public function setHorizontalGrid(bool $horizontalGrid): Scale
     {
         $this->horizontalGrid = $horizontalGrid;
         return $this;
@@ -106,28 +104,9 @@ class Scale extends Chart
      * @param boolean $verticalGrid Flag vertical grid
      * @return Scale
      */
-    public function setVerticalGrid(bool $verticalGrid): Line
+    public function setVerticalGrid(bool $verticalGrid): Scale
     {
         $this->verticalGrid = $verticalGrid;
-        return $this;
-    }
-
-    /**
-     * Return line width
-     * @return float|integer
-     */
-    public function getLineWidth(): float
-    {
-        return $this->lineWidth;
-    }
-
-    /**
-     * @param float|int $lineWidth
-     * @return Scale
-     */
-    public function setLineWidth($lineWidth)
-    {
-        $this->lineWidth = $lineWidth;
         return $this;
     }
 
@@ -136,6 +115,7 @@ class Scale extends Chart
      */
     protected function load(): void
     {
+        $this->setLineWidthChart();
         $this->setLineAxisY();
         $this->setLineAxisX();
         $this->setAxisXchart();
@@ -172,7 +152,7 @@ class Scale extends Chart
      * @param float $height Height chart
      * @return Scale
      */
-    public function setHeight(float $height): Line
+    public function setHeight(float $height): Scale
     {
         $this->height = $height;
         return $this;
@@ -192,7 +172,7 @@ class Scale extends Chart
      * @param array $axisY List axis y
      * @return Scale
      */
-    public function setAxisY(array $axisY): Line
+    public function setAxisY(array $axisY): Scale
     {
         $this->axisY = $axisY;
         return $this;
@@ -224,7 +204,7 @@ class Scale extends Chart
      * @param float $width Width chart
      * @return Scale
      */
-    public function setWidth(float $width): Line
+    public function setWidth(float $width): Scale
     {
         $this->width = $width;
         return $this;
@@ -263,7 +243,7 @@ class Scale extends Chart
      * @param array $axisX Axis x list
      * @return Scale
      */
-    public function setAxisX(array $axisX): Line
+    public function setAxisX(array $axisX): Scale
     {
         $this->axisX = $axisX;
         return $this;
@@ -424,5 +404,34 @@ class Scale extends Chart
     {
         $spaceX = $this->getWidthAxisLabel();
         return $this->xPosition[$xPoint] + ($spaceX / 2);
+    }
+
+    /**
+     * Set line width chart
+     * @return void
+     */
+    protected function setLineWidthChart(): void
+    {
+        $lineWidth = $this->getLineWidth();
+        $this->pdf->SetLineWidth($lineWidth);
+    }
+
+    /**
+     * Return line width
+     * @return float|integer
+     */
+    public function getLineWidth(): float
+    {
+        return $this->lineWidth;
+    }
+
+    /**
+     * @param float|int $lineWidth
+     * @return Scale
+     */
+    public function setLineWidth($lineWidth)
+    {
+        $this->lineWidth = $lineWidth;
+        return $this;
     }
 }

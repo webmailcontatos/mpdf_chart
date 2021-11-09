@@ -2,86 +2,79 @@
 
 namespace App\Tests\Charts\Pie;
 
-use App\Charts\Line\DataLine;
-use App\Charts\Line\Line;
 use App\Charts\Point\DataPoint;
+use App\Charts\Point\Point;
 use App\Tests\Charts\TestCaseChartPdf;
 use Mpdf\Output\Destination;
 
 /**
- * Test line chart
+ * Test point chart
  */
-class LineTest extends TestCaseChartPdf
+class PointTest extends TestCaseChartPdf
 {
     /**
-     * Test sample line chart
+     * Test sample point chart
      */
-    public function testLine(): void
+    public function testPoint(): void
     {
-        $data = $this->getDataLine();
+        $data = $this->getDataPoints();
         $axisX = $this->returnAxisX();
         $axisY = $this->returnAxisY();
         $pdf = $this->getPdfInstance();
-        $line = new Line($pdf);
-        $line->setX(35);
-        $line->setY(90);
-        $line->setWidth(150);
-        $line->setHeight(80);
-        $line->setHorizontalGrid(false);
-        $line->setVerticalGrid(false);
-        $line->setAxisX($axisX);
-        $line->setAxisY($axisY);
-        $line->setLines($data);
-        $line->setLineWidth(0.1);
-        $line->write();
-        $result = $pdf->Output('line01.pdf', Destination::FILE);
+        $point = new Point($pdf);
+        $point->setX(35);
+        $point->setY(90);
+        $point->setWidth(150);
+        $point->setHeight(80);
+        $point->setHorizontalGrid(false);
+        $point->setVerticalGrid(false);
+        $point->setAxisX($axisX);
+        $point->setAxisY($axisY);
+        $point->setPoints($data);
+        $point->setLineWidth(0.1);
+        $point->write();
+        $result = $pdf->Output('point01.pdf', Destination::FILE);
 //        $expected = file_get_contents(__DIR__ . '/../../files/line01.pdf');
 //        $this->compararPdf($expected, $result);
     }
 
     /**
      * Return lines data
-     * @return DataLine[]
+     * @return DataPoint[]
      */
-    protected function getDataLine(): array
+    protected function getDataPoints(): array
     {
-        $linesConfig = [
+        $pointConfig = [
             0 => [
-                'color'     => [255, 0, 0],
-                'lineWidth' => 0.5,
-                'increse'   => 1,
+                'color'   => [255, 0, 0],
+                'increse' => 1,
             ],
             1 => [
-                'color'     => [255, 200, 0],
-                'lineWidth' => 0.5,
-                'increse'   => 0.5,
+                'color'   => [255, 200, 0],
+                'increse' => 0.5,
             ],
             3 => [
-                'color'     => [150, 100, 100],
-                'lineWidth' => 0.5,
-                'increse'   => 1.2,
+                'color'   => [150, 100, 100],
+                'increse' => 1.2,
             ]
         ];
-        $lines = [];
+        $points = [];
         $data = $this->getDataChart();
-
-        foreach ($linesConfig as $line) {
-            $lineData = new DataLine();
-            $lineData->setColor($line['color']);
-            $lineData->setLineWidth($line['lineWidth']);
-            $pointsList = [];
-            $increse = $line['increse'];
-            foreach ($data as $points) {
+        foreach ($pointConfig as $config) {
+            $color = $config['color'];
+            $increse = $config['increse'];
+            foreach ($data as $configPoint) {
                 $point = new DataPoint();
-                $point->setX($points['x']);
-                $point->setY($points['y'] * $increse);
-                $point->setColorDraw($points['color']);
-                $pointsList[] = $point;
+                $point->setColorDraw($color);
+                $point->setColorFill($color);
+                $point->setY($configPoint['y'] * $increse);
+                $point->setX($configPoint['x']);
+                $point->setFill(true);
+                $point->setSize(0.5);
+                $points[] = $point;
             }
-            $lineData->setPoints($pointsList);
-            $lines[] = $lineData;
         }
-        return $lines;
+        return $points;
     }
 
     /**
