@@ -24,9 +24,9 @@ class LineTest extends TestCaseChartPdf
         $pdf = $this->getPdfInstance();
         $line = new Line($pdf);
         $line->setX(30);
-        $line->setY(30);
-        $line->setWidth(400);
-        $line->setHeight(400);
+        $line->setY(100);
+        $line->setWidth(150);
+        $line->setHeight(100);
         $line->setHorizontalGrid(false);
         $line->setVerticalGrid(false);
         $line->setAxisX($axisX);
