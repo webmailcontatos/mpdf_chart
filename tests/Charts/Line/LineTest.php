@@ -18,7 +18,7 @@ class LineTest extends TestCaseChartPdf
      */
     public function testLine(): void
     {
-        $data = $this->getDataLine();
+        $data = $this->getDataLine01();
         $axisX = $this->returnAxisX();
         $axisY = $this->returnAxisY();
         $pdf = $this->getPdfInstance();
@@ -43,7 +43,7 @@ class LineTest extends TestCaseChartPdf
      * Return lines data
      * @return DataLine[]
      */
-    protected function getDataLine(): array
+    protected function getDataLine01(): array
     {
         $linesConfig = [
             0 => [
@@ -184,5 +184,75 @@ class LineTest extends TestCaseChartPdf
             90,
             100,
         ];
+    }
+
+    /**
+     * Test sample line chart
+     */
+    public function testOnlyLine(): void
+    {
+        $data = $this->getDataLine02();
+        $axisX = $this->returnAxisX();
+        $axisY = $this->returnAxisY();
+        $pdf = $this->getPdfInstance();
+        $line = new Line($pdf);
+        $line->setX(35);
+        $line->setY(90);
+        $line->setWidth(150);
+        $line->setHeight(80);
+        $line->setHorizontalGrid(false);
+        $line->setVerticalGrid(false);
+        $line->setAxisX($axisX);
+        $line->setAxisY($axisY);
+        $line->setLines($data);
+        $line->setLineWidth(0.1);
+        $line->write();
+        $result = $pdf->Output('line02.pdf', Destination::STRING_RETURN);
+        $expected = file_get_contents(__DIR__ . '/../../files/line02.pdf');
+        $this->compararPdf($expected, $result);
+    }
+
+    /**
+     * Return lines data
+     * @return DataLine[]
+     */
+    protected function getDataLine02(): array
+    {
+        $linesConfig = [
+            0 => [
+                'color'     => [255, 0, 0],
+                'lineWidth' => 0.5,
+                'increse'   => 1,
+            ],
+            1 => [
+                'color'     => [255, 200, 0],
+                'lineWidth' => 0.5,
+                'increse'   => 0.5,
+            ],
+            3 => [
+                'color'     => [150, 100, 100],
+                'lineWidth' => 0.5,
+                'increse'   => 1.2,
+            ]
+        ];
+        $lines = [];
+        $data = $this->getDataChart();
+
+        foreach ($linesConfig as $line) {
+            $lineData = new DataLine();
+            $lineData->setColor($line['color']);
+            $lineData->setLineWidth($line['lineWidth']);
+            $pointsList = [];
+            $increse = $line['increse'];
+            foreach ($data as $points) {
+                $point = new DataPoint();
+                $point->setX($points['x']);
+                $point->setY($points['y'] * $increse);
+                $pointsList[] = $point;
+            }
+            $lineData->setPoints($pointsList);
+            $lines[] = $lineData;
+        }
+        return $lines;
     }
 }
