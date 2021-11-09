@@ -33,9 +33,9 @@ class PointTest extends TestCaseChartPdf
         $point->setPoints($data);
         $point->setLineWidth(0.1);
         $point->write();
-        $result = $pdf->Output('point01.pdf', Destination::FILE);
-//        $expected = file_get_contents(__DIR__ . '/../../files/line01.pdf');
-//        $this->compararPdf($expected, $result);
+        $result = $pdf->Output('point01.pdf', Destination::STRING_RETURN);
+        $expected = file_get_contents(__DIR__ . '/../../files/point01.pdf');
+        $this->compararPdf($expected, $result);
     }
 
     /**
