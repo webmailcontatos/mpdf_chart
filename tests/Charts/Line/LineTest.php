@@ -28,7 +28,7 @@ class LineTest extends TestCaseChartPdf
         $line->setWidth(150);
         $line->setHeight(80);
         $line->setHorizontalGrid(true);
-        $line->setVerticalGrid(false);
+        $line->setVerticalGrid(true);
         $line->setAxisX($axisX);
         $line->setAxisY($axisY);
         $line->setLines($data);

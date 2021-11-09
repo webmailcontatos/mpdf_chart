@@ -141,6 +141,7 @@ class Scale extends Chart
         $this->setAxisXchart();
         $this->setAxisYchart();
         $this->setGridHorizontal();
+        $this->setGridVertical();
     }
 
     /**
@@ -299,8 +300,7 @@ class Scale extends Chart
         $axis = $this->getAxisY();
         $xInit = $this->getX();
         $yInit = $this->getY();
-        $height = $this->getHeight();
-        $space = ($height / count($axis));
+        $space = $this->getSpaceAxisY();
         $xInitLine = $this->getX() - $tickSize;
         $heightCell = $space;
         $widthCell = $this->getMaxStringWidthY();
@@ -312,6 +312,17 @@ class Scale extends Chart
             $this->pdf->Line($xInitLine, $yInit, ($xInitLine + 2), $yInit);
             $yInit -= $space;
         }
+    }
+
+    /**
+     * Return space y axis
+     * @return float
+     */
+    protected function getSpaceAxisY(): float
+    {
+        $axis = $this->getAxisY();
+        $height = $this->getHeight();
+        return ($height / count($axis));
     }
 
     /**
@@ -380,5 +391,38 @@ class Scale extends Chart
     {
         $axis = $this->getAxisY();
         return end($axis);
+    }
+
+    /**
+     * Set vertical grid
+     * @return void
+     */
+    protected function setGridVertical(): void
+    {
+        if ($this->verticalGrid === false) {
+            return;
+        }
+        $spaceY = $this->getSpaceAxisY();
+        $spaceX = $this->getWidthAxisLabel();
+        $axis = $this->getAxisX();
+        $height = $this->getHeight() - $spaceY;
+        $yInit = $this->getY();
+        foreach ($axis as $axi) {
+            $xInit = $this->getXPosition($axi) + ($spaceX / 2);
+            $this->pdf->Line($xInit, $yInit, $xInit, ($yInit - $height));
+
+        }
+        $xInit += ($spaceX / 2);
+        $this->pdf->Line($xInit, $yInit, $xInit, ($yInit - $height));
+    }
+
+    /**
+     * Return position x
+     * @param float $xPoint X point
+     * @return float
+     */
+    protected function getXPosition($xPoint): float
+    {
+        return $this->xPosition[$xPoint];
     }
 }
