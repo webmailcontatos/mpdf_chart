@@ -43,6 +43,12 @@ class DataPoint
     protected float $size = 0.5;
 
     /**
+     * Symbol point
+     * @var integer
+     */
+    protected int $symbol = Symbol::CIRCLE;
+
+    /**
      * Return x position
      * @return string
      */
@@ -159,6 +165,26 @@ class DataPoint
     public function setSize(float $size): DataPoint
     {
         $this->size = $size;
+        return $this;
+    }
+
+    /**
+     * Return symbol point
+     * @return integer
+     */
+    public function getSymbol(): int
+    {
+        return $this->symbol;
+    }
+
+    /**
+     * Set symbol attribute
+     * @param integer $symbol Symbol point
+     * @return DataPoint
+     */
+    public function setSymbol(int $symbol): DataPoint
+    {
+        $this->symbol = $symbol;
         return $this;
     }
 
