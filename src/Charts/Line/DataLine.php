@@ -2,6 +2,9 @@
 
 namespace App\Charts\Line;
 
+use App\Charts\Point\DataPoint;
+use App\Charts\Point\Point;
+
 /**
  * Line data class
  */
@@ -15,7 +18,7 @@ class DataLine
 
     /**
      * Points list
-     * @var Point[]
+     * @var DataPoint[]
      */
     protected array $points;
 
@@ -24,6 +27,11 @@ class DataLine
      * @var float
      */
     protected float $lineWidth;
+    /**
+     * Show point
+     * @var boolean
+     */
+    protected bool $showPoint = false;
 
     /**
      * Return color line
@@ -47,7 +55,7 @@ class DataLine
 
     /**
      * Return points line
-     * @return Point[]
+     * @return DataPoint[]
      */
     public function getPoints(): array
     {
@@ -85,4 +93,22 @@ class DataLine
         return $this;
     }
 
+    /**
+     * Show point on line
+     * @param boolean $show Show point on line
+     * @return void
+     */
+    public function showPoint(bool $show = true): void
+    {
+        $this->showPoint = $show;
+    }
+
+    /**
+     * Return show point flag
+     * @return boolean
+     */
+    public function isShowPoint(): bool
+    {
+        return $this->showPoint;
+    }
 }

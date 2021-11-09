@@ -2,6 +2,7 @@
 
 namespace App\Charts\Line;
 
+use App\Charts\Point\SetPoint;
 use App\Charts\Scale;
 
 /**
@@ -9,6 +10,11 @@ use App\Charts\Scale;
  */
 class Line extends Scale
 {
+    /**
+     * Set point trait
+     */
+    use SetPoint;
+
     /**
      * Lines chart
      * @var DataLine[]
@@ -22,6 +28,7 @@ class Line extends Scale
     {
         parent::load();
         $this->simpleLineSegment();
+        $this->setPointChart();
     }
 
     /**
@@ -84,5 +91,24 @@ class Line extends Scale
             $return[] = $this->getYPosition($point->getY());
         }
         return array_chunk($return, 4);
+    }
+
+    /**
+     * Set point chart
+     * @return void
+     */
+    protected function setPointChart(): void
+    {
+        $lines = $this->getLines();
+        foreach ($lines as $line) {
+            $show = $line->isShowPoint();
+            if ($show === false) {
+                continue;
+            }
+            $points = $line->getPoints();
+            foreach ($points as $point) {
+                $this->addPoint($point);
+            }
+        }
     }
 }

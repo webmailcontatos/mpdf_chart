@@ -34,9 +34,9 @@ class LineTest extends TestCaseChartPdf
         $line->setLines($data);
         $line->setLineWidth(0.1);
         $line->write();
-        $result = $pdf->Output('line01.pdf', Destination::FILE);
-//        $expected = file_get_contents(__DIR__ . '/../../files/line01.pdf');
-//        $this->compararPdf($expected, $result);
+        $result = $pdf->Output('line01.pdf', Destination::STRING_RETURN);
+        $expected = file_get_contents(__DIR__ . '/../../files/line01.pdf');
+        $this->compararPdf($expected, $result);
     }
 
     /**
@@ -69,13 +69,17 @@ class LineTest extends TestCaseChartPdf
             $lineData = new DataLine();
             $lineData->setColor($line['color']);
             $lineData->setLineWidth($line['lineWidth']);
+            $lineData->showPoint();
             $pointsList = [];
             $increse = $line['increse'];
             foreach ($data as $points) {
                 $point = new DataPoint();
                 $point->setX($points['x']);
                 $point->setY($points['y'] * $increse);
-                $point->setColorDraw($points['color']);
+                $point->setColorDraw($line['color']);
+                $point->setColorFill([255, 255, 255]);
+                $point->setFill(true);
+                $point->setSize(1);
                 $pointsList[] = $point;
             }
             $lineData->setPoints($pointsList);
