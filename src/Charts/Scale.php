@@ -303,4 +303,23 @@ class Scale extends Chart
         }
         return max($sizes);
     }
+
+    /**
+     * Set horizontal grid
+     * @return void
+     */
+    protected function setGridHorizontal(): void
+    {
+        if ($this->horizontalGrid === false) {
+            return;
+        }
+        $axis = $this->getAxisY();
+        $xInit = $this->getX();
+        $width = $this->getWidth();
+        foreach ($axis as $axi) {
+            $yInit = $this->getYPosition($axi);
+            $this->pdf->Line($xInit, $yInit, ($xInit + $width), $yInit);
+
+        }
+    }
 }
