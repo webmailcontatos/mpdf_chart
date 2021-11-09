@@ -125,6 +125,35 @@ class Scale extends Chart
     }
 
     /**
+     * Set line width chart
+     * @return void
+     */
+    protected function setLineWidthChart(): void
+    {
+        $lineWidth = $this->getLineWidth();
+        $this->pdf->SetLineWidth($lineWidth);
+    }
+
+    /**
+     * Return line width
+     * @return float|integer
+     */
+    public function getLineWidth(): float
+    {
+        return $this->lineWidth;
+    }
+
+    /**
+     * @param float|int $lineWidth
+     * @return Scale
+     */
+    public function setLineWidth($lineWidth)
+    {
+        $this->lineWidth = $lineWidth;
+        return $this;
+    }
+
+    /**
      * Set vertical line y
      * @return void
      */
@@ -407,31 +436,24 @@ class Scale extends Chart
     }
 
     /**
-     * Set line width chart
-     * @return void
+     * Return max x position
+     * @return float
      */
-    protected function setLineWidthChart(): void
+    protected function getMaxX(): float
     {
-        $lineWidth = $this->getLineWidth();
-        $this->pdf->SetLineWidth($lineWidth);
+        $axis = $this->getAxisX();
+        $max = end($axis);
+        return $this->getXPosition($max);
     }
 
     /**
-     * Return line width
-     * @return float|integer
+     * Return min x position
+     * @return float
      */
-    public function getLineWidth(): float
+    protected function getMinX(): float
     {
-        return $this->lineWidth;
-    }
-
-    /**
-     * @param float|int $lineWidth
-     * @return Scale
-     */
-    public function setLineWidth($lineWidth)
-    {
-        $this->lineWidth = $lineWidth;
-        return $this;
+        $axis = $this->getAxisX();
+        $max = reset($axis);
+        return $this->getXPosition($max);
     }
 }
