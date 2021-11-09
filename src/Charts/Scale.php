@@ -10,6 +10,17 @@ use App\Charts\Line\Line;
 class Scale extends Chart
 {
     /**
+     * Margin top axis x
+     * @var float|integer
+     */
+    protected float $marginTopAxisX = 3;
+
+    /**
+     * Tick size axis y
+     * @var float|integer
+     */
+    protected float $tickSize = 2;
+    /**
      * Width chart
      * @var float
      */
@@ -48,26 +59,6 @@ class Scale extends Chart
      * @var float|integer
      */
     protected float $lineWidth = 1;
-
-    /**
-     * Return width chart
-     * @return float
-     */
-    public function getWidth(): float
-    {
-        return $this->width;
-    }
-
-    /**
-     * Set width chart
-     * @param float $width Width chart
-     * @return Scale
-     */
-    public function setWidth(float $width): Line
-    {
-        $this->width = $width;
-        return $this;
-    }
 
     /**
      * Return true if flag horizontalGrid printed
@@ -110,26 +101,6 @@ class Scale extends Chart
     }
 
     /**
-     * Return axis x values
-     * @return array
-     */
-    public function getAxisX(): array
-    {
-        return $this->axisX;
-    }
-
-    /**
-     * Set axis x
-     * @param array $axisX Axis x list
-     * @return Scale
-     */
-    public function setAxisX(array $axisX): Line
-    {
-        $this->axisX = $axisX;
-        return $this;
-    }
-
-    /**
      * Return line width
      * @return float|integer
      */
@@ -154,6 +125,9 @@ class Scale extends Chart
     protected function load(): void
     {
         $this->setLineAxisY();
+        $this->setLineAxisX();
+        $this->setAxisXchart();
+        $this->setAxisYchart();
     }
 
     /**
@@ -208,5 +182,125 @@ class Scale extends Chart
     {
         $this->axisY = $axisY;
         return $this;
+    }
+
+    /**
+     * Set line horizontal x
+     * @return void
+     */
+    protected function setLineAxisX(): void
+    {
+        $xInit = $this->getX();
+        $yInit = $this->getY();
+        $width = $this->getWidth();
+        $this->pdf->Line($xInit, $yInit, ($xInit + $width), $yInit);
+    }
+
+    /**
+     * Return width chart
+     * @return float
+     */
+    public function getWidth(): float
+    {
+        return $this->width;
+    }
+
+    /**
+     * Set width chart
+     * @param float $width Width chart
+     * @return Scale
+     */
+    public function setWidth(float $width): Line
+    {
+        $this->width = $width;
+        return $this;
+    }
+
+    /**
+     * Set axis chart
+     * @return void
+     */
+    protected function setAxisXchart(): void
+    {
+        $axis = $this->getAxisX();
+        $xInit = $this->getX();
+        $yInit = $this->getY() + $this->marginTopAxisX;
+        $space = $this->getWidthAxisLabel();
+        foreach ($axis as $axi) {
+            $this->xPosition[$axi] = $xInit;
+            $this->pdf->SetXY($xInit, $yInit);
+            $this->pdf->Cell($space, 0, $axi, '0', 0, 'C');
+            $xInit += $space;
+        }
+    }
+
+    /**
+     * Return axis x values
+     * @return array
+     */
+    public function getAxisX(): array
+    {
+        return $this->axisX;
+    }
+
+    /**
+     * Set axis x
+     * @param array $axisX Axis x list
+     * @return Scale
+     */
+    public function setAxisX(array $axisX): Line
+    {
+        $this->axisX = $axisX;
+        return $this;
+    }
+
+    /**
+     * Return width label axis x
+     * @return float
+     */
+    protected function getWidthAxisLabel(): float
+    {
+        $axis = $this->getAxisX();
+        $width = $this->getWidth();
+        return ($width / count($axis));
+    }
+
+    /**
+     * Set axis y chart
+     * @return void
+     */
+    protected function setAxisYchart(): void
+    {
+        $tickSize = $this->tickSize;
+        $axis = $this->getAxisY();
+        $xInit = $this->getX();
+        $yInit = $this->getY();
+        $height = $this->getHeight();
+        $space = ($height / count($axis));
+        $xInitLine = $this->getX() - $tickSize;
+        $heightCell = $space;
+        $widthCell = $this->getMaxStringWidthY();
+        $xInit -= ($widthCell + ($tickSize * 1.5));
+        foreach ($axis as $axi) {
+            $this->yPosition[$axi] = $yInit;
+            $this->pdf->SetXY($xInit, $yInit - ($heightCell / 2));
+            $this->pdf->Cell($widthCell, $space, $axi, '0', 0, 'C');
+            $this->pdf->Line($xInitLine, $yInit, ($xInitLine + 2), $yInit);
+            $yInit -= $space;
+        }
+    }
+
+    /**
+     * Return max width string axisY
+     * @return float
+     */
+    protected function getMaxStringWidthY(): float
+    {
+        $sizes = [];
+        $axis = $this->getAxisY();
+        foreach ($axis as $axi) {
+            $sizes[] = $this->pdf->GetStringWidth($axi);
+        }
+        return max($sizes);
     }
 }

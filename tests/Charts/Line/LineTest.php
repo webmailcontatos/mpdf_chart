@@ -23,10 +23,10 @@ class LineTest extends TestCaseChartPdf
         $axisY = $this->returnAxisY();
         $pdf = $this->getPdfInstance();
         $line = new Line($pdf);
-        $line->setX(30);
-        $line->setY(100);
+        $line->setX(35);
+        $line->setY(90);
         $line->setWidth(150);
-        $line->setHeight(100);
+        $line->setHeight(80);
         $line->setHorizontalGrid(false);
         $line->setVerticalGrid(false);
         $line->setAxisX($axisX);
