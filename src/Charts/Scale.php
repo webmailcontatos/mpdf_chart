@@ -410,7 +410,6 @@ class Scale extends Chart
         foreach ($axis as $axi) {
             $xInit = $this->getXPosition($axi) + ($spaceX / 2);
             $this->pdf->Line($xInit, $yInit, $xInit, ($yInit - $height));
-
         }
         $xInit += ($spaceX / 2);
         $this->pdf->Line($xInit, $yInit, $xInit, ($yInit - $height));
@@ -418,11 +417,12 @@ class Scale extends Chart
 
     /**
      * Return position x
-     * @param float $xPoint X point
+     * @param string $xPoint X point
      * @return float
      */
     protected function getXPosition($xPoint): float
     {
-        return $this->xPosition[$xPoint];
+        $spaceX = $this->getWidthAxisLabel();
+        return $this->xPosition[$xPoint] + ($spaceX / 2);
     }
 }

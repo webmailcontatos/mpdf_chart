@@ -16,6 +16,42 @@ class Line extends Scale
     protected array $lines = [];
 
     /**
+     * Write chart on the pdf
+     */
+    protected function load(): void
+    {
+        parent::load();
+        $this->simpleLineSegment();
+    }
+
+    /**
+     * Set simple line chart
+     * @param array $points Lines points
+     * @return void
+     */
+    protected function simpleLineSegment(): void
+    {
+        $lines = $this->getLines();
+        foreach ($lines as $line) {
+            $conectionX = 0;
+            $conectionY = 0;
+            $color = $line->getColor();
+            $lineWidth = $line->getLineWidth();
+            $points = $this->getPoints($line);
+            $this->pdf->SetDrawColor($color[0], $color[1], $color[2]);
+            $this->pdf->SetLineWidth($lineWidth);
+            foreach ($points as $point) {
+                if ($conectionX && $conectionY) {
+                    $this->pdf->Line($conectionX, $conectionY, $point[0], $point[1]);
+                }
+                $this->pdf->Line($point[0], $point[1], $point[2], $point[3]);
+                $conectionX = $point[2];
+                $conectionY = $point[3];
+            }
+        }
+    }
+
+    /**
      * @return array
      */
     public function getLines(): array
@@ -35,11 +71,18 @@ class Line extends Scale
     }
 
     /**
-     * Write chart on the pdf
+     * Return points of line
+     * @param DataLine $line Line data
+     * @return array
      */
-    protected function load(): void
+    protected function getPoints(DataLine $line): array
     {
-        parent::load();
+        $return = [];
+        $points = $line->getPoints();
+        foreach ($points as $point) {
+            $return[] = $this->getXPosition($point->getX());
+            $return[] = $this->getYPosition($point->getY());
+        }
+        return array_chunk($return, 4);
     }
-
 }

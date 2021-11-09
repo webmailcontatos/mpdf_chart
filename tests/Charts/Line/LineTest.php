@@ -27,8 +27,8 @@ class LineTest extends TestCaseChartPdf
         $line->setY(90);
         $line->setWidth(150);
         $line->setHeight(80);
-        $line->setHorizontalGrid(true);
-        $line->setVerticalGrid(true);
+        $line->setHorizontalGrid(false);
+        $line->setVerticalGrid(false);
         $line->setAxisX($axisX);
         $line->setAxisY($axisY);
         $line->setLines($data);
@@ -48,28 +48,37 @@ class LineTest extends TestCaseChartPdf
         $linesConfig = [
             0 => [
                 'color'     => [255, 0, 0],
-                'lineWidth' => 0.1,
+                'lineWidth' => 0.5,
+                'increse'   => 1,
             ],
             1 => [
                 'color'     => [255, 200, 0],
-                'lineWidth' => 0.1,
+                'lineWidth' => 0.5,
+                'increse'   => 0.5,
+            ],
+            3 => [
+                'color'     => [150, 100, 100],
+                'lineWidth' => 0.5,
+                'increse'   => 1.2,
             ]
         ];
         $lines = [];
         $data = $this->getDataChart();
+
         foreach ($linesConfig as $line) {
             $lineData = new DataLine();
             $lineData->setColor($line['color']);
             $lineData->setLineWidth($line['lineWidth']);
-            $points = [];
+            $pointsList = [];
+            $increse = $line['increse'];
             foreach ($data as $points) {
                 $point = new Point();
                 $point->setX($points['x']);
-                $point->setY($points['y']);
+                $point->setY($points['y'] * $increse);
                 $point->setColor($points['color']);
-                $points[] = $point;
+                $pointsList[] = $point;
             }
-            $lineData->setPoints($points);
+            $lineData->setPoints($pointsList);
             $lines[] = $lineData;
         }
         return $lines;
