@@ -13,10 +13,10 @@ class Scale extends Chart
      * Margin top axis x
      * @var float|integer
      */
-    protected float $marginTopAxisX = 3;
+    protected float $marginTopAxisX = 4;
 
     /**
-     * Tick size axis y
+     * Tick size axis y and x
      * @var float|integer
      */
     protected float $tickSize = 2;
@@ -237,12 +237,13 @@ class Scale extends Chart
     {
         $axis = $this->getAxisX();
         $xInit = $this->getX();
-        $yInit = $this->getY() + $this->marginTopAxisX;
+        $yInit = $this->getY();
         $space = $this->getWidthAxisLabel();
         foreach ($axis as $axi) {
             $this->xPosition[$axi] = $xInit;
-            $this->pdf->SetXY($xInit, $yInit);
+            $this->pdf->SetXY($xInit, ($yInit + $this->marginTopAxisX));
             $this->pdf->Cell($space, 0, $axi, '0', 0, 'C');
+            $this->setTickAxisX($xInit + ($space / 2));
             $xInit += $space;
         }
     }
@@ -276,6 +277,16 @@ class Scale extends Chart
         $axis = $this->getAxisX();
         $width = $this->getWidth();
         return ($width / count($axis));
+    }
+
+    /**
+     * Set tick on axis x
+     * @return void
+     */
+    protected function setTickAxisX(float $xInit): void
+    {
+        $yInit = $this->getY();
+        $this->pdf->Line($xInit, $yInit, $xInit, ($yInit + $this->tickSize));
     }
 
     /**
