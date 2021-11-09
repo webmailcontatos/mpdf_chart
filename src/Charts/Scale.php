@@ -61,6 +61,18 @@ class Scale extends Chart
     protected float $lineWidth = 1;
 
     /**
+     * Record x position axis
+     * @var array
+     */
+    protected array $xPosition = [];
+
+    /**
+     * Record y position axis
+     * @var array
+     */
+    protected array $yPosition = [];
+
+    /**
      * Return true if flag horizontalGrid printed
      * @return boolean
      */
@@ -128,6 +140,7 @@ class Scale extends Chart
         $this->setLineAxisX();
         $this->setAxisXchart();
         $this->setAxisYchart();
+        $this->setGridHorizontal();
     }
 
     /**
@@ -321,5 +334,40 @@ class Scale extends Chart
             $this->pdf->Line($xInit, $yInit, ($xInit + $width), $yInit);
 
         }
+    }
+
+    /**
+     * Return position y
+     * @param float $yPoint Y point
+     * @return float
+     */
+    protected function getYPosition($yPoint): float
+    {
+        $y = $this->getY();
+        $height = $this->getHeight();
+        $percent = ($height / 100);
+        $space = $this->getDistanceBetweenY();
+        $maxPoint = $this->getMaxY() + $space;
+        return $y - ((($yPoint / $maxPoint) * 100) * $percent);
+    }
+
+    /**
+     * Return distance between axis y
+     * @return float
+     */
+    protected function getDistanceBetweenY(): float
+    {
+        $axis = $this->getAxisY();
+        return $axis[1] - $axis[0];
+    }
+
+    /**
+     * Return max value y
+     * @return float
+     */
+    protected function getMaxY(): float
+    {
+        $axis = $this->getAxisY();
+        return end($axis);
     }
 }
