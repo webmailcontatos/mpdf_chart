@@ -44,7 +44,7 @@ class Line extends Chart
     protected array $axisY = [];
     /**
      * Lines chart
-     * @var array
+     * @var DataLine[]
      */
     protected array $lines = [];
 
@@ -183,7 +183,8 @@ class Line extends Chart
     }
 
     /**
-     * @param array $lines
+     * Set attribute lines
+     * @param DataLine[] $lines Line data
      * @return Line
      */
     public function setLines(array $lines): Line
@@ -193,9 +194,10 @@ class Line extends Chart
     }
 
     /**
-     * @return float|int
+     * Return line width
+     * @return float|integer
      */
-    public function getLineWidth()
+    public function getLineWidth(): float
     {
         return $this->lineWidth;
     }
