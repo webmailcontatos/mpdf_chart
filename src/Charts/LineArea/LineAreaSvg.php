@@ -3,6 +3,7 @@
 namespace App\Charts\LineArea;
 
 use App\Charts\Line\DataLine;
+use App\Charts\Twig;
 
 /**
  * Line area
@@ -74,19 +75,16 @@ class LineAreaSvg extends LineArea
         $width = $converter->mmToPx($this->getWidth());
         $defaultWidth = $firstPoint - ($widthLabelX / 2);
         $defaultHeight = $lastPoint - $height;
-        return '
-        <svg width="' . $width . '" height="' . $height . '"  viewBox="' . $defaultWidth . ' ' . $defaultHeight . ' ' . $width . ' ' . $height . '">
-                     <defs>
-                            <linearGradient id="grad1" x1="100%" y1="10%" x2="100%" y2="100%">
-                  		        <stop offset="0%" style="stop-color:rgb(249, 241, 240);stop-opacity:1" />
-                                <stop offset="100%" style="stop-color:rgb(247, 148, 137);stop-opacity:1" />
-                            </linearGradient>
-                    </defs>
-                    <polygon 
-                        points="' . $points . '"
-                        opacity="0.8" 
-                        fill="url(#grad1)"
-                        />
-        </svg>';
+        return Twig::render(
+            'svg.html.twig',
+            [
+                'width'         => $width,
+                'height'        => $height,
+                'defaultHeight' => $defaultHeight,
+                'defaultWidth'  => $defaultWidth,
+                'opacity'       => 0.8,
+                'points'        => $points,
+            ]
+        );
     }
 }
