@@ -10,12 +10,6 @@ use App\Charts\Line\DataLine;
 class ScaleOrdinal extends Chart
 {
     /**
-     * Converter units
-     * @var SizeConverter
-     */
-    protected SizeConverter $sizeConverter;
-
-    /**
      * Margin top axis x
      * @var float|integer
      */
@@ -464,15 +458,6 @@ class ScaleOrdinal extends Chart
         $axis = $this->getAxisX();
         $max = end($axis);
         return $this->getXPosition($max);
-    }
-
-    /**
-     * Return converter
-     * @return SizeConverter
-     */
-    protected function getConverter(): SizeConverter
-    {
-        return new SizeConverter($this->pdf);
     }
 
     /**

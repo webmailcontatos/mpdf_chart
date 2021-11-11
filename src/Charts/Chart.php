@@ -8,6 +8,12 @@ namespace App\Charts;
 abstract class Chart
 {
     /**
+     * Converter units
+     * @var SizeConverter
+     */
+    protected SizeConverter $sizeConverter;
+
+    /**
      * Pdf lib
      * @var ChartPdf
      */
@@ -89,4 +95,13 @@ abstract class Chart
      * Write chart on the pdf
      */
     protected abstract function load(): void;
+
+    /**
+     * Return converter
+     * @return SizeConverter
+     */
+    protected function getConverter(): SizeConverter
+    {
+        return new SizeConverter($this->pdf);
+    }
 }
