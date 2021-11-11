@@ -51,15 +51,14 @@ class Line extends ScaleOrdinal
             $conectionX = 0;
             $conectionY = 0;
             $color = $line->getColor();
-            $lineWidth = $line->getLineWidth();
             $points = $this->getPoints($line);
             $this->pdf->SetDrawColor($color[0], $color[1], $color[2]);
-            $this->pdf->SetLineWidth($lineWidth);
+            $styleLine = $this->getStyleLine($line);
             foreach ($points as $point) {
                 if ($conectionX && $conectionY) {
-                    $this->pdf->Line($conectionX, $conectionY, $point[0], $point[1]);
+                    $this->pdf->Line($conectionX, $conectionY, $point[0], $point[1], $styleLine);
                 }
-                $this->pdf->Line($point[0], $point[1], $point[2], $point[3]);
+                $this->pdf->Line($point[0], $point[1], $point[2], $point[3], $styleLine);
                 $conectionX = $point[2];
                 $conectionY = $point[3];
             }
@@ -100,6 +99,20 @@ class Line extends ScaleOrdinal
             $return[] = $this->getYPosition($point->getY());
         }
         return array_chunk($return, 4);
+    }
+
+    /**
+     * Return style line
+     * @param DataLine $line Line
+     * @return array
+     */
+    protected function getStyleLine(DataLine $line): array
+    {
+        $styleLineDefault = ['dash' => 0, 'width' => $line->getLineWidth()];
+        if ($line->isDashed()) {
+            $styleLineDefault['dash'] = '3,3';
+        }
+        return $styleLineDefault;
     }
 
     /**

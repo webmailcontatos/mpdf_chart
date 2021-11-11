@@ -27,6 +27,12 @@ class DataLine
      * @var float
      */
     protected float $lineWidth;
+
+    /**
+     * Dashed line
+     * @var boolean
+     */
+    protected bool $dashed = false;
     /**
      * Show point
      * @var boolean
@@ -111,4 +117,25 @@ class DataLine
     {
         return $this->showPoint;
     }
+
+    /**
+     * Return true if is dashed
+     * @return boolean
+     */
+    public function isDashed(): bool
+    {
+        return $this->dashed;
+    }
+
+    /**
+     * Set dashed line
+     * @param boolean $dashed Dashed flag
+     * @return DataLine
+     */
+    public function setDashed(bool $dashed): DataLine
+    {
+        $this->dashed = $dashed;
+        return $this;
+    }
+
 }

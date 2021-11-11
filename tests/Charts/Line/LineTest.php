@@ -20,6 +20,8 @@ class LineTest extends TestCaseChartPdf
     public function testLine(): void
     {
         $data = $this->getDataLine01();
+        $data[0]->setDashed(true);
+        $data[0]->setLineWidth(0.2);
         $axisX = $this->returnAxisX();
         $axisY = $this->returnAxisY();
         $pdf = $this->getPdfInstance();
