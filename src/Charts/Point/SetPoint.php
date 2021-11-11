@@ -49,7 +49,10 @@ trait SetPoint
      */
     protected function setCirclePoint(float $x, float $y, float $size, string $stylePoint): void
     {
-        $this->pdf->Circle($x, $y, $size, 0, 360, $stylePoint);
+        $styleLine = [
+            'width' =>  $this->getLineWidth(),
+        ];
+        $this->pdf->Circle($x, $y, $size, 0, 360, $stylePoint, $styleLine);
     }
 
     /**

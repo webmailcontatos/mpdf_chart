@@ -76,16 +76,17 @@ class LineAreaSvg extends LineArea
         $defaultHeight = $lastPoint - $height;
         return '
         <svg width="' . $width . '" height="' . $height . '"  viewBox="' . $defaultWidth . ' ' . $defaultHeight . ' ' . $width . ' ' . $height . '">
+                     <defs>
+                            <linearGradient id="grad1" x1="100%" y1="10%" x2="100%" y2="100%">
+                  		        <stop offset="0%" style="stop-color:rgb(249, 241, 240);stop-opacity:1" />
+                                <stop offset="100%" style="stop-color:rgb(247, 148, 137);stop-opacity:1" />
+                            </linearGradient>
+                    </defs>
                     <polygon 
                         points="' . $points . '"
-                        opacity="0.5" 
-                        fill="red"
+                        opacity="0.8" 
+                        fill="url(#grad1)"
                         />
         </svg>';
-    }
-
-    protected function loadLineArea(): void
-    {
-        return;
     }
 }
