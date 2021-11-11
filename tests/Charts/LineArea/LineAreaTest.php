@@ -5,13 +5,13 @@ namespace App\Tests\Charts\LineArea;
 use App\Charts\Line\DataLine;
 use App\Charts\LineArea\LineArea;
 use App\Charts\Point\DataPoint;
-use App\Tests\Charts\Line\LineTest;
+use App\Tests\Charts\TestCaseChartPdf;
 use Mpdf\Output\Destination;
 
 /**
  * Test line chart
  */
-class LineAreaTest extends LineTest
+class LineAreaTest extends TestCaseChartPdf
 {
     /**
      * Test sample line chart

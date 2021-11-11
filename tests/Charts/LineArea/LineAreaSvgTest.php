@@ -3,19 +3,20 @@
 namespace App\Tests\Charts\LineArea;
 
 use App\Charts\LineArea\LineAreaSvg;
+use App\Tests\Charts\TestCaseChartPdf;
 use Mpdf\Output\Destination;
 
 /**
  * Test line chart
  */
-class LineAreaSvgTest extends LineAreaTest
+class LineAreaSvgTest extends TestCaseChartPdf
 {
     /**
      * Test sample line chart
      */
     public function testLine(): void
     {
-        $data = $this->getDataLine01();
+        $data = [$this->getDataLine01()[0]];
         $data[0]->setColor([247, 148, 137]);
         $data[0]->setLineWidth(0.5);
         $points = $data[0]->getPoints();
