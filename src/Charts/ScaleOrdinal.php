@@ -318,6 +318,7 @@ class ScaleOrdinal extends Chart
     {
         $lineWidth = $this->getLineWidth();
         $this->pdf->SetLineWidth($lineWidth);
+        $this->pdf->SetLineCap(0);
     }
 
     /**

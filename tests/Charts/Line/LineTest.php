@@ -2,7 +2,10 @@
 
 namespace App\Tests\Charts\Line;
 
+use App\Charts\Line\DataLine;
 use App\Charts\Line\Line;
+use App\Charts\Line\LineLinear;
+use App\Charts\Point\DataPoint;
 use App\Tests\Charts\TestCaseChartPdf;
 use Mpdf\Output\Destination;
 
@@ -87,6 +90,48 @@ class LineTest extends TestCaseChartPdf
         $line->write();
         $result = $pdf->Output('line03.pdf', Destination::STRING_RETURN);
         $expected = file_get_contents(__DIR__ . '/../../files/line03.pdf');
+        $this->compararPdf($expected, $result);
+    }
+
+    /**
+     * Test sample line chart
+     */
+    public function testLineLinearScale(): void
+    {
+        $data = $this->getDataLine04();
+        $pointsList = [];
+        $lineData = new DataLine();
+        $lineData->setColor([0, 100, 0]);
+        $lineData->setLineWidth(0.4);
+        $point01 = new DataPoint();
+        $point01->setX(0);
+        $point01->setY(55);
+        $point02 = new DataPoint();
+        $point02->setX(9);
+        $point02->setY(55);
+        $pointsList[] = $point01;
+        $pointsList[] = $point02;
+        $lineData->setPoints($pointsList);
+        $data[] = $lineData;
+        $axisX = range(0, 9);
+        $axisY = $this->returnAxisY();
+        $pdf = $this->getPdfInstance();
+        $line = new LineLinear($pdf);
+        $line->setX(35);
+        $line->setY(90);
+        $line->setWidth(150);
+        $line->setHeight(80);
+        $line->setHorizontalGrid(false);
+        $line->setVerticalGrid(false);
+        $line->setAxisX($axisX);
+        $line->setAxisY($axisY);
+        $line->setLines($data);
+        $line->setLineWidth(0.1);
+        $line->setHorizontalGrid(true);
+        $line->setVerticalGrid(true);
+        $line->write();
+        $result = $pdf->Output('line04.pdf', Destination::STRING_RETURN);
+        $expected = file_get_contents(__DIR__ . '/../../files/line04.pdf');
         $this->compararPdf($expected, $result);
     }
 }
