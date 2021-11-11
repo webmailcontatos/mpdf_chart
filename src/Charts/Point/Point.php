@@ -2,12 +2,12 @@
 
 namespace App\Charts\Point;
 
-use App\Charts\Scale;
+use App\Charts\ScaleOrdinal;
 
 /**
  * Point chart
  */
-class Point extends Scale
+class Point extends ScaleOrdinal
 {
     /**
      * Set point trait

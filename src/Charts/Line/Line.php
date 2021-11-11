@@ -3,12 +3,12 @@
 namespace App\Charts\Line;
 
 use App\Charts\Point\SetPoint;
-use App\Charts\Scale;
+use App\Charts\ScaleOrdinal;
 
 /**
  * Line chart class
  */
-class Line extends Scale
+class Line extends ScaleOrdinal
 {
     /**
      * Set point trait
