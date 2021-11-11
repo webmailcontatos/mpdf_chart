@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Tests\Charts\Pie;
+namespace App\Tests\Charts\LineArea;
 
 use App\Charts\Line\DataLine;
 use App\Charts\LineArea\LineArea;
 use App\Charts\Point\DataPoint;
+use App\Tests\Charts\Line\LineTest;
 use Mpdf\Output\Destination;
 
 /**
@@ -47,7 +48,7 @@ class LineAreaTest extends LineTest
     {
         $linesConfig = [
             0 => [
-                'color'     => [132,159,209],
+                'color'     => [132, 159, 209],
                 'lineWidth' => 0.3,
                 'increse'   => 1,
             ],

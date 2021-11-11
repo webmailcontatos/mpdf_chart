@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Tests\Charts\Pie;
+namespace App\Tests\Charts\Line;
 
 use App\Charts\Line\DataLine;
 use App\Charts\Line\Line;
