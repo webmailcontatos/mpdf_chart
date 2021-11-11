@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Tests\Charts\Pie;
+namespace App\Tests\Charts\Point;
 
 use App\Charts\Point\DataPoint;
 use App\Charts\Point\Point;
