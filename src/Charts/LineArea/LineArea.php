@@ -22,6 +22,15 @@ class LineArea extends Line
     protected function load(): void
     {
         parent::load();
+        $this->loadLineArea();
+    }
+
+    /**
+     * Load line chart points
+     * @return void
+     */
+    protected function loadLineArea(): void
+    {
         $this->simpleLineSegment();
         parent::simpleLineSegment();
         parent::setPointChart();
@@ -29,7 +38,6 @@ class LineArea extends Line
 
     /**
      * Set simple line chart
-     * @param array $points Lines points
      * @return void
      */
     protected function simpleLineSegment(): void

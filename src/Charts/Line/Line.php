@@ -27,13 +27,21 @@ class Line extends Scale
     protected function load(): void
     {
         parent::load();
+        $this->loadLine();
+    }
+
+    /**
+     * Load line chart points
+     * @return void
+     */
+    protected function loadLine(): void
+    {
         $this->simpleLineSegment();
         $this->setPointChart();
     }
 
     /**
      * Set simple line chart
-     * @param array $points Lines points
      * @return void
      */
     protected function simpleLineSegment(): void
@@ -59,7 +67,8 @@ class Line extends Scale
     }
 
     /**
-     * @return array
+     * Return lines chart
+     * @return DataLine[]
      */
     public function getLines(): array
     {

@@ -2,11 +2,19 @@
 
 namespace App\Charts;
 
+use App\Charts\Line\DataLine;
+
 /**
  * Scale chart class
  */
 class Scale extends Chart
 {
+    /**
+     * Converter units
+     * @var SizeConverter
+     */
+    protected SizeConverter $sizeConverter;
+
     /**
      * Margin top axis x
      * @var float|integer
@@ -111,6 +119,184 @@ class Scale extends Chart
     }
 
     /**
+     * Return max point chart on x axis
+     * @param DataLine $line Line chart
+     * @return float
+     */
+    public function getMaxPointX(DataLine $line): float
+    {
+        $x = [];
+        $points = $line->getPoints();
+        foreach ($points as $point) {
+            $x[] = $this->getXPosition($point->getX());
+        }
+        return max($x);
+    }
+
+    /**
+     * Return position x
+     * @param string $xPoint X point
+     * @return float
+     */
+    protected function getXPosition($xPoint): float
+    {
+        $spaceX = $this->getWidthAxisLabel();
+        return $this->xPosition[$xPoint] + ($spaceX / 2);
+    }
+
+    /**
+     * Return width label axis x
+     * @return float
+     */
+    protected function getWidthAxisLabel(): float
+    {
+        $axis = $this->getAxisX();
+        $width = $this->getWidth();
+        return ($width / count($axis));
+    }
+
+    /**
+     * Return axis x values
+     * @return array
+     */
+    public function getAxisX(): array
+    {
+        return $this->axisX;
+    }
+
+    /**
+     * Set axis x
+     * @param array $axisX Axis x list
+     * @return Scale
+     */
+    public function setAxisX(array $axisX): Scale
+    {
+        $this->axisX = $axisX;
+        return $this;
+    }
+
+    /**
+     * Return width chart
+     * @return float
+     */
+    public function getWidth(): float
+    {
+        return $this->width;
+    }
+
+    /**
+     * Set width chart
+     * @param float $width Width chart
+     * @return Scale
+     */
+    public function setWidth(float $width): Scale
+    {
+        $this->width = $width;
+        return $this;
+    }
+
+    /**
+     * Return first point chart on x axis
+     * @param DataLine $line Line chart
+     * @return float
+     */
+    public function getFirstPointX(DataLine $line): float
+    {
+        $point = array_values($line->getPoints())[0];
+        return $this->getXPosition($point->getX());
+    }
+
+    /**
+     * Return max point chart on y axis
+     * @param DataLine $line Line chart
+     * @return float
+     */
+    public function getMaxPointY(DataLine $line): float
+    {
+        $y = [];
+        $points = $line->getPoints();
+        foreach ($points as $point) {
+            $y[] = $this->getYPosition($point->getY());
+        }
+        return max($y);
+    }
+
+    /**
+     * Return position y
+     * @param float $yPoint Y point
+     * @return float
+     */
+    protected function getYPosition($yPoint): float
+    {
+        $y = $this->getY();
+        $height = $this->getHeight();
+        $percent = ($height / 100);
+        $space = $this->getDistanceBetweenY();
+        $maxPoint = $this->getMaxY() + $space;
+        return $y - ((($yPoint / $maxPoint) * 100) * $percent);
+    }
+
+    /**
+     * Return height chart
+     * @return float
+     */
+    public function getHeight(): float
+    {
+        return $this->height;
+    }
+
+    /**
+     * Set height chart
+     * @param float $height Height chart
+     * @return Scale
+     */
+    public function setHeight(float $height): Scale
+    {
+        $this->height = $height;
+        return $this;
+    }
+
+    /**
+     * Return distance between axis y
+     * @return float
+     */
+    protected function getDistanceBetweenY(): float
+    {
+        $axis = $this->getAxisY();
+        return $axis[1] - $axis[0];
+    }
+
+    /**
+     * Return axis y list
+     * @return array
+     */
+    public function getAxisY(): array
+    {
+        return $this->axisY;
+    }
+
+    /**
+     * Set attribute y list
+     * @param array $axisY List axis y
+     * @return Scale
+     */
+    public function setAxisY(array $axisY): Scale
+    {
+        $this->axisY = $axisY;
+        return $this;
+    }
+
+    /**
+     * Return max value y
+     * @return float
+     */
+    protected function getMaxY(): float
+    {
+        $axis = $this->getAxisY();
+        return end($axis);
+    }
+
+    /**
      * Write chart on the pdf
      */
     protected function load(): void
@@ -168,46 +354,6 @@ class Scale extends Chart
     }
 
     /**
-     * Return height chart
-     * @return float
-     */
-    public function getHeight(): float
-    {
-        return $this->height;
-    }
-
-    /**
-     * Set height chart
-     * @param float $height Height chart
-     * @return Scale
-     */
-    public function setHeight(float $height): Scale
-    {
-        $this->height = $height;
-        return $this;
-    }
-
-    /**
-     * Return axis y list
-     * @return array
-     */
-    public function getAxisY(): array
-    {
-        return $this->axisY;
-    }
-
-    /**
-     * Set attribute y list
-     * @param array $axisY List axis y
-     * @return Scale
-     */
-    public function setAxisY(array $axisY): Scale
-    {
-        $this->axisY = $axisY;
-        return $this;
-    }
-
-    /**
      * Set line horizontal x
      * @return void
      */
@@ -217,26 +363,6 @@ class Scale extends Chart
         $yInit = $this->getY();
         $width = $this->getWidth();
         $this->pdf->Line($xInit, $yInit, ($xInit + $width), $yInit);
-    }
-
-    /**
-     * Return width chart
-     * @return float
-     */
-    public function getWidth(): float
-    {
-        return $this->width;
-    }
-
-    /**
-     * Set width chart
-     * @param float $width Width chart
-     * @return Scale
-     */
-    public function setWidth(float $width): Scale
-    {
-        $this->width = $width;
-        return $this;
     }
 
     /**
@@ -256,37 +382,6 @@ class Scale extends Chart
             $this->setTickAxisX($xInit + ($space / 2));
             $xInit += $space;
         }
-    }
-
-    /**
-     * Return axis x values
-     * @return array
-     */
-    public function getAxisX(): array
-    {
-        return $this->axisX;
-    }
-
-    /**
-     * Set axis x
-     * @param array $axisX Axis x list
-     * @return Scale
-     */
-    public function setAxisX(array $axisX): Scale
-    {
-        $this->axisX = $axisX;
-        return $this;
-    }
-
-    /**
-     * Return width label axis x
-     * @return float
-     */
-    protected function getWidthAxisLabel(): float
-    {
-        $axis = $this->getAxisX();
-        $width = $this->getWidth();
-        return ($width / count($axis));
     }
 
     /**
@@ -368,41 +463,6 @@ class Scale extends Chart
     }
 
     /**
-     * Return position y
-     * @param float $yPoint Y point
-     * @return float
-     */
-    protected function getYPosition($yPoint): float
-    {
-        $y = $this->getY();
-        $height = $this->getHeight();
-        $percent = ($height / 100);
-        $space = $this->getDistanceBetweenY();
-        $maxPoint = $this->getMaxY() + $space;
-        return $y - ((($yPoint / $maxPoint) * 100) * $percent);
-    }
-
-    /**
-     * Return distance between axis y
-     * @return float
-     */
-    protected function getDistanceBetweenY(): float
-    {
-        $axis = $this->getAxisY();
-        return $axis[1] - $axis[0];
-    }
-
-    /**
-     * Return max value y
-     * @return float
-     */
-    protected function getMaxY(): float
-    {
-        $axis = $this->getAxisY();
-        return end($axis);
-    }
-
-    /**
      * Set vertical grid
      * @return void
      */
@@ -425,17 +485,6 @@ class Scale extends Chart
     }
 
     /**
-     * Return position x
-     * @param string $xPoint X point
-     * @return float
-     */
-    protected function getXPosition($xPoint): float
-    {
-        $spaceX = $this->getWidthAxisLabel();
-        return $this->xPosition[$xPoint] + ($spaceX / 2);
-    }
-
-    /**
      * Return max x position
      * @return float
      */
@@ -444,6 +493,15 @@ class Scale extends Chart
         $axis = $this->getAxisX();
         $max = end($axis);
         return $this->getXPosition($max);
+    }
+
+    /**
+     * Return converter
+     * @return SizeConverter
+     */
+    protected function getConverter(): SizeConverter
+    {
+        return new SizeConverter($this->pdf);
     }
 
     /**
