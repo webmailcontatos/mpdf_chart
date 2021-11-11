@@ -85,6 +85,12 @@ class LineLinear extends Line
      */
     protected function getXPosition($xPoint): float
     {
-        return $this->xPosition[$xPoint];
+        $axis = $this->getAxisX();
+        $first = reset($axis);
+        $last = end($axis);
+        $space = ($this->getWidthAxisLabel()) / 2;
+        $diff = (parent::getXPosition($last) - parent::getXPosition($first));
+        $calc = (($diff * $xPoint) / $last) + parent::getXPosition($first);
+        return $calc- $space;
     }
 }

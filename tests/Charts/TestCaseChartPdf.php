@@ -374,7 +374,7 @@ class TestCaseChartPdf extends TestCase
                 'y'     => 37,
                 'color' => [0, 0, 0]
             ], [
-                'x'     => 3,
+                'x'     => 3.5,
                 'y'     => 22,
                 'color' => [0, 0, 0]
             ], [
@@ -382,7 +382,7 @@ class TestCaseChartPdf extends TestCase
                 'y'     => 13,
                 'color' => [0, 0, 0]
             ], [
-                'x'     => 5,
+                'x'     => 5.8,
                 'y'     => 77,
                 'color' => [0, 0, 0]
             ],
@@ -397,7 +397,7 @@ class TestCaseChartPdf extends TestCase
                 'color' => [0, 0, 0]
             ],
             [
-                'x'     => 8,
+                'x'     => 8.2,
                 'y'     => 47,
                 'color' => [0, 0, 0]
             ],

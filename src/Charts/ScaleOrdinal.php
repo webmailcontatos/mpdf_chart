@@ -297,6 +297,16 @@ class ScaleOrdinal extends Chart
     }
 
     /**
+     * Return distance between axis x
+     * @return float
+     */
+    protected function getDistanceBetweenX(): float
+    {
+        $axis = $this->getAxisX();
+        return $axis[1] - $axis[0];
+    }
+
+    /**
      * Write chart on the pdf
      */
     protected function load(): void
