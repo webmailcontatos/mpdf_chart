@@ -119,21 +119,6 @@ class ScaleOrdinal extends Chart
     }
 
     /**
-     * Return max point chart on x axis
-     * @param DataLine $line Line chart
-     * @return float
-     */
-    public function getMaxPointX(DataLine $line): float
-    {
-        $x = [];
-        $points = $line->getPoints();
-        foreach ($points as $point) {
-            $x[] = $this->getXPosition($point->getX());
-        }
-        return max($x);
-    }
-
-    /**
      * Return position x
      * @param string $xPoint X point
      * @return float
@@ -204,21 +189,6 @@ class ScaleOrdinal extends Chart
     {
         $point = array_values($line->getPoints())[0];
         return $this->getXPosition($point->getX());
-    }
-
-    /**
-     * Return max point chart on y axis
-     * @param DataLine $line Line chart
-     * @return float
-     */
-    public function getMaxPointY(DataLine $line): float
-    {
-        $y = [];
-        $points = $line->getPoints();
-        foreach ($points as $point) {
-            $y[] = $this->getYPosition($point->getY());
-        }
-        return max($y);
     }
 
     /**
@@ -294,16 +264,6 @@ class ScaleOrdinal extends Chart
     {
         $axis = $this->getAxisY();
         return end($axis);
-    }
-
-    /**
-     * Return distance between axis x
-     * @return float
-     */
-    protected function getDistanceBetweenX(): float
-    {
-        $axis = $this->getAxisX();
-        return $axis[1] - $axis[0];
     }
 
     /**
