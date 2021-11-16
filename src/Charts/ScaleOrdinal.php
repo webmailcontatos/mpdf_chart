@@ -61,12 +61,6 @@ class ScaleOrdinal extends Chart
     protected float $lineWidth = 1;
 
     /**
-     * Record x position axis
-     * @var array
-     */
-    protected array $xPosition = [];
-
-    /**
      * Record y position axis
      * @var array
      */
@@ -298,7 +292,6 @@ class ScaleOrdinal extends Chart
         $yInit = $this->getY();
         $space = $this->getWidthAxisLabel();
         foreach ($axis as $axi) {
-            $this->xPosition[$axi] = $xInit;
             $this->pdf->SetXY($xInit, ($yInit + $this->marginTopAxisX));
             $this->pdf->Cell($space, 0, $axi, '0', 0, 'C');
             $this->setTickAxisX($xInit + ($space / 2));
