@@ -45,7 +45,7 @@ class ScaleBand
     public function getPosition($point): float
     {
         $space = $this->getWidthAxisLabel();
-        $x = $this->x;
+        $x = $this->getX();
         $axisX = $this->getAxisX();
         $width = ($x + $this->getWidth()) - $space;
         $range = ($width - $x);
@@ -80,5 +80,15 @@ class ScaleBand
     protected function getWidth(): float
     {
         return $this->width;
+    }
+
+
+    /**
+     * Return x init
+     * @return float
+     */
+    protected function getX(): float
+    {
+        return $this->x;
     }
 }
