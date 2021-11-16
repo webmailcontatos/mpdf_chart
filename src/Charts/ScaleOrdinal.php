@@ -113,25 +113,28 @@ class ScaleOrdinal extends Chart
     }
 
     /**
+     * Return first point chart on x axis
+     * @param DataLine $line Line chart
+     * @return float
+     */
+    public function getFirstPointX(DataLine $line): float
+    {
+        $point = array_values($line->getPoints())[0];
+        return $this->getXPosition($point->getX());
+    }
+
+    /**
      * Return position x
      * @param string $xPoint X point
      * @return float
      */
     protected function getXPosition($xPoint): float
     {
-        $spaceX = $this->getWidthAxisLabel();
-        return $this->xPosition[$xPoint] + ($spaceX / 2);
-    }
-
-    /**
-     * Return width label axis x
-     * @return float
-     */
-    protected function getWidthAxisLabel(): float
-    {
         $axis = $this->getAxisX();
         $width = $this->getWidth();
-        return ($width / count($axis));
+        $x = $this->getX();
+        $scaleBand = new ScaleBand($axis, $width, $x);
+        return $scaleBand->getPosition($xPoint);
     }
 
     /**
@@ -172,92 +175,6 @@ class ScaleOrdinal extends Chart
     {
         $this->width = $width;
         return $this;
-    }
-
-    /**
-     * Return first point chart on x axis
-     * @param DataLine $line Line chart
-     * @return float
-     */
-    public function getFirstPointX(DataLine $line): float
-    {
-        $point = array_values($line->getPoints())[0];
-        return $this->getXPosition($point->getX());
-    }
-
-    /**
-     * Return position y
-     * @param float $yPoint Y point
-     * @return float
-     */
-    protected function getYPosition($yPoint): float
-    {
-        $y = $this->getY();
-        $height = $this->getHeight();
-        $percent = ($height / 100);
-        $space = $this->getDistanceBetweenY();
-        $maxPoint = $this->getMaxY() + $space;
-        return $y - ((($yPoint / $maxPoint) * 100) * $percent);
-    }
-
-    /**
-     * Return height chart
-     * @return float
-     */
-    public function getHeight(): float
-    {
-        return $this->height;
-    }
-
-    /**
-     * Set height chart
-     * @param float $height Height chart
-     * @return ScaleOrdinal
-     */
-    public function setHeight(float $height): ScaleOrdinal
-    {
-        $this->height = $height;
-        return $this;
-    }
-
-    /**
-     * Return distance between axis y
-     * @return float
-     */
-    protected function getDistanceBetweenY(): float
-    {
-        $axis = $this->getAxisY();
-        return $axis[1] - $axis[0];
-    }
-
-    /**
-     * Return axis y list
-     * @return array
-     */
-    public function getAxisY(): array
-    {
-        return $this->axisY;
-    }
-
-    /**
-     * Set attribute y list
-     * @param array $axisY List axis y
-     * @return ScaleOrdinal
-     */
-    public function setAxisY(array $axisY): ScaleOrdinal
-    {
-        $this->axisY = $axisY;
-        return $this;
-    }
-
-    /**
-     * Return max value y
-     * @return float
-     */
-    protected function getMaxY(): float
-    {
-        $axis = $this->getAxisY();
-        return end($axis);
     }
 
     /**
@@ -319,6 +236,46 @@ class ScaleOrdinal extends Chart
     }
 
     /**
+     * Return height chart
+     * @return float
+     */
+    public function getHeight(): float
+    {
+        return $this->height;
+    }
+
+    /**
+     * Set height chart
+     * @param float $height Height chart
+     * @return ScaleOrdinal
+     */
+    public function setHeight(float $height): ScaleOrdinal
+    {
+        $this->height = $height;
+        return $this;
+    }
+
+    /**
+     * Return axis y list
+     * @return array
+     */
+    public function getAxisY(): array
+    {
+        return $this->axisY;
+    }
+
+    /**
+     * Set attribute y list
+     * @param array $axisY List axis y
+     * @return ScaleOrdinal
+     */
+    public function setAxisY(array $axisY): ScaleOrdinal
+    {
+        $this->axisY = $axisY;
+        return $this;
+    }
+
+    /**
      * Set line horizontal x
      * @return void
      */
@@ -347,6 +304,17 @@ class ScaleOrdinal extends Chart
             $this->setTickAxisX($xInit + ($space / 2));
             $xInit += $space;
         }
+    }
+
+    /**
+     * Return width label axis x
+     * @return float
+     */
+    protected function getWidthAxisLabel(): float
+    {
+        $axis = $this->getAxisX();
+        $width = $this->getWidth();
+        return ($width / count($axis));
     }
 
     /**
@@ -425,6 +393,41 @@ class ScaleOrdinal extends Chart
             $this->pdf->Line($xInit, $yInit, ($xInit + $width), $yInit);
 
         }
+    }
+
+    /**
+     * Return position y
+     * @param float $yPoint Y point
+     * @return float
+     */
+    protected function getYPosition($yPoint): float
+    {
+        $y = $this->getY();
+        $height = $this->getHeight();
+        $percent = ($height / 100);
+        $space = $this->getDistanceBetweenY();
+        $maxPoint = $this->getMaxY() + $space;
+        return $y - ((($yPoint / $maxPoint) * 100) * $percent);
+    }
+
+    /**
+     * Return distance between axis y
+     * @return float
+     */
+    protected function getDistanceBetweenY(): float
+    {
+        $axis = $this->getAxisY();
+        return $axis[1] - $axis[0];
+    }
+
+    /**
+     * Return max value y
+     * @return float
+     */
+    protected function getMaxY(): float
+    {
+        $axis = $this->getAxisY();
+        return end($axis);
     }
 
     /**
