@@ -7,7 +7,7 @@ use App\Charts\Line\DataLine;
 /**
  * Scale chart class
  */
-class ScaleOrdinal extends Chart
+class Base extends Chart
 {
     /**
      * Margin top axis x
@@ -78,9 +78,9 @@ class ScaleOrdinal extends Chart
     /**
      * Set attribute flag horizontal grid
      * @param boolean $horizontalGrid Horizontal grid flag
-     * @return ScaleOrdinal
+     * @return Base
      */
-    public function setHorizontalGrid(bool $horizontalGrid): ScaleOrdinal
+    public function setHorizontalGrid(bool $horizontalGrid): Base
     {
         $this->horizontalGrid = $horizontalGrid;
         return $this;
@@ -98,9 +98,9 @@ class ScaleOrdinal extends Chart
     /**
      * Set attribute flag vertical grid
      * @param boolean $verticalGrid Flag vertical grid
-     * @return ScaleOrdinal
+     * @return Base
      */
-    public function setVerticalGrid(bool $verticalGrid): ScaleOrdinal
+    public function setVerticalGrid(bool $verticalGrid): Base
     {
         $this->verticalGrid = $verticalGrid;
         return $this;
@@ -143,9 +143,9 @@ class ScaleOrdinal extends Chart
     /**
      * Set axis x
      * @param array $axisX Axis x list
-     * @return ScaleOrdinal
+     * @return Base
      */
-    public function setAxisX(array $axisX): ScaleOrdinal
+    public function setAxisX(array $axisX): Base
     {
         $this->axisX = $axisX;
         return $this;
@@ -163,9 +163,9 @@ class ScaleOrdinal extends Chart
     /**
      * Set width chart
      * @param float $width Width chart
-     * @return ScaleOrdinal
+     * @return Base
      */
-    public function setWidth(float $width): ScaleOrdinal
+    public function setWidth(float $width): Base
     {
         $this->width = $width;
         return $this;
@@ -207,7 +207,7 @@ class ScaleOrdinal extends Chart
 
     /**
      * @param float|int $lineWidth
-     * @return ScaleOrdinal
+     * @return Base
      */
     public function setLineWidth($lineWidth)
     {
@@ -241,9 +241,9 @@ class ScaleOrdinal extends Chart
     /**
      * Set height chart
      * @param float $height Height chart
-     * @return ScaleOrdinal
+     * @return Base
      */
-    public function setHeight(float $height): ScaleOrdinal
+    public function setHeight(float $height): Base
     {
         $this->height = $height;
         return $this;
@@ -261,9 +261,9 @@ class ScaleOrdinal extends Chart
     /**
      * Set attribute y list
      * @param array $axisY List axis y
-     * @return ScaleOrdinal
+     * @return Base
      */
-    public function setAxisY(array $axisY): ScaleOrdinal
+    public function setAxisY(array $axisY): Base
     {
         $this->axisY = $axisY;
         return $this;
