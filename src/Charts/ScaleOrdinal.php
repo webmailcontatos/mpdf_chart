@@ -395,32 +395,11 @@ class ScaleOrdinal extends Chart
      */
     protected function getYPosition($yPoint): float
     {
+        $axis = $this->getAxisY();
         $y = $this->getY();
-        $height = $this->getHeight();
-        $percent = ($height / 100);
-        $space = $this->getDistanceBetweenY();
-        $maxPoint = $this->getMaxY() + $space;
-        return $y - ((($yPoint / $maxPoint) * 100) * $percent);
-    }
-
-    /**
-     * Return distance between axis y
-     * @return float
-     */
-    protected function getDistanceBetweenY(): float
-    {
-        $axis = $this->getAxisY();
-        return $axis[1] - $axis[0];
-    }
-
-    /**
-     * Return max value y
-     * @return float
-     */
-    protected function getMaxY(): float
-    {
-        $axis = $this->getAxisY();
-        return end($axis);
+        $height = -$this->getHeight();
+        $scale = new ScaleLinear($axis, $height, $y);
+        return $scale->getPosition($yPoint);
     }
 
     /**
@@ -443,6 +422,26 @@ class ScaleOrdinal extends Chart
         }
         $xInit += ($spaceX / 2);
         $this->pdf->Line($xInit, $yInit, $xInit, ($yInit - $height));
+    }
+
+    /**
+     * Return distance between axis y
+     * @return float
+     */
+    protected function getDistanceBetweenY(): float
+    {
+        $axis = $this->getAxisY();
+        return $axis[1] - $axis[0];
+    }
+
+    /**
+     * Return max value y
+     * @return float
+     */
+    protected function getMaxY(): float
+    {
+        $axis = $this->getAxisY();
+        return end($axis);
     }
 
     /**
