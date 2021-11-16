@@ -42,23 +42,15 @@ class LineLinear extends Line
     }
 
     /**
-     * Set horizontal grid
-     * @return void
+     * Return width line on axis x
+     * @return float
      */
-    protected function setGridHorizontal(): void
+    protected function getLineWidthAxisX(): float
     {
-        if ($this->horizontalGrid === false) {
-            return;
-        }
         $space = $this->getWidthAxisLabel();
-        $axis = $this->getAxisY();
         $xInit = $this->getX();
         $width = $this->getWidth();
-        foreach ($axis as $axi) {
-            $yInit = $this->getYPosition($axi);
-            $this->pdf->Line($xInit, $yInit, ($xInit + $width) - $space, $yInit);
-
-        }
+        return ($xInit + $width) - $space;
     }
 
     /**

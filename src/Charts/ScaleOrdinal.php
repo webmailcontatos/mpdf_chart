@@ -380,12 +380,23 @@ class ScaleOrdinal extends Chart
         }
         $axis = $this->getAxisY();
         $xInit = $this->getX();
-        $width = $this->getWidth();
+        $widthLine = $this->getLineWidthAxisX();
         foreach ($axis as $axi) {
             $yInit = $this->getYPosition($axi);
-            $this->pdf->Line($xInit, $yInit, ($xInit + $width), $yInit);
+            $this->pdf->Line($xInit, $yInit, $widthLine, $yInit);
 
         }
+    }
+
+    /**
+     * Return width line on axis x
+     * @return float
+     */
+    protected function getLineWidthAxisX(): float
+    {
+        $xInit = $this->getX();
+        $width = $this->getWidth();
+        return ($xInit + $width);
     }
 
     /**
@@ -411,17 +422,27 @@ class ScaleOrdinal extends Chart
         if ($this->verticalGrid === false) {
             return;
         }
-        $spaceY = $this->getSpaceAxisY();
         $spaceX = $this->getWidthAxisLabel();
         $axis = $this->getAxisX();
-        $height = $this->getHeight() - $spaceY;
         $yInit = $this->getY();
+        $heightLine = $this->getLineHeightAxisY();
         foreach ($axis as $axi) {
             $xInit = $this->getXPosition($axi) + ($spaceX / 2);
-            $this->pdf->Line($xInit, $yInit, $xInit, ($yInit - $height));
+            $this->pdf->Line($xInit, $yInit, $xInit, $heightLine);
         }
         $xInit += ($spaceX / 2);
-        $this->pdf->Line($xInit, $yInit, $xInit, ($yInit - $height));
+        $this->pdf->Line($xInit, $yInit, $xInit, $heightLine);
+    }
+
+    /**
+     * Return height line on axis y
+     * @return float
+     */
+    protected function getLineHeightAxisY(): float
+    {
+        $yInit = $this->getY();
+        $height = $this->getHeight();
+        return ($yInit - $height);
     }
 
     /**
