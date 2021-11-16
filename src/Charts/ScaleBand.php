@@ -13,55 +13,44 @@ class ScaleBand
     protected float $width;
 
     /**
-     * Axis y
-     * @var array
-     */
-    protected array $axisY = [];
-
-    /**
      * Axis x
      * @var array
      */
     protected array $axisX = [];
 
     /**
-     * Record x position axis
-     * @var array
-     */
-    protected array $xPosition = [];
-
-    /**
-     * Y position on pdf
+     * X init position
      * @var float
      */
-    protected float $y;
-
-    /**
-     * Height chart
-     * @var float
-     */
-    protected float $height;
+    protected float $x;
 
     /**
      * Constructor class
      * @param array $axis  List axis elements
      * @param float $width Width chart
+     * @param float $xInit Init x position
      */
-    public function __construct(array $axis, float $width)
+    public function __construct(array $axis, float $width, float $xInit)
     {
         $this->axisX = $axis;
         $this->width = $width;
+        $this->x = $xInit;
     }
 
     /**
-     * Return position x
-     * @param string $xPoint X point
+     * Return position
+     * @param string $point Point
      * @return float
      */
-    protected function getXPosition($xPoint): float
+    public function getPosition($point): float
     {
-        $spaceX = $this->getWidthAxisLabel();
-        return $this->xPosition[$xPoint] + ($spaceX / 2);
+        $space = $this->getWidthAxisLabel();
+        $x = $this->x;
+        $axisX = $this->getAxisX();
+        $width = ($x + $this->getWidth()) - $space;
+        $range = ($width - $x);
+        $rangeX = end($axisX) - $axisX[0];
+        return (($point * $range) / $rangeX) + $x;
     }
 
     /**
@@ -79,7 +68,7 @@ class ScaleBand
      * Return axis x values
      * @return array
      */
-    public function getAxisX(): array
+    protected function getAxisX(): array
     {
         return $this->axisX;
     }
@@ -88,70 +77,8 @@ class ScaleBand
      * Return width chart
      * @return float
      */
-    public function getWidth(): float
+    protected function getWidth(): float
     {
         return $this->width;
-    }
-
-    /**
-     * Return position y
-     * @param float $yPoint Y point
-     * @return float
-     */
-    protected function getYPosition($yPoint): float
-    {
-        $y = $this->getY();
-        $height = $this->getHeight();
-        $percent = ($height / 100);
-        $space = $this->getDistanceBetweenY();
-        $maxPoint = $this->getMaxY() + $space;
-        return $y - ((($yPoint / $maxPoint) * 100) * $percent);
-    }
-
-    /**
-     * Return y postion (center of circle)
-     * @return float
-     */
-    protected function getY(): float
-    {
-        return $this->y;
-    }
-
-    /**
-     * Return height chart
-     * @return float
-     */
-    public function getHeight(): float
-    {
-        return $this->height;
-    }
-
-    /**
-     * Return distance between axis y
-     * @return float
-     */
-    protected function getDistanceBetweenY(): float
-    {
-        $axis = $this->getAxisY();
-        return $axis[1] - $axis[0];
-    }
-
-    /**
-     * Return axis y list
-     * @return array
-     */
-    public function getAxisY(): array
-    {
-        return $this->axisY;
-    }
-
-    /**
-     * Return max value y
-     * @return float
-     */
-    protected function getMaxY(): float
-    {
-        $axis = $this->getAxisY();
-        return end($axis);
     }
 }

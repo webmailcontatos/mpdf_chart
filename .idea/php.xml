@@ -12,41 +12,7 @@
   </component>
   <component name="PhpIncludePathManager">
     <include_path>
-      <path value="$PROJECT_DIR$/skeleton/vendor/symfony/routing" />
-      <path value="$PROJECT_DIR$/skeleton/vendor/symfony/event-dispatcher" />
-      <path value="$PROJECT_DIR$/skeleton/vendor/symfony/polyfill-php81" />
-      <path value="$PROJECT_DIR$/skeleton/vendor/symfony/http-client-contracts" />
-      <path value="$PROJECT_DIR$/skeleton/vendor/symfony/service-contracts" />
-      <path value="$PROJECT_DIR$/skeleton/vendor/symfony/polyfill-php80" />
-      <path value="$PROJECT_DIR$/skeleton/vendor/symfony/dependency-injection" />
-      <path value="$PROJECT_DIR$/skeleton/vendor/symfony/string" />
-      <path value="$PROJECT_DIR$/skeleton/vendor/symfony/deprecation-contracts" />
-      <path value="$PROJECT_DIR$/skeleton/vendor/psr/log" />
-      <path value="$PROJECT_DIR$/skeleton/vendor/psr/cache" />
-      <path value="$PROJECT_DIR$/skeleton/vendor/psr/event-dispatcher" />
-      <path value="$PROJECT_DIR$/skeleton/vendor/psr/container" />
-      <path value="$PROJECT_DIR$/skeleton/vendor/symfony/var-dumper" />
-      <path value="$PROJECT_DIR$/skeleton/vendor/symfony/yaml" />
-      <path value="$PROJECT_DIR$/skeleton/vendor/symfony/var-exporter" />
-      <path value="$PROJECT_DIR$/skeleton/vendor/symfony/http-foundation" />
-      <path value="$PROJECT_DIR$/skeleton/vendor/symfony/config" />
-      <path value="$PROJECT_DIR$/skeleton/vendor/symfony/dotenv" />
-      <path value="$PROJECT_DIR$/skeleton/vendor/symfony/polyfill-mbstring" />
-      <path value="$PROJECT_DIR$/skeleton/vendor/symfony/filesystem" />
-      <path value="$PROJECT_DIR$/skeleton/vendor/symfony/finder" />
-      <path value="$PROJECT_DIR$/skeleton/vendor/symfony/polyfill-php73" />
-      <path value="$PROJECT_DIR$/skeleton/vendor/symfony/http-kernel" />
-      <path value="$PROJECT_DIR$/skeleton/vendor/composer" />
-      <path value="$PROJECT_DIR$/skeleton/vendor/symfony/runtime" />
-      <path value="$PROJECT_DIR$/skeleton/vendor/symfony/polyfill-intl-normalizer" />
-      <path value="$PROJECT_DIR$/skeleton/vendor/symfony/framework-bundle" />
-      <path value="$PROJECT_DIR$/skeleton/vendor/symfony/cache" />
-      <path value="$PROJECT_DIR$/skeleton/vendor/symfony/polyfill-intl-grapheme" />
-      <path value="$PROJECT_DIR$/skeleton/vendor/symfony/console" />
-      <path value="$PROJECT_DIR$/skeleton/vendor/symfony/event-dispatcher-contracts" />
-      <path value="$PROJECT_DIR$/skeleton/vendor/symfony/cache-contracts" />
-      <path value="$PROJECT_DIR$/skeleton/vendor/symfony/error-handler" />
-      <path value="$PROJECT_DIR$/skeleton/vendor/symfony/flex" />
+      <path value="$PROJECT_DIR$/vendor" />
     </include_path>
   </component>
   <component name="PhpInterpreters">

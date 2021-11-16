@@ -2,6 +2,8 @@
 
 namespace App\Charts\Line;
 
+use App\Charts\ScaleBand;
+
 /**
  * Line chart class
  */
@@ -85,12 +87,10 @@ class LineLinear extends Line
      */
     protected function getXPosition($xPoint): float
     {
-        $space = $this->getWidthAxisLabel();
-        $x = $this->getX();
-        $axisX = $this->getAxisX();
-        $width = ($x + $this->getWidth()) - $space;
-        $range = ($width - $x);
-        $rangeX = end($axisX) - $axisX[0];
-        return (($xPoint * $range) / $rangeX) + $x;
+        $axis = $this->getAxisX();
+        $width = $this->getWidth();
+        $xInit = $this->getX();
+        $scaleBand = new ScaleBand($axis, $width, $xInit);
+        return $scaleBand->getPosition($xPoint);
     }
 }
