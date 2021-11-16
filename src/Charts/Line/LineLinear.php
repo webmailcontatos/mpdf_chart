@@ -2,7 +2,7 @@
 
 namespace App\Charts\Line;
 
-use App\Charts\ScaleBand;
+use App\Charts\ScaleLinear;
 
 /**
  * Line chart class
@@ -90,7 +90,7 @@ class LineLinear extends Line
         $axis = $this->getAxisX();
         $width = $this->getWidth();
         $xInit = $this->getX();
-        $scaleBand = new ScaleBand($axis, $width, $xInit);
+        $scaleBand = new ScaleLinear($axis, $width, $xInit);
         return $scaleBand->getPosition($xPoint);
     }
 }
