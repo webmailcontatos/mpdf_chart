@@ -430,8 +430,6 @@ class Base extends Chart
             $xInit = $this->getXPosition($axi) + ($spaceX / 2);
             $this->pdf->Line($xInit, $yInit, $xInit, $heightLine);
         }
-        $xInit += ($spaceX / 2);
-        $this->pdf->Line($xInit, $yInit, $xInit, $heightLine);
     }
 
     /**
@@ -442,7 +440,8 @@ class Base extends Chart
     {
         $yInit = $this->getY();
         $height = $this->getHeight();
-        return ($yInit - $height);
+        $space = $this->getSpaceAxisY();
+        return ($yInit - $height) + $space;
     }
 
     /**

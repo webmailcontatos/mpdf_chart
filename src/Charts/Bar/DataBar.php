@@ -14,6 +14,12 @@ class DataBar
     protected array $color;
 
     /**
+     * Color draw
+     * @var array
+     */
+    protected array $colorDraw;
+
+    /**
      * Line width
      * @var float
      */
@@ -24,6 +30,18 @@ class DataBar
      * @var boolean
      */
     protected bool $dashed = false;
+
+    /**
+     * X position
+     * @var float
+     */
+    protected string $x;
+
+    /**
+     * Y position
+     * @var float
+     */
+    protected float $y;
 
 
     /**
@@ -83,6 +101,66 @@ class DataBar
     public function setDashed(bool $dashed): DataBar
     {
         $this->dashed = $dashed;
+        return $this;
+    }
+
+    /**
+     * Return x position
+     * @return string
+     */
+    public function getX(): string
+    {
+        return $this->x;
+    }
+
+    /**
+     * Set x position
+     * @param float $x X position
+     * @return DataBar
+     */
+    public function setX(string $x): DataBar
+    {
+        $this->x = $x;
+        return $this;
+    }
+
+    /**
+     * Return y position
+     * @return float
+     */
+    public function getY(): float
+    {
+        return $this->y;
+    }
+
+    /**
+     * Set y position
+     * @param float $y Y position
+     * @return DataBar
+     */
+    public function setY(float $y): DataBar
+    {
+        $this->y = $y;
+        return $this;
+    }
+
+    /**
+     * Return color draw
+     * @return array
+     */
+    public function getColorDraw(): array
+    {
+        return $this->colorDraw;
+    }
+
+    /**
+     * Set color draw attribute
+     * @param array $colorDraw Color draw
+     * @return DataBar
+     */
+    public function setColorDraw(array $colorDraw): DataBar
+    {
+        $this->colorDraw = $colorDraw;
         return $this;
     }
 
