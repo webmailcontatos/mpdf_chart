@@ -63,6 +63,65 @@ $pieChart->setInnerRadius(0);// inner radius 'Donuts chart only'
 $pieChart->setData($data);// Data chart pie object represents pieces of chart
 $pieChart->write();// Write chart on the pdf
 $pdf->Output();
+
+$pdf = new ChartPdf();
+$bar = new Bar($pdf);
+$bar->setX(35);
+$bar->setY(90);
+$bar->setWidth(150);
+$bar->setHeight(80);
+$bar->setHorizontalGrid(true);
+$bar->setVerticalGrid(true);
+$bar->setAxisX($axisX);
+$bar->setAxisY($axisY);
+$bar->setDataBar($data);
+$bar->setLineWidth(0.1);
+$bar->write();
+$pdf->Output();
+
+$pdf = new ChartPdf();
+$line = new Line($pdf);
+$line->setX(35);
+$line->setY(90);
+$line->setWidth(150);
+$line->setHeight(80);
+$line->setHorizontalGrid(true);
+$line->setVerticalGrid(true);
+$line->setAxisX($axisX);
+$line->setAxisY($axisY);
+$line->setLines($data);
+$line->setLineWidth(0.1);
+$line->write();
+
+$pdf = new ChartPdf();
+$line = new LineAreaSvg($pdf);
+$line->setX(35);
+$line->setY(90);
+$line->setWidth(150);
+$line->setHeight(80);
+$line->setHorizontalGrid(false);
+$line->setVerticalGrid(false);
+$line->setAxisX($axisX);
+$line->setAxisY($axisY);
+$line->setLines($data);
+$line->setLineWidth(0.1);
+$line->setHorizontalGrid(true);
+$line->write();
+
+$pdf = new ChartPdf();
+$point = new Point($pdf);
+$point->setX(35);
+$point->setY(90);
+$point->setWidth(150);
+$point->setHeight(80);
+$point->setHorizontalGrid(false);
+$point->setVerticalGrid(false);
+$point->setAxisX($axisX);
+$point->setAxisY($axisY);
+$point->setPoints($data);
+$point->setLineWidth(0.1);
+$point->write();
+
 ```
 
 This will output the PDF inline to the browser as `application/pdf` Content-type.
