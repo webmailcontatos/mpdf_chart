@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Tests\Charts\LineArea;
+namespace ChartPdf\Tests\Charts\LineArea;
 
-use App\Charts\LineArea\LineAreaSvg;
-use App\Tests\Charts\TestCaseChartPdf;
+use ChartPdf\Charts\LineArea\LineAreaSvg;
+use ChartPdf\Tests\Charts\TestCaseChartPdf;
 use Mpdf\Output\Destination;
 
 /**

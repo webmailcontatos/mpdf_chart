@@ -2,11 +2,11 @@
 
 namespace App\Tests\Charts\Line;
 
-use App\Charts\Line\DataLine;
-use App\Charts\Line\Line;
-use App\Charts\Line\LineLinear;
-use App\Charts\Point\DataPoint;
-use App\Tests\Charts\TestCaseChartPdf;
+use ChartPdf\Charts\Line\DataLine;
+use ChartPdf\Charts\Line\Line;
+use ChartPdf\Charts\Line\LineLinear;
+use ChartPdf\Charts\Point\DataPoint;
+use ChartPdf\Tests\Charts\TestCaseChartPdf;
 use Mpdf\Output\Destination;
 
 /**

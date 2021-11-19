@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Charts\Bar;
+namespace ChartPdf\Charts\Bar;
 
-use App\Charts\Base;
+use ChartPdf\Charts\Base;
 
 /**
  * Bar chart class

@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Tests\Charts\Point;
+namespace ChartPdf\Tests\Charts\Point;
 
-use App\Charts\Point\DataPoint;
-use App\Charts\Point\Point;
-use App\Tests\Charts\TestCaseChartPdf;
+use ChartPdf\Charts\Point\DataPoint;
+use ChartPdf\Charts\Point\Point;
+use ChartPdf\Tests\Charts\TestCaseChartPdf;
 use Mpdf\Output\Destination;
 
 /**

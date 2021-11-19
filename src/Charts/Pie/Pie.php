@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Charts\Pie;
+namespace ChartPdf\Charts\Pie;
 
-use App\Charts\Chart;
+use ChartPdf\Charts\Chart;
 
 /**
  * Pie chart class

@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Tests\Charts\LineArea;
+namespace ChartPdf\Tests\Charts\LineArea;
 
-use App\Charts\Line\DataLine;
-use App\Charts\LineArea\LineArea;
-use App\Charts\Point\DataPoint;
-use App\Tests\Charts\TestCaseChartPdf;
+use ChartPdf\Charts\Line\DataLine;
+use ChartPdf\Charts\LineArea\LineArea;
+use ChartPdf\Charts\Point\DataPoint;
+use ChartPdf\Tests\Charts\TestCaseChartPdf;
 use Mpdf\Output\Destination;
 
 /**

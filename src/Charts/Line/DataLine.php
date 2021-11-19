@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Charts\Line;
+namespace ChartPdf\Charts\Line;
 
-use App\Charts\Point\DataPoint;
-use App\Charts\Point\Point;
+use ChartPdf\Charts\Point\DataPoint;
+use ChartPdf\Charts\Point\Point;
 
 /**
  * Line data class

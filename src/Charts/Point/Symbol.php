@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Charts\Point;
+namespace ChartPdf\Charts\Point;
 /**
  * Symbol points
  */

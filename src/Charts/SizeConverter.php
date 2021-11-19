@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Charts;
+namespace ChartPdf\Charts;
 
 use Mpdf\SizeConverter as Size;
 use Psr\Log\NullLogger;

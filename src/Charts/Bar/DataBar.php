@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Charts\Bar;
+namespace ChartPdf\Charts\Bar;
 
 /**
  * Bar data class

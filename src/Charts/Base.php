@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Charts;
+namespace ChartPdf\Charts;
 
-use App\Charts\Line\DataLine;
+use ChartPdf\Charts\Line\DataLine;
 
 /**
  * Scale chart class

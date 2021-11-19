@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Tests\Charts\Bar;
+namespace ChartPdf\Tests\Charts\Bar;
 
-use App\Charts\Bar\Bar;
-use App\Charts\Bar\DataBar;
-use App\Tests\Charts\TestCaseChartPdf;
+use ChartPdf\Tests\Charts\TestCaseChartPdf;
+use ChartPdf\Charts\Bar\Bar;
+use ChartPdf\Charts\Bar\DataBar;
+
 use Mpdf\Output\Destination;
 
 /**
