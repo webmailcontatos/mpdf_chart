@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Charts\Point;
+namespace ChartPdf\Charts\Point;
 
-use App\Charts\Base;
+use ChartPdf\Charts\Base;
 
 /**
  * Point chart

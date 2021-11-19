@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Charts\Line;
+namespace ChartPdf\Charts\Line;
 
-use App\Charts\ScaleLinear;
+use ChartPdf\Charts\ScaleLinear;
 
 /**
  * Line chart class

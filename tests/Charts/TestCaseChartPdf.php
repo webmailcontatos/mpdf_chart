@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Tests\Charts;
+namespace ChartPdf\Tests\Charts;
 
-use App\Charts\ChartPdf;
-use App\Charts\Line\DataLine;
-use App\Charts\Point\DataPoint;
-use App\Charts\Point\Symbol;
+use ChartPdf\Charts\ChartPdf;
+use ChartPdf\Charts\Line\DataLine;
+use ChartPdf\Charts\Point\DataPoint;
+use ChartPdf\Charts\Point\Symbol;
 use Imagick;
 use ImagickException;
 use PHPUnit\Framework\TestCase;

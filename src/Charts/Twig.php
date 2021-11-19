@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Charts;
+namespace ChartPdf\Charts;
 
 use Twig\Environment;
 use Twig\Loader\FilesystemLoader;

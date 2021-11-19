@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Charts\Pie;
+namespace ChartPdf\Charts\Pie;
 
 /**
  * Data pie

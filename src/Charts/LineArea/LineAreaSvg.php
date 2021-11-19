@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Charts\LineArea;
+namespace ChartPdf\Charts\LineArea;
 
-use App\Charts\Line\DataLine;
-use App\Charts\Twig;
+use ChartPdf\Charts\Line\DataLine;
+use ChartPdf\Charts\Twig;
 
 /**
  * Line area

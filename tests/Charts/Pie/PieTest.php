@@ -2,9 +2,9 @@
 
 namespace App\Tests\Charts\Pie;
 
-use App\Charts\Pie\DataPie;
-use App\Charts\Pie\Pie;
-use App\Tests\Charts\TestCaseChartPdf;
+use ChartPdf\Charts\Pie\DataPie;
+use ChartPdf\Charts\Pie\Pie;
+use ChartPdf\Tests\Charts\TestCaseChartPdf;
 use Mpdf\Output\Destination;
 
 /**
