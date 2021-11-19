@@ -54,15 +54,15 @@ The simplest usage (since version 7.0) of the library would be as follows:
 <?php
 
 require_once __DIR__ . '/vendor/autoload.php';
-$pdf = new \Mpdf\Mpdf();
+$pdf = new ChartPdf();
 $pieChart = new Pie($pdf);
-$pieChart->setRadius(35);
-$pieChart->setX(50);
-$pieChart->setY(50);
-$pieChart->setInnerRadius(0);
-$pieChart->setData($data);
-$pieChart->write();
-
+$pieChart->setRadius(35); //radiues pie
+$pieChart->setX(50);// init X position
+$pieChart->setY(50);// init Y position
+$pieChart->setInnerRadius(0);// inner radius 'Donuts chart only'
+$pieChart->setData($data);// Data chart pie object represents pieces of chart
+$pieChart->write();// Write chart on de pdf
+$pdf->Output();
 ```
 
 This will output the PDF inline to the browser as `application/pdf` Content-type.
@@ -83,7 +83,7 @@ The directory must have write permissions (mode `775` is recommended) for users 
 ```php
 <?php
 
-$mpdf = new \Mpdf\Mpdf(['tempDir' => __DIR__ . '/tmp']);
+$pdf = new \ChartPdf\ChartPdf(['tempDir' => __DIR__ . '/tmp']);
 
 ```
 
