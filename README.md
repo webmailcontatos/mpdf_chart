@@ -56,12 +56,12 @@ The simplest usage (since version 7.0) of the library would be as follows:
 require_once __DIR__ . '/vendor/autoload.php';
 $pdf = new ChartPdf();
 $pieChart = new Pie($pdf);
-$pieChart->setRadius(35); //radiues pie
+$pieChart->setRadius(35); //radius pie
 $pieChart->setX(50);// init X position
 $pieChart->setY(50);// init Y position
 $pieChart->setInnerRadius(0);// inner radius 'Donuts chart only'
 $pieChart->setData($data);// Data chart pie object represents pieces of chart
-$pieChart->write();// Write chart on de pdf
+$pieChart->write();// Write chart on the pdf
 $pdf->Output();
 ```
 
