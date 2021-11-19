@@ -42,7 +42,7 @@ Installation
 Official installation method is via composer and its packagist package [chart_pdf/chart_pdf](https://packagist.org/packages/chart_pdf/chart_pdf).
 
 ```
-$ composer require chart_pdf/chart_pdf
+$ composer require chartpdf/chartpdf
 ```
 
 Usage
