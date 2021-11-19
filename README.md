@@ -33,8 +33,7 @@ server such as nginx (php-fpm) or Apache is recommended.
 Support us
 ==========
 
-Consider supporting development of Chart PDF with a donation of any value. [Donation button][1] can be found on the
-[main page of the documentation][1].
+Consider supporting development of Chart PDF with a donation of any value. [Donation](https://www.paypal.com/donate/?business=R8MH6WYWJTJBY&no_recurring=0&currency_code=USD)
 
 Installation
 ============
