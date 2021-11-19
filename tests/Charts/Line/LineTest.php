@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Tests\Charts\Line;
+namespace ChartPdf\Tests\Charts\Line;
 
 use ChartPdf\Charts\Line\DataLine;
 use ChartPdf\Charts\Line\Line;
