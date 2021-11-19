@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Tests\Charts\Pie;
+namespace ChartPdf\Tests\Charts\Pie;
 
 use ChartPdf\Charts\Pie\DataPie;
 use ChartPdf\Charts\Pie\Pie;
