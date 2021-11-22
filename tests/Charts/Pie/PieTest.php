@@ -4,6 +4,7 @@ namespace ChartPdf\Tests\Charts\Pie;
 
 use ChartPdf\Charts\Pie\DataPie;
 use ChartPdf\Charts\Pie\Pie;
+use ChartPdf\Charts\Pie\Velocimeter;
 use ChartPdf\Tests\Charts\TestCaseChartPdf;
 use Mpdf\Output\Destination;
 
@@ -236,6 +237,46 @@ class PieTest extends TestCaseChartPdf
         $pieChart->write();
         $result = $pdf->Output('pie06.pdf', Destination::STRING_RETURN);
         $expected = file_get_contents(__DIR__ . '/../../files/pie06.pdf');
+        $this->compararPdf($expected, $result);
+    }
+
+    /**
+     * Pie test sample
+     */
+    public function testVelocimeter(): void
+    {
+        $pdf = $this->getPdfInstance();
+        $data = $this->getDataPie03();
+        $pieChart = new Velocimeter($pdf);
+        $pieChart->setRadius(60);
+        $pieChart->setX(100);
+        $pieChart->setY(100);
+        $pieChart->setInnerRadius(0);
+        $pieChart->setData($data);
+        $pieChart->setStartAngle(180);
+        $pieChart->setFinishArc(180);
+        $pieChart->setInnerRadius(20);
+        $pieChart->setCurrentPosition(112.5);
+        $colors = [
+            [146, 209, 79],
+            [251, 191, 1],
+            [239, 127, 26],
+            [216, 39, 36],
+        ];
+        $legends = [
+            'Low',
+            'Medium',
+            'High',
+            'Critical',
+        ];
+        foreach ($data as $key => $item) {///set legend
+            $item->setData(25);
+            $item->setColorFill($colors[$key]);
+            $item->setLegend($legends[$key]);
+        }
+        $pieChart->write();
+        $result = $pdf->Output('velocimeter01.pdf', Destination::STRING_RETURN);
+        $expected = file_get_contents(__DIR__ . '/../../files/velocimeter01.pdf');
         $this->compararPdf($expected, $result);
     }
 }
