@@ -27,10 +27,26 @@ class Pie extends Chart
     protected float $alpha = 0.1;
 
     /**
+     * Start anglo init
+     * @var float
+     */
+    protected float $startAngle = 90;
+
+    /**
      * Data pie list
      * @var DataPie[]
      */
     protected array $data;
+
+    /**
+     * Set start angle pie
+     * @param integer $angle Start angle pie
+     * @return void
+     */
+    public function setStartAngle(int $angle): void
+    {
+        $this->startAngle = $angle;
+    }
 
     /**
      * Write chart on the pdf
@@ -59,7 +75,7 @@ class Pie extends Chart
             $radius = empty($item->getRadius()) ? $this->getRadius() : $item->getRadius();
             $percent = $data / $sumData;
             $finishAngle = ($percent * 360) + $initAngle;
-            $this->pdf->Sector($xInit, $yInit, $radius, $initAngle, $finishAngle);
+            $this->pdf->Sector($xInit, $yInit, $radius, $initAngle, $finishAngle, 'FD', true, $this->startAngle);
             $this->setLegend($item, $finishAngle, $initAngle);
             $initAngle = $finishAngle;
         }
@@ -149,7 +165,7 @@ class Pie extends Chart
         if (empty($text)) {
             return;
         }
-        $start = -90;//init sector
+        $start = -$this->startAngle;//init sector
         $heightLegend = 0;
         $percentLegendRadius = $this->getRadiusLegend();
         $textWidth = $this->pdf->GetStringWidth($text);
