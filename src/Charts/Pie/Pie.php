@@ -33,6 +33,11 @@ class Pie extends Chart
     protected float $startAngle = 90;
 
     /**
+     * Finishi arc default
+     * @var integer
+     */
+    protected int $finishArc = 360;
+    /**
      * Data pie list
      * @var DataPie[]
      */
@@ -46,6 +51,16 @@ class Pie extends Chart
     public function setStartAngle(int $angle): void
     {
         $this->startAngle = $angle;
+    }
+
+    /**
+     * Set finish arc
+     * @param integer $finishiArc Finish arc
+     * @return void
+     */
+    public function setFinishArc(int $finishiArc): void
+    {
+        $this->finishArc = $finishiArc;
     }
 
     /**
@@ -74,7 +89,7 @@ class Pie extends Chart
             $data = $item->getData();
             $radius = empty($item->getRadius()) ? $this->getRadius() : $item->getRadius();
             $percent = $data / $sumData;
-            $finishAngle = ($percent * 360) + $initAngle;
+            $finishAngle = ($percent * $this->finishArc) + $initAngle;
             $this->pdf->Sector($xInit, $yInit, $radius, $initAngle, $finishAngle, 'FD', true, $this->startAngle);
             $this->setLegend($item, $finishAngle, $initAngle);
             $initAngle = $finishAngle;
