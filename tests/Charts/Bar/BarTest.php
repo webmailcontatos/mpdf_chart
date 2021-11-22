@@ -2,10 +2,10 @@
 
 namespace ChartPdf\Tests\Charts\Bar;
 
-use ChartPdf\Tests\Charts\TestCaseChartPdf;
 use ChartPdf\Charts\Bar\Bar;
+use ChartPdf\Charts\Bar\BarLine;
 use ChartPdf\Charts\Bar\DataBar;
-
+use ChartPdf\Tests\Charts\TestCaseChartPdf;
 use Mpdf\Output\Destination;
 
 /**
@@ -85,6 +85,32 @@ class BarTest extends TestCaseChartPdf
         $bar->write();
         $result = $pdf->Output('bar02.pdf', Destination::STRING_RETURN);
         $expected = file_get_contents(__DIR__ . '/../../files/bar02.pdf');
+        $this->compararPdf($expected, $result);
+    }
+
+    /**
+     * Bar test sample
+     */
+    public function testBarLine(): void
+    {
+        $data = $this->getDataBar();
+        $axisX = $this->returnAxisX();
+        $axisY = $this->returnAxisY();
+        $pdf = $this->getPdfInstance();
+        $bar = new BarLine($pdf);
+        $bar->setX(35);
+        $bar->setY(90);
+        $bar->setWidth(150);
+        $bar->setHeight(80);
+        $bar->setHorizontalGrid(true);
+        $bar->setVerticalGrid(true);
+        $bar->setAxisX($axisX);
+        $bar->setAxisY($axisY);
+        $bar->setDataBar($data);
+        $bar->setLineWidth(0.1);
+        $bar->write();
+        $result = $pdf->Output('bar03.pdf', Destination::STRING_RETURN);
+        $expected = file_get_contents(__DIR__ . '/../../files/bar03.pdf');
         $this->compararPdf($expected, $result);
     }
 }
