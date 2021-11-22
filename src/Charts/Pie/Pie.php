@@ -47,7 +47,7 @@ class Pie extends Chart
      * List printed init angle
      * @var array
      */
-    protected array $printedInitAngle = [];
+    protected array $printedFinishAngle = [];
 
     /**
      * Separated flag
@@ -114,7 +114,7 @@ class Pie extends Chart
             $finishAngle = ($percent * $this->finishArc) + $initAngle;
             $this->pdf->Sector($xInit, $yInit, $radius, $initAngle, $finishAngle, 'FD', true, $this->startAngle);
             $this->setLegend($item, $finishAngle, $initAngle);
-            $this->printedInitAngle[] = $finishAngle;
+            $this->printedFinishAngle[] = $finishAngle;
             $initAngle = $finishAngle;
         }
         $this->printSeparated();
@@ -274,7 +274,7 @@ class Pie extends Chart
         $startAngleRect = -180;
         $w = $diameter * 0.05;//5% diameter
         $this->pdf->SetFillColor(255, 255, 255);//white
-        foreach ($this->printedInitAngle as $initAngle) {
+        foreach ($this->printedFinishAngle as $initAngle) {
             $this->pdf->Rotate($startAngleRect - $initAngle, $xInit, $yInit);
             $this->pdf->Rect($xInit - ($w / 2), $yInit, $w, $radius, 'F');
             $this->pdf->Rotate(0);
