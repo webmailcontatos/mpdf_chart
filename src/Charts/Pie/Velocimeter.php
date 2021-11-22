@@ -48,7 +48,6 @@ class Velocimeter extends Pie
         $this->pdf->Rotate($currentPosition, $x, $y);
         $this->pdf->Polygon($position, 'F');
         $this->pdf->Rotate(0, $x, $y);
-        $this->setColorPointer();
         $this->pdf->Circle($x, $y, $radius, 0, 360, 'F');
         $this->pdf->SetFillColor(255, 255, 255);
         $this->pdf->SetDrawColor(255, 255, 255);
