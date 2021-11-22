@@ -44,6 +44,18 @@ class Pie extends Chart
     protected array $data;
 
     /**
+     * List printed init angle
+     * @var array
+     */
+    protected array $printedFinishAngle = [];
+
+    /**
+     * Separated flag
+     * @var boolean
+     */
+    protected bool $separated = false;
+
+    /**
      * Set start angle pie
      * @param integer $angle Start angle pie
      * @return void
@@ -61,6 +73,16 @@ class Pie extends Chart
     public function setFinishArc(int $finishiArc): void
     {
         $this->finishArc = $finishiArc;
+    }
+
+    /**
+     * Set flag separated
+     * @param boolean $separated Flag separated
+     * @return void
+     */
+    public function setSeparated(bool $separated): void
+    {
+        $this->separated = $separated;
     }
 
     /**
@@ -92,8 +114,10 @@ class Pie extends Chart
             $finishAngle = ($percent * $this->finishArc) + $initAngle;
             $this->pdf->Sector($xInit, $yInit, $radius, $initAngle, $finishAngle, 'FD', true, $this->startAngle);
             $this->setLegend($item, $finishAngle, $initAngle);
+            $this->printedFinishAngle[] = $finishAngle;
             $initAngle = $finishAngle;
         }
+        $this->printSeparated();
     }
 
     /**
@@ -232,6 +256,29 @@ class Pie extends Chart
     {
         $this->innerRadius = $innerRadius;
         return $this;
+    }
+
+    /**
+     * Print separated
+     * @return void
+     */
+    protected function printSeparated(): void
+    {
+        if ($this->separated === false) {
+            return;
+        }
+        $xInit = $this->getX();
+        $yInit = $this->getY();
+        $radius = $this->getRadius();
+        $diameter = 2 * $radius;
+        $startAngleRect = -180;
+        $w = $diameter * 0.05;//5% diameter
+        $this->pdf->SetFillColor(255, 255, 255);//white
+        foreach ($this->printedFinishAngle as $initAngle) {
+            $this->pdf->Rotate($startAngleRect - $initAngle, $xInit, $yInit);
+            $this->pdf->Rect($xInit - ($w / 2), $yInit, $w, $radius, 'F');
+            $this->pdf->Rotate(0);
+        }
     }
 
     /**
