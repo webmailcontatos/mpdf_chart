@@ -12,9 +12,10 @@ class LineAreaSvg extends LineArea
 {
     /**
      * Set simple line chart
+     * @param DataLine[] $lines Line
      * @return void
      */
-    protected function simpleLineSegment(): void
+    protected function simpleLineSegment(array $lines): void
     {
         $this->setSvgPolygon();
         return;

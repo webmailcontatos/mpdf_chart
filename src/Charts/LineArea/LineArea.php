@@ -31,18 +31,19 @@ class LineArea extends Line
      */
     protected function loadLineArea(): void
     {
-        $this->simpleLineSegment();
-        parent::simpleLineSegment();
+        $lines = $this->getLines();
+        $this->simpleLineSegment($lines);
+        parent::simpleLineSegment($lines);
         parent::setPointChart();
     }
 
     /**
      * Set simple line chart
+     * @param DataLine[] $lines Lines
      * @return void
      */
-    protected function simpleLineSegment(): void
+    protected function simpleLineSegment(array $lines): void
     {
-        $lines = $this->getLines();
         $styleLine = ['all' => ['width' => -1]];
         foreach ($lines as $line) {
             $color = $line->getColor();

@@ -14,7 +14,7 @@ class DataLine
      * Color line rgb
      * @var array
      */
-    protected array $color;
+    protected array $color = [0, 0, 0];
 
     /**
      * Points list
@@ -26,7 +26,7 @@ class DataLine
      * Line width
      * @var float
      */
-    protected float $lineWidth;
+    protected float $lineWidth = 0.2;
 
     /**
      * Dashed line

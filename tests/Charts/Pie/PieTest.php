@@ -213,4 +213,29 @@ class PieTest extends TestCaseChartPdf
         $expected = file_get_contents(__DIR__ . '/../../files/pie05.pdf');
         $this->compararPdf($expected, $result);
     }
+
+    /**
+     * Pie test sample
+     */
+    public function testPieWithLegendStart145(): void
+    {
+        $pdf = $this->getPdfInstance();
+        $data = $this->getDataPie03();
+        $pieChart = new Pie($pdf);
+        $pieChart->setRadius(35);
+        $pieChart->setX(50);
+        $pieChart->setY(50);
+        $pieChart->setInnerRadius(0);
+        $pieChart->setData($data);
+        $pieChart->setStartAngle(145);
+        $sum = $pieChart->sumData();
+        foreach ($data as $item) {///set legend
+            $legend = round(($item->getData() / $sum) * 100) . '%';
+            $item->setLegend($legend);
+        }
+        $pieChart->write();
+        $result = $pdf->Output('pie06.pdf', Destination::STRING_RETURN);
+        $expected = file_get_contents(__DIR__ . '/../../files/pie06.pdf');
+        $this->compararPdf($expected, $result);
+    }
 }
