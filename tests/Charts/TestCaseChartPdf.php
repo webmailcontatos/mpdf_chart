@@ -171,6 +171,63 @@ class TestCaseChartPdf extends TestCase
     }
 
     /**
+     * Return data char line
+     * @return array
+     */
+    protected function getDataChartNegative(): array
+    {
+        return [
+
+            [
+                'x'     => 'Jan',
+                'y'     => 13,
+                'color' => [239, 124, 142]
+            ], [
+                'x'     => 'Fev',
+                'y'     => 25,
+                'color' => [250, 232, 224]
+            ], [
+                'x'     => 'Mar',
+                'y'     => 37,
+                'color' => [182, 226, 211]
+            ], [
+                'x'     => 'Abr',
+                'y'     => 22,
+                'color' => [216, 167, 177]
+            ], [
+                'x'     => 'Mai',
+                'y'     => 13,
+                'color' => [255, 244, 189]
+            ], [
+                'x'     => 'Jun',
+                'y'     => -20,
+                'color' => [244, 185, 184]
+            ],
+            [
+                'x'     => 'Jul',
+                'y'     => -32,
+                'color' => [133, 210, 208]
+            ],
+            [
+                'x'     => 'Ago',
+                'y'     => -13,
+                'color' => [136, 123, 176]
+            ],
+            [
+                'x'     => 'Set',
+                'y'     => 47,
+                'color' => [113, 0, 25]
+            ],
+            [
+                'x'     => 'Out',
+                'y'     => -23,
+                'color' => [212, 55, 144]
+            ],
+
+        ];
+    }
+
+    /**
      * Return y axis
      * @return string[]
      */
@@ -188,6 +245,27 @@ class TestCaseChartPdf extends TestCase
             80,
             90,
             100,
+        ];
+    }
+
+    /**
+     * Return y axis
+     * @return string[]
+     */
+    protected function returnAxisYNegative(): array
+    {
+        return [
+            -50,
+            -40,
+            -30,
+            -20,
+            -10,
+            0,
+            10,
+            20,
+            30,
+            40,
+            50,
         ];
     }
 

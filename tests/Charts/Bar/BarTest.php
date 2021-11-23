@@ -18,7 +18,7 @@ class BarTest extends TestCaseChartPdf
      */
     public function testBar(): void
     {
-        $data = $this->getDataBar();
+        $data = $this->getDataBar($this->getDataChart());
         $axisX = $this->returnAxisX();
         $axisY = $this->returnAxisY();
         $pdf = $this->getPdfInstance();
@@ -41,12 +41,12 @@ class BarTest extends TestCaseChartPdf
 
     /**
      * Return data chart bar
+     * @param array $data Data bar
      * @return DataBar[]
      */
-    protected function getDataBar(): array
+    protected function getDataBar(array $data): array
     {
         $return = [];
-        $data = $this->getDataChart();
         foreach ($data as $item) {
             $obj = new DataBar();
             $obj->setLineWidth(0.5);
@@ -65,7 +65,7 @@ class BarTest extends TestCaseChartPdf
      */
     public function testBarSmall(): void
     {
-        $data = $this->getDataBar();
+        $data = $this->getDataBar($this->getDataChart());
         $data = [$data[0], $data[1], $data[2]];
         $axisX = $this->returnAxisX();
         $axisX = [$axisX[0], $axisX[1], $axisX[2]];
@@ -93,7 +93,7 @@ class BarTest extends TestCaseChartPdf
      */
     public function testBarLine(): void
     {
-        $data = $this->getDataBar();
+        $data = $this->getDataBar($this->getDataChart());
         $axisX = $this->returnAxisX();
         $axisY = $this->returnAxisY();
         $pdf = $this->getPdfInstance();
@@ -113,4 +113,30 @@ class BarTest extends TestCaseChartPdf
         $expected = file_get_contents(__DIR__ . '/../../files/bar03.pdf');
         $this->compararPdf($expected, $result);
     }
+
+    /**
+     * Bar test sample
+     */
+//    public function testBarNegative(): void
+//    {
+//        $data = $this->getDataBar($this->getDataChartNegative());
+//        $axisX = $this->returnAxisX();
+//        $axisY = $this->returnAxisYNegative();
+//        $pdf = $this->getPdfInstance();
+//        $bar = new Bar($pdf);
+//        $bar->setX(35);
+//        $bar->setY(90);
+//        $bar->setWidth(150);
+//        $bar->setHeight(80);
+//        $bar->setHorizontalGrid(false);
+//        $bar->setVerticalGrid(false);
+//        $bar->setAxisX($axisX);
+//        $bar->setAxisY($axisY);
+//        $bar->setDataBar($data);
+//        $bar->setLineWidth(0.1);
+//        $bar->write();
+//        $result = $pdf->Output('bar04.pdf', Destination::FILE);
+////        $expected = file_get_contents(__DIR__ . '/../../files/bar04.pdf');
+////        $this->compararPdf($expected, $result);
+//    }
 }

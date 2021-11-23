@@ -222,7 +222,7 @@ class Base extends Chart
     protected function setLineAxisY(): void
     {
         $xInit = $this->getX();
-        $yInit = $this->getY();
+        $yInit = $this->getYPosition(0);
         $height = $this->getHeight();
         $axis = $this->getAxisY();
         $space = ($height / count($axis));
@@ -276,7 +276,7 @@ class Base extends Chart
     protected function setLineAxisX(): void
     {
         $xInit = $this->getX();
-        $yInit = $this->getY();
+        $yInit = $this->getYPosition(0);
         $width = $this->getWidth();
         $this->pdf->Line($xInit, $yInit, ($xInit + $width), $yInit);
     }
@@ -289,7 +289,7 @@ class Base extends Chart
     {
         $axis = $this->getAxisX();
         $xInit = $this->getX();
-        $yInit = $this->getY();
+        $yInit = $this->getYPosition(0);
         $space = $this->getWidthAxisLabel();
         foreach ($axis as $axi) {
             $this->pdf->SetXY($xInit, ($yInit + $this->marginTopAxisX));
@@ -316,7 +316,7 @@ class Base extends Chart
      */
     protected function setTickAxisX(float $xInit): void
     {
-        $yInit = $this->getY();
+        $yInit = $this->getYPosition(0);
         $this->pdf->Line($xInit, $yInit, $xInit, ($yInit + $this->tickSize));
     }
 
@@ -329,7 +329,7 @@ class Base extends Chart
         $tickSize = $this->tickSize;
         $axis = $this->getAxisY();
         $xInit = $this->getX();
-        $yInit = $this->getY();
+        $yInit = $this->getYPosition(0);
         $space = $this->getSpaceAxisY();
         $xInitLine = $this->getX() - $tickSize;
         $heightCell = $space;
@@ -424,7 +424,7 @@ class Base extends Chart
         }
         $spaceX = $this->getWidthAxisLabel();
         $axis = $this->getAxisX();
-        $yInit = $this->getY();
+        $yInit = $this->getYPosition(0);
         $heightLine = $this->getLineHeightAxisY();
         foreach ($axis as $axi) {
             $xInit = $this->getXPosition($axi) + ($spaceX / 2);
@@ -438,7 +438,7 @@ class Base extends Chart
      */
     protected function getLineHeightAxisY(): float
     {
-        $yInit = $this->getY();
+        $yInit = $this->getYPosition(0);
         $height = $this->getHeight();
         $space = $this->getSpaceAxisY();
         return ($yInit - $height) + $space;

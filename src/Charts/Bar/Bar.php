@@ -21,7 +21,7 @@ class Bar extends Base
     {
         $bars = $this->getDataBar();
         $width = ($this->getWidthAxisLabel() * 0.5);
-        $yInit = $this->getY();
+        $yInit = $this->getYPosition(0);
         foreach ($bars as $bar) {
             $x = $this->getXPosition($bar->getX());
             $y = $this->getYPosition($bar->getY());
