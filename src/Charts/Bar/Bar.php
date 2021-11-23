@@ -22,13 +22,18 @@ class Bar extends Base
         $bars = $this->getDataBar();
         $width = ($this->getWidthAxisLabel() * 0.5);
         $lineWidth = $this->getLineWidth();
-        $yInit = $this->getYPosition(0) - $lineWidth;
+        $baseY = $this->getYPosition(0);
+
         foreach ($bars as $bar) {
+            $yInit = $baseY - $lineWidth;
             $x = $this->getXPosition($bar->getX());
             $y = $this->getYPosition($bar->getY());
             $color = $bar->getColor();
             $this->pdf->SetFillColor($color[0], $color[1], $color[2]);
             $this->pdf->SetDrawColor($color[0], $color[1], $color[2]);
+            if ($yInit < $y) {
+                $yInit = $baseY + $lineWidth;
+            }
             $this->pdf->Rect($x - ($width / 2), $y, $width, $yInit - $y, 'FD');
         }
     }
