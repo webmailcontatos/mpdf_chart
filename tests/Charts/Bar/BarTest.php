@@ -140,4 +140,32 @@ class BarTest extends TestCaseChartPdf
         $expected = file_get_contents(__DIR__ . '/../../files/bar04.pdf');
         $this->compararPdf($expected, $result);
     }
+
+
+    /**
+     * Bar test sample
+     */
+    public function testBarNegativeWithGrid(): void
+    {
+        $data = $this->getDataBar($this->getDataChartNegative());
+        $axisX = $this->returnAxisX();
+        $axisY = $this->returnAxisYNegative();
+        $pdf = $this->getPdfInstance();
+        $bar = new Bar($pdf);
+        $bar->setX(35);
+        $bar->setY(90);
+        $bar->setWidth(150);
+        $bar->setHeight(80);
+        $bar->setHorizontalGrid(true);
+        $bar->setVerticalGrid(true);
+        $bar->setAxisX($axisX);
+        $bar->setAxisY($axisY);
+        $bar->setDataBar($data);
+        $bar->setShowAxisX(false);
+        $bar->setLineWidth(0.1);
+        $bar->write();
+        $result = $pdf->Output('bar05.pdf', Destination::STRING_RETURN);
+        $expected = file_get_contents(__DIR__ . '/../../files/bar05.pdf');
+        $this->compararPdf($expected, $result);
+    }
 }

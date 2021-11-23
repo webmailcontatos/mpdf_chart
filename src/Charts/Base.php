@@ -459,7 +459,7 @@ class Base extends Chart
         }
         $spaceX = $this->getWidthAxisLabel();
         $axis = $this->getAxisX();
-        $yInit = $this->getYPosition(0);
+        $yInit = $this->getY();
         $heightLine = $this->getLineHeightAxisY();
         foreach ($axis as $axi) {
             $xInit = $this->getXPosition($axi) + ($spaceX / 2);
@@ -473,7 +473,7 @@ class Base extends Chart
      */
     protected function getLineHeightAxisY(): float
     {
-        $yInit = $this->getYPosition(0);
+        $yInit = $this->getY();
         $height = $this->getHeight();
         $space = $this->getSpaceAxisY();
         return ($yInit - $height) + $space;
