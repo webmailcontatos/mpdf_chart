@@ -20,7 +20,6 @@ class LineLinear extends Line
         $yInit = $this->getY();
         $space = $this->getWidthAxisLabel();
         foreach ($axis as $axi) {
-            $this->xPosition[$axi] = $xInit;
             $this->pdf->SetXY($xInit - ($space / 2), ($yInit + $this->marginTopAxisX));
             $this->pdf->Cell($space, 0, $axi, '0', 0, 'C');
             $this->setTickAxisX($xInit);
