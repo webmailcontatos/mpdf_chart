@@ -496,7 +496,7 @@ class TestCaseChartPdf extends TestCase
     {
         $linesConfig = [
             0 => [
-                'color'     => [255, 0, 0],
+                'color'     => [255, 100, 100],
                 'lineWidth' => 0.5,
                 'increse'   => 1,
                 'symbol'    => Symbol::CIRCLE,
@@ -553,47 +553,47 @@ class TestCaseChartPdf extends TestCase
 
             [
                 'x'     => 0,
-                'y'     => 10,
-                'color' => [255, 0, 0]
+                'y'     => 20,
+                'color' => [0, 0, 0]
             ], [
                 'x'     => 1,
-                'y'     => 20,
+                'y'     => 30,
                 'color' => [0, 0, 0]
             ], [
                 'x'     => 2,
-                'y'     => 10,
+                'y'     => 20,
                 'color' => [0, 0, 0]
             ], [
                 'x'     => 3,
-                'y'     => 20,
+                'y'     => 30,
                 'color' => [0, 0, 0]
             ], [
                 'x'     => 4,
-                'y'     => 10,
+                'y'     => 20,
                 'color' => [0, 0, 0]
             ], [
                 'x'     => 5,
-                'y'     => 20,
+                'y'     => 30,
                 'color' => [0, 0, 0]
             ],
             [
                 'x'     => 6,
-                'y'     => 10,
+                'y'     => 20,
                 'color' => [0, 0, 0]
             ],
             [
                 'x'     => 7,
-                'y'     => 20,
+                'y'     => 30,
                 'color' => [0, 0, 0]
             ],
             [
                 'x'     => 8,
-                'y'     => 10,
+                'y'     => 20,
                 'color' => [0, 0, 0]
             ],
             [
                 'x'     => 9,
-                'y'     => 20,
+                'y'     => 30,
                 'color' => [0, 0, 0]
             ],
 

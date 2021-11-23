@@ -5,6 +5,7 @@ namespace ChartPdf\Tests\Charts\Line;
 use ChartPdf\Charts\Line\DataLine;
 use ChartPdf\Charts\Line\Line;
 use ChartPdf\Charts\Line\LineLinear;
+use ChartPdf\Charts\LineArea\LineArea;
 use ChartPdf\Charts\Point\DataPoint;
 use ChartPdf\Tests\Charts\TestCaseChartPdf;
 use Mpdf\Output\Destination;
@@ -174,7 +175,7 @@ class LineTest extends TestCaseChartPdf
         $axisX = range(0, 9);
         $axisY = $this->returnAxisY();
         $pdf = $this->getPdfInstance();
-        $line = new LineLinear($pdf);
+        $line = new LineArea($pdf);
         $line->setX(35);
         $line->setY(90);
         $line->setWidth(150);
