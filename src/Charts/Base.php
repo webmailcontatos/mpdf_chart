@@ -480,26 +480,6 @@ class Base extends Chart
     }
 
     /**
-     * Return distance between axis y
-     * @return float
-     */
-    protected function getDistanceBetweenY(): float
-    {
-        $axis = $this->getAxisY();
-        return $axis[1] - $axis[0];
-    }
-
-    /**
-     * Return max value y
-     * @return float
-     */
-    protected function getMaxY(): float
-    {
-        $axis = $this->getAxisY();
-        return end($axis);
-    }
-
-    /**
      * Return max x position
      * @return float
      */
