@@ -79,6 +79,18 @@ class Base extends Chart
     protected bool $showAxisX = true;
 
     /**
+     * Scale x
+     * @var ScaleLinear|null
+     */
+    protected ?ScaleLinear $scaleX = null;
+
+    /**
+     * Scale y
+     * @var ScaleLinear|null
+     */
+    protected ?ScaleLinear $scaleY = null;
+
+    /**
      * Return true if flag horizontalGrid printed
      * @return boolean
      */
@@ -140,6 +152,9 @@ class Base extends Chart
         $width = $this->getWidth();
         $x = $this->getX();
         $scaleBand = new ScaleBand($axis, $width, $x);
+        if ($this->scaleX) {
+            return $this->scaleX->getPosition($xPoint);
+        }
         return $scaleBand->getPosition($xPoint);
     }
 
@@ -201,6 +216,16 @@ class Base extends Chart
     public function setShowAxisX(bool $showAxisX): void
     {
         $this->showAxisX = $showAxisX;
+    }
+
+    /**
+     * Set scale x
+     * @param ScaleLinear $scale Scale linear
+     * @return void
+     */
+    public function setScaleX(ScaleLinear $scale): void
+    {
+        $this->scaleX = $scale;
     }
 
     /**
@@ -324,6 +349,9 @@ class Base extends Chart
         $y = $this->getY();
         $height = -$this->getHeight();
         $scale = new ScaleLinear($axis, $height, $y);
+        if ($this->scaleY) {
+            return $this->scaleY->getPosition($yPoint);
+        }
         return $scale->getPosition($yPoint);
     }
 
