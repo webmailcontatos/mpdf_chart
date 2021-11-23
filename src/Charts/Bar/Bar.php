@@ -9,14 +9,25 @@ use ChartPdf\Charts\Base;
  */
 class Bar extends Base
 {
+    /**
+     * Data bar list
+     * @var DataBar[]
+     */
     protected array $dataBar = [];
 
+    /**
+     * Write chart on the pdf
+     */
     protected function load(): void
     {
         parent::load();
         $this->setBar();
     }
 
+    /**
+     * Set bar on chart
+     * @return void
+     */
     protected function setBar(): void
     {
         $bars = $this->getDataBar();
