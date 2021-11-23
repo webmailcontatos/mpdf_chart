@@ -45,7 +45,7 @@ class ScaleLinear
     public function getPosition($point): float
     {
         $space = $this->getWidthAxisLabel();
-        $x = $this->getxInit();
+        $x = $this->getXInit();
         $axisX = $this->getAxisX();
         $width = ($x + $this->getWidth()) - $space;
         $range = ($width - $x);
@@ -86,7 +86,7 @@ class ScaleLinear
      * Return x init
      * @return float
      */
-    protected function getxInit(): float
+    protected function getXInit(): float
     {
         $axis = $this->getAxisX();
         $first = reset($axis);

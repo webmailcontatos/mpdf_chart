@@ -133,10 +133,11 @@ class BarTest extends TestCaseChartPdf
         $bar->setAxisX($axisX);
         $bar->setAxisY($axisY);
         $bar->setDataBar($data);
+        $bar->setShowAxisX(false);
         $bar->setLineWidth(0.1);
         $bar->write();
-        $result = $pdf->Output('bar04.pdf', Destination::FILE);
-//        $expected = file_get_contents(__DIR__ . '/../../files/bar04.pdf');
-//        $this->compararPdf($expected, $result);
+        $result = $pdf->Output('bar04.pdf', Destination::STRING_RETURN);
+        $expected = file_get_contents(__DIR__ . '/../../files/bar04.pdf');
+        $this->compararPdf($expected, $result);
     }
 }

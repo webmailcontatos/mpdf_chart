@@ -67,6 +67,18 @@ class Base extends Chart
     protected array $yPosition = [];
 
     /**
+     * Flag show ticksx
+     * @var boolean
+     */
+    protected bool $showTicksX = true;
+
+    /**
+     * Flag show axis x
+     * @var boolean
+     */
+    protected bool $showAxisX = true;
+
+    /**
      * Return true if flag horizontalGrid printed
      * @return boolean
      */
@@ -169,6 +181,26 @@ class Base extends Chart
     {
         $this->width = $width;
         return $this;
+    }
+
+    /**
+     * Set flag show ticks x
+     * @param boolean $showTicksX Show tick x flag
+     * @return void
+     */
+    public function setShowTicksX(bool $showTicksX): void
+    {
+        $this->showTicksX = $showTicksX;
+    }
+
+    /**
+     * Set flag show ticks x
+     * @param boolean $showAxisX Show tick x flag
+     * @return void
+     */
+    public function setShowAxisX(bool $showAxisX): void
+    {
+        $this->showAxisX = $showAxisX;
     }
 
     /**
@@ -282,11 +314,28 @@ class Base extends Chart
     }
 
     /**
+     * Return position y
+     * @param float $yPoint Y point
+     * @return float
+     */
+    protected function getYPosition($yPoint): float
+    {
+        $axis = $this->getAxisY();
+        $y = $this->getY();
+        $height = -$this->getHeight();
+        $scale = new ScaleLinear($axis, $height, $y);
+        return $scale->getPosition($yPoint);
+    }
+
+    /**
      * Set axis chart
      * @return void
      */
     protected function setAxisXchart(): void
     {
+        if ($this->showAxisX === false) {
+            return;
+        }
         $axis = $this->getAxisX();
         $xInit = $this->getX();
         $yInit = $this->getY();
@@ -397,20 +446,6 @@ class Base extends Chart
         $xInit = $this->getX();
         $width = $this->getWidth();
         return ($xInit + $width);
-    }
-
-    /**
-     * Return position y
-     * @param float $yPoint Y point
-     * @return float
-     */
-    protected function getYPosition($yPoint): float
-    {
-        $axis = $this->getAxisY();
-        $y = $this->getY();
-        $height = -$this->getHeight();
-        $scale = new ScaleLinear($axis, $height, $y);
-        return $scale->getPosition($yPoint);
     }
 
     /**
