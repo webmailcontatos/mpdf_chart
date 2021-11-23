@@ -26,7 +26,7 @@ class Bar extends Base
         foreach ($bars as $bar) {
             $x = $this->getXPosition($bar->getX());
             $y = $this->getYPosition($bar->getY());
-            $yInit = ($baseY < $y) ? $baseY + $lineWidth : $baseY - $lineWidth;
+            $yInit = ($baseY < $y) ? ($baseY + $lineWidth) : ($baseY - $lineWidth);
             $color = $bar->getColor();
             $this->pdf->SetFillColor($color[0], $color[1], $color[2]);
             $this->pdf->SetDrawColor($color[0], $color[1], $color[2]);
