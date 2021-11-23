@@ -164,4 +164,32 @@ class LineTest extends TestCaseChartPdf
         $expected = file_get_contents(__DIR__ . '/../../files/line05.pdf');
         $this->compararPdf($expected, $result);
     }
+
+    /**
+     * Test sample line chart
+     */
+    public function testLineLinearScaleFill(): void
+    {
+        $data = $this->getDataLine05();
+        $axisX = range(0, 9);
+        $axisY = $this->returnAxisY();
+        $pdf = $this->getPdfInstance();
+        $line = new LineLinear($pdf);
+        $line->setX(35);
+        $line->setY(90);
+        $line->setWidth(150);
+        $line->setHeight(80);
+        $line->setHorizontalGrid(false);
+        $line->setVerticalGrid(false);
+        $line->setAxisX($axisX);
+        $line->setAxisY($axisY);
+        $line->setLines($data);
+        $line->setLineWidth(0.1);
+        $line->setHorizontalGrid(true);
+        $line->setVerticalGrid(true);
+        $line->write();
+        $result = $pdf->Output('line06.pdf', Destination::STRING_RETURN);
+        $expected = file_get_contents(__DIR__ . '/../../files/line06.pdf');
+        $this->compararPdf($expected, $result);
+    }
 }
