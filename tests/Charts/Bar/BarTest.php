@@ -117,26 +117,26 @@ class BarTest extends TestCaseChartPdf
     /**
      * Bar test sample
      */
-//    public function testBarNegative(): void
-//    {
-//        $data = $this->getDataBar($this->getDataChartNegative());
-//        $axisX = $this->returnAxisX();
-//        $axisY = $this->returnAxisYNegative();
-//        $pdf = $this->getPdfInstance();
-//        $bar = new Bar($pdf);
-//        $bar->setX(35);
-//        $bar->setY(90);
-//        $bar->setWidth(150);
-//        $bar->setHeight(80);
-//        $bar->setHorizontalGrid(false);
-//        $bar->setVerticalGrid(false);
-//        $bar->setAxisX($axisX);
-//        $bar->setAxisY($axisY);
-//        $bar->setDataBar($data);
-//        $bar->setLineWidth(0.1);
-//        $bar->write();
-//        $result = $pdf->Output('bar04.pdf', Destination::FILE);
-////        $expected = file_get_contents(__DIR__ . '/../../files/bar04.pdf');
-////        $this->compararPdf($expected, $result);
-//    }
+    public function testBarNegative(): void
+    {
+        $data = $this->getDataBar($this->getDataChartNegative());
+        $axisX = $this->returnAxisX();
+        $axisY = $this->returnAxisYNegative();
+        $pdf = $this->getPdfInstance();
+        $bar = new Bar($pdf);
+        $bar->setX(35);
+        $bar->setY(90);
+        $bar->setWidth(150);
+        $bar->setHeight(80);
+        $bar->setHorizontalGrid(false);
+        $bar->setVerticalGrid(false);
+        $bar->setAxisX($axisX);
+        $bar->setAxisY($axisY);
+        $bar->setDataBar($data);
+        $bar->setLineWidth(0.1);
+        $bar->write();
+        $result = $pdf->Output('bar04.pdf', Destination::FILE);
+//        $expected = file_get_contents(__DIR__ . '/../../files/bar04.pdf');
+//        $this->compararPdf($expected, $result);
+    }
 }

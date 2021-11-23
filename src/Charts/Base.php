@@ -222,7 +222,7 @@ class Base extends Chart
     protected function setLineAxisY(): void
     {
         $xInit = $this->getX();
-        $yInit = $this->getYPosition(0);
+        $yInit = $this->getY();
         $height = $this->getHeight();
         $axis = $this->getAxisY();
         $space = ($height / count($axis));
@@ -289,7 +289,7 @@ class Base extends Chart
     {
         $axis = $this->getAxisX();
         $xInit = $this->getX();
-        $yInit = $this->getYPosition(0);
+        $yInit = $this->getY();
         $space = $this->getWidthAxisLabel();
         foreach ($axis as $axi) {
             $this->pdf->SetXY($xInit, ($yInit + $this->marginTopAxisX));
@@ -329,7 +329,7 @@ class Base extends Chart
         $tickSize = $this->tickSize;
         $axis = $this->getAxisY();
         $xInit = $this->getX();
-        $yInit = $this->getYPosition(0);
+        $yInit = $this->getY();
         $space = $this->getSpaceAxisY();
         $xInitLine = $this->getX() - $tickSize;
         $heightCell = $space;
