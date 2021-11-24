@@ -22,7 +22,6 @@ class ChartPdf
     public function __construct(Mpdf $mpdf)
     {
         $this->mpdf = $mpdf;
-        $this->mpdf->k = Mpdf::SCALE;
     }
 
     // Sets line style
@@ -124,7 +123,7 @@ class ChartPdf
 
     public function _Point($x, $y)
     {
-        $this->mpdf->_out(sprintf('%.2F %.2F m', $x * $this->mpdf->k, ($this->mpdf->h - $y) * $this->mpdf->k));
+        $this->mpdf->_out(sprintf('%.2F %.2F m', $x * Mpdf::SCALE, ($this->mpdf->h - $y) * Mpdf::SCALE));
     }
 
     // Draws a Bézier curve (the Bézier curve is tangent to the line between the control points at either end of the curve)
@@ -139,7 +138,7 @@ class ChartPdf
 
     public function _Curve($x1, $y1, $x2, $y2, $x3, $y3)
     {
-        $this->mpdf->_out(sprintf('%.2F %.2F %.2F %.2F %.2F %.2F c', $x1 * $this->mpdf->k, ($this->mpdf->h - $y1) * $this->mpdf->k, $x2 * $this->mpdf->k, ($this->mpdf->h - $y2) * $this->mpdf->k, $x3 * $this->mpdf->k, ($this->mpdf->h - $y3) * $this->mpdf->k));
+        $this->mpdf->_out(sprintf('%.2F %.2F %.2F %.2F %.2F %.2F c', $x1 * Mpdf::SCALE, ($this->mpdf->h - $y1) * Mpdf::SCALE, $x2 * Mpdf::SCALE, ($this->mpdf->h - $y2) * Mpdf::SCALE, $x3 * Mpdf::SCALE, ($this->mpdf->h - $y3) * Mpdf::SCALE));
     }
 
     // Draws an ellipse
@@ -222,8 +221,8 @@ class ChartPdf
                 $this->SetLineStyle($line_style);
             if (!$ry)
                 $ry = $rx;
-            $rx *= $this->mpdf->k;
-            $ry *= $this->mpdf->k;
+            $rx *= Mpdf::SCALE;
+            $ry *= Mpdf::SCALE;
             if ($nSeg < 2)
                 $nSeg = 2;
 
@@ -234,8 +233,8 @@ class ChartPdf
             $dt = $totalAngle / $nSeg;
             $dtm = $dt / 3;
 
-            $x0 *= $this->mpdf->k;
-            $y0 = ($this->mpdf->h - $y0) * $this->mpdf->k;
+            $x0 *= Mpdf::SCALE;
+            $y0 = ($this->mpdf->h - $y0) * Mpdf::SCALE;
             if ($angle != 0) {
                 $a = -deg2rad((float) $angle);
                 $this->mpdf->_out(sprintf('q %.2F %.2F %.2F %.2F %.2F %.2F cm', cos($a), -1 * sin($a), sin($a), cos($a), $x0, $y0));
@@ -248,7 +247,7 @@ class ChartPdf
             $b0 = $y0 + ($ry * sin($t1));
             $c0 = -$rx * sin($t1);
             $d0 = $ry * cos($t1);
-            $this->_Point($a0 / $this->mpdf->k, $this->mpdf->h - ($b0 / $this->mpdf->k));
+            $this->_Point($a0 / Mpdf::SCALE, $this->mpdf->h - ($b0 / Mpdf::SCALE));
             for ($i = 1; $i <= $nSeg; $i++) {
                 // Draw this bit of the total curve
                 $t1 = ($i * $dt) + $astart;
@@ -256,12 +255,12 @@ class ChartPdf
                 $b1 = $y0 + ($ry * sin($t1));
                 $c1 = -$rx * sin($t1);
                 $d1 = $ry * cos($t1);
-                $this->_Curve(($a0 + ($c0 * $dtm)) / $this->mpdf->k,
-                    $this->mpdf->h - (($b0 + ($d0 * $dtm)) / $this->mpdf->k),
-                    ($a1 - ($c1 * $dtm)) / $this->mpdf->k,
-                    $this->mpdf->h - (($b1 - ($d1 * $dtm)) / $this->mpdf->k),
-                    $a1 / $this->mpdf->k,
-                    $this->mpdf->h - ($b1 / $this->mpdf->k));
+                $this->_Curve(($a0 + ($c0 * $dtm)) / Mpdf::SCALE,
+                    $this->mpdf->h - (($b0 + ($d0 * $dtm)) / Mpdf::SCALE),
+                    ($a1 - ($c1 * $dtm)) / Mpdf::SCALE,
+                    $this->mpdf->h - (($b1 - ($d1 * $dtm)) / Mpdf::SCALE),
+                    $a1 / Mpdf::SCALE,
+                    $this->mpdf->h - ($b1 / Mpdf::SCALE));
                 $a0 = $a1;
                 $b0 = $b1;
                 $c0 = $c1;
@@ -358,7 +357,7 @@ class ChartPdf
 
     public function _Line($x, $y)
     {
-        $this->mpdf->_out(sprintf('%.2F %.2F l', $x * $this->mpdf->k, ($this->mpdf->h - $y) * $this->mpdf->k));
+        $this->mpdf->_out(sprintf('%.2F %.2F l', $x * Mpdf::SCALE, ($this->mpdf->h - $y) * Mpdf::SCALE));
     }
 
     // Draws a rounded rectangle
@@ -557,7 +556,7 @@ class ChartPdf
         $d = $b - $a;
         if ($d == 0 && $d0 != 0)
             $d = 2 * M_PI;
-        $k = $this->mpdf->k;
+        $k = Mpdf::SCALE;
         $hp = $this->mpdf->h;
         if (sin($d / 2))
             $MyArc = 4 / 3 * (1 - cos($d / 2)) / sin($d / 2) * $r;
