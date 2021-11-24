@@ -343,7 +343,8 @@ class Base extends Chart
         $xInit = $this->getX();
         $yInit = $this->getYPosition(0);
         $width = $this->getWidth();
-        $this->pdf->Line($xInit, $yInit, ($xInit + $width), $yInit);
+        $widthLine = ($xInit + $width);
+        $this->pdf->Line($xInit, $yInit, $widthLine, $yInit);
     }
 
     /**
@@ -391,6 +392,16 @@ class Base extends Chart
         $axis = $this->getAxisX();
         $width = $this->getWidth();
         return ($width / count($axis));
+    }
+
+    /**
+     * Return true if scale is type scale linear
+     * @param ScaleLinear $scale Current scale
+     * @return boolean
+     */
+    protected function isLinearScale(ScaleLinear $scale): bool
+    {
+        return get_class($scale) === 'ChartPdf\Charts\ScaleLinear';
     }
 
     /**
@@ -511,16 +522,6 @@ class Base extends Chart
         $height = $this->getHeight();
         $space = $this->getSpaceAxisY();
         return ($yInit - $height) + $space;
-    }
-
-    /**
-     * Return true if scale is type scale linear
-     * @param ScaleLinear $scale Current scale
-     * @return boolean
-     */
-    protected function isLinearScale(ScaleLinear $scale): bool
-    {
-        return get_class($scale) === 'ChartPdf\Charts\ScaleLinear';
     }
 
     /**

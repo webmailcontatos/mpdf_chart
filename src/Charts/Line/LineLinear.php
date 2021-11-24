@@ -20,7 +20,8 @@ class LineLinear extends Line
         $yInit = $this->getYPosition(0);
         $width = $this->getWidth();
         $space = $this->getWidthAxisLabel();
-        $this->pdf->Line($xInit, $yInit, (($xInit + $width) - $space), $yInit);
+        $widthLine = (($xInit + $width) - $space);
+        $this->pdf->Line($xInit, $yInit, $widthLine, $yInit);
     }
 
     /**
