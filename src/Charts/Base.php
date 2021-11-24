@@ -61,12 +61,6 @@ class Base extends Chart
     protected float $lineWidth = 1;
 
     /**
-     * Record y position axis
-     * @var array
-     */
-    protected array $yPosition = [];
-
-    /**
      * Flag show ticksx
      * @var boolean
      */
@@ -89,6 +83,12 @@ class Base extends Chart
      * @var ScaleLinear|null
      */
     protected ?ScaleLinear $scaleY = null;
+
+    /**
+     * Format print axis y
+     * @var \Closure
+     */
+    protected \Closure $formatY;
 
     /**
      * Return true if flag horizontalGrid printed
@@ -182,10 +182,21 @@ class Base extends Chart
     }
 
     /**
+     * Set format y
+     * @param \Closure $format Function format axis y
+     * @return void
+     */
+    public function setFormatY(\Closure $format): void
+    {
+        $this->formatY = $format;
+    }
+
+    /**
      * Write chart on the pdf
      */
     protected function load(): void
     {
+        $this->formatY = empty($this->formatY) ? fn(Axis $y) => $y : $this->formatY;
         $this->setDefaultScales();
         $this->setLineWidthChart();
         $this->setLineAxisY();
@@ -438,9 +449,12 @@ class Base extends Chart
         $widthCell = $this->getMaxStringWidthY();
         $xInit -= ($widthCell + ($tickSize * 1.5));
         foreach ($axis as $axi) {
-            $this->yPosition[$axi] = $yInit;
+            $axi = $this->getAxisObject($axi);
+            $this->formatY->call($this, $axi);
+            $color = $axi->getColor();
             $this->pdf->SetXY($xInit, $yInit - ($heightCell / 2));
-            $this->pdf->Cell($widthCell, $space, $axi, '0', 0, 'C');
+            $this->pdf->SetTextColor($color[0], $color[1], $color[2]);
+            $this->pdf->Cell($widthCell, $space, $axi->getText(), '0', 0, 'C');
             $this->pdf->Line($xInitLine, $yInit, ($xInitLine + 2), $yInit);
             $yInit -= $space;
         }
@@ -466,9 +480,24 @@ class Base extends Chart
         $sizes = [];
         $axis = $this->getAxisY();
         foreach ($axis as $axi) {
-            $sizes[] = $this->pdf->GetStringWidth($axi);
+            $axi = $this->getAxisObject($axi);
+            $this->formatY->call($this, $axi);
+            $sizes[] = $this->pdf->GetStringWidth($axi->getText());
         }
         return max($sizes);
+    }
+
+    /**
+     * Return default axis config
+     * @param string $text Text axis
+     * @return Axis
+     */
+    protected function getAxisObject(string $text): Axis
+    {
+        $axis = new Axis();
+        $axis->setText($text);
+        $axis->setColor([0, 0, 0]);
+        return $axis;
     }
 
     /**

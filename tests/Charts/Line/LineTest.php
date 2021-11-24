@@ -2,9 +2,9 @@
 
 namespace ChartPdf\Tests\Charts\Line;
 
+use ChartPdf\Charts\Axis;
 use ChartPdf\Charts\Line\DataLine;
 use ChartPdf\Charts\Line\Line;
-use ChartPdf\Charts\Line\LineLinear;
 use ChartPdf\Charts\LineArea\LineArea;
 use ChartPdf\Charts\Point\DataPoint;
 use ChartPdf\Charts\ScaleLinear;
@@ -196,6 +196,44 @@ class LineTest extends TestCaseChartPdf
         $line->write();
         $result = $pdf->Output('line06.pdf', Destination::STRING_RETURN);
         $expected = file_get_contents(__DIR__ . '/../../files/line06.pdf');
+        $this->compararPdf($expected, $result);
+    }
+
+    /**
+     * Test sample line chart
+     */
+    public function testLineFormatYAndXAxis(): void
+    {
+        $yFunction = function (Axis $axi) {
+            $modulo = (int) $axi->getText() % 3;
+            if ($modulo === 0) {
+                $axi->setColor([255, 0, 0]);
+            }
+            $axi->setText($axi->getText() . '%');
+            return $axi;
+        };
+        $data = $this->getDataLine01();
+        $data[0]->setLineWidth(0.01);
+        $data[1]->setLineWidth(0.01);
+        $data[2]->setLineWidth(0.01);
+        $axisX = $this->returnAxisX();
+        $axisY = $this->returnAxisY();
+        $pdf = $this->getPdfInstance();
+        $line = new Line($pdf);
+        $line->setFormatY($yFunction);
+        $line->setX(35);
+        $line->setY(90);
+        $line->setWidth(150);
+        $line->setHeight(80);
+        $line->setHorizontalGrid(false);
+        $line->setVerticalGrid(false);
+        $line->setAxisX($axisX);
+        $line->setAxisY($axisY);
+        $line->setLines($data);
+        $line->setLineWidth(0.01);
+        $line->write();
+        $result = $pdf->Output('line07.pdf', Destination::STRING_RETURN);
+        $expected = file_get_contents(__DIR__ . '/../../files/line07.pdf');
         $this->compararPdf($expected, $result);
     }
 }
