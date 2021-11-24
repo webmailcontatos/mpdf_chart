@@ -91,6 +91,12 @@ class Base extends Chart
     protected \Closure $formatY;
 
     /**
+     * Format print axis x
+     * @var \Closure
+     */
+    protected \Closure $formatX;
+
+    /**
      * Return true if flag horizontalGrid printed
      * @return boolean
      */
@@ -192,11 +198,22 @@ class Base extends Chart
     }
 
     /**
+     * Set format x
+     * @param \Closure $format Function format axis x
+     * @return void
+     */
+    public function setFormatX(\Closure $format): void
+    {
+        $this->formatX = $format;
+    }
+
+    /**
      * Write chart on the pdf
      */
     protected function load(): void
     {
         $this->formatY = empty($this->formatY) ? fn(Axis $y) => $y : $this->formatY;
+        $this->formatX = empty($this->formatX) ? fn(Axis $x) => $x : $this->formatX;
         $this->setDefaultScales();
         $this->setLineWidthChart();
         $this->setLineAxisY();
@@ -416,11 +433,28 @@ class Base extends Chart
             $xInit -= $halfSpace;
         }
         foreach ($axis as $axi) {
+            $axi = $this->getAxisObject($axi);
+            $this->formatX->call($this, $axi);
+            $color = $axi->getColor();
             $this->pdf->SetXY($xInit, ($yInit + $this->marginTopAxisX));
-            $this->pdf->Cell($space, 0, $axi, '0', 0, 'C');
+            $this->pdf->SetTextColor($color[0], $color[1], $color[2]);
+            $this->pdf->Cell($space, 0, $axi->getText(), '0', 0, 'C');
             $this->setTickAxisX($xInit + $halfSpace);
             $xInit += $space;
         }
+    }
+
+    /**
+     * Return default axis config
+     * @param string $text Text axis
+     * @return Axis
+     */
+    protected function getAxisObject(string $text): Axis
+    {
+        $axis = new Axis();
+        $axis->setText($text);
+        $axis->setColor([0, 0, 0]);
+        return $axis;
     }
 
     /**
@@ -485,19 +519,6 @@ class Base extends Chart
             $sizes[] = $this->pdf->GetStringWidth($axi->getText());
         }
         return max($sizes);
-    }
-
-    /**
-     * Return default axis config
-     * @param string $text Text axis
-     * @return Axis
-     */
-    protected function getAxisObject(string $text): Axis
-    {
-        $axis = new Axis();
-        $axis->setText($text);
-        $axis->setColor([0, 0, 0]);
-        return $axis;
     }
 
     /**

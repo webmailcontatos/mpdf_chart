@@ -212,6 +212,13 @@ class LineTest extends TestCaseChartPdf
             $axi->setText($axi->getText() . '%');
             return $axi;
         };
+        $xFunction = function (Axis $axi) {
+            $reds = ['Jan', 'Mai', 'Out'];
+            if (in_array($axi->getText(), $reds)) {
+                $axi->setColor([100, 255, 100]);
+            }
+            return $axi;
+        };
         $data = $this->getDataLine01();
         $data[0]->setLineWidth(0.01);
         $data[1]->setLineWidth(0.01);
@@ -221,6 +228,7 @@ class LineTest extends TestCaseChartPdf
         $pdf = $this->getPdfInstance();
         $line = new Line($pdf);
         $line->setFormatY($yFunction);
+        $line->setFormatX($xFunction);
         $line->setX(35);
         $line->setY(90);
         $line->setWidth(150);
