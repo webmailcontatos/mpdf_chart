@@ -595,7 +595,6 @@ class Base extends Chart
             $this->setTextAxisDecorator($axi);
             $this->pdf->SetXY($xInit, $yInit - ($heightCell / 2));
             $this->pdf->Cell($widthCell, $space, $axi->getText(), '0', 0, 'C');
-            //$this->pdf->Line($xInitLine, $yInit, ($xInitLine + 2), $yInit);
             $this->setTickAxisY($xInitLine, $yInit);
             $yInit -= $space;
         }
@@ -640,7 +639,7 @@ class Base extends Chart
         if ($this->showTicksY === false) {
             return;
         }
-        $this->pdf->Line($xInit, $yInit, ($xInit + 2), $yInit);
+        $this->pdf->Line($xInit, $yInit, ($xInit + $this->tickSize), $yInit);
     }
 
     /**
