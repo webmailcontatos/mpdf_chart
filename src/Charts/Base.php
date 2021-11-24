@@ -493,9 +493,14 @@ class Base extends Chart
      */
     protected function getLineWidthAxisX(): float
     {
+        $isLinear = $this->isLinearScale($this->scaleX);
         $xInit = $this->getX();
         $width = $this->getWidth();
-        return ($xInit + $width);
+        $space = $this->getWidthAxisLabel();
+        if ($isLinear === false) {
+            $space = 0;
+        }
+        return ($xInit + $width) - $space;
     }
 
     /**

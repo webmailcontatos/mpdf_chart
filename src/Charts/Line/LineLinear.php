@@ -10,18 +10,6 @@ use ChartPdf\Charts\ScaleLinear;
 class LineLinear extends Line
 {
     /**
-     * Return width line on axis x
-     * @return float
-     */
-    protected function getLineWidthAxisX(): float
-    {
-        $space = $this->getWidthAxisLabel();
-        $xInit = $this->getX();
-        $width = $this->getWidth();
-        return ($xInit + $width) - $space;
-    }
-
-    /**
      * Set vertical grid
      * @return void
      */
