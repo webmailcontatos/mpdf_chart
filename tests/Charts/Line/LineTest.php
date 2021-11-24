@@ -7,6 +7,7 @@ use ChartPdf\Charts\Line\Line;
 use ChartPdf\Charts\Line\LineLinear;
 use ChartPdf\Charts\LineArea\LineArea;
 use ChartPdf\Charts\Point\DataPoint;
+use ChartPdf\Charts\ScaleLinear;
 use ChartPdf\Tests\Charts\TestCaseChartPdf;
 use Mpdf\Output\Destination;
 
@@ -119,11 +120,13 @@ class LineTest extends TestCaseChartPdf
         $axisX = range(0, 9);
         $axisY = $this->returnAxisY();
         $pdf = $this->getPdfInstance();
-        $line = new LineLinear($pdf);
+        $scaleX = new ScaleLinear($axisX, 150, 35);
+        $line = new Line($pdf);
         $line->setX(35);
         $line->setY(90);
         $line->setWidth(150);
         $line->setHeight(80);
+        $line->setScaleX($scaleX);
         $line->setHorizontalGrid(false);
         $line->setVerticalGrid(false);
         $line->setAxisX($axisX);
@@ -176,6 +179,7 @@ class LineTest extends TestCaseChartPdf
         $axisY = $this->returnAxisY();
         $pdf = $this->getPdfInstance();
         $line = new LineArea($pdf);
+        $scaleX = new ScaleLinear($axisX, 150, 35);
         $line->setX(35);
         $line->setY(90);
         $line->setWidth(150);
@@ -185,6 +189,7 @@ class LineTest extends TestCaseChartPdf
         $line->setAxisX($axisX);
         $line->setAxisY($axisY);
         $line->setLines($data);
+        $line->setScaleX($scaleX);
         $line->setLineWidth(0.1);
         $line->setHorizontalGrid(true);
         $line->setVerticalGrid(true);

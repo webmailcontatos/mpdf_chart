@@ -201,13 +201,16 @@ class Base extends Chart
      */
     protected function setDefaultScales(): void
     {
-        $width = $this->getWidth();
-        $x = $this->getX();
-        $this->scaleX = new ScaleBand($this->getAxisX(), $width, $x);
-
-        $y = $this->getY();
-        $height = -$this->getHeight();
-        $this->scaleY = new ScaleLinear($this->getAxisY(), $height, $y);
+        if (empty($this->scaleX)) {
+            $width = $this->getWidth();
+            $x = $this->getX();
+            $this->scaleX = new ScaleBand($this->getAxisX(), $width, $x);
+        }
+        if (empty($this->scaleY)) {
+            $y = $this->getY();
+            $height = -$this->getHeight();
+            $this->scaleY = new ScaleLinear($this->getAxisY(), $height, $y);
+        }
     }
 
     /**
