@@ -9,23 +9,6 @@ use ChartPdf\Charts\ScaleLinear;
  */
 class LineLinear extends Line
 {
-    /**
-     * Set axis chart
-     * @return void
-     */
-    protected function setAxisXchart(): void
-    {
-        $axis = $this->getAxisX();
-        $xInit = $this->getX();
-        $yInit = $this->getY();
-        $space = $this->getWidthAxisLabel();
-        foreach ($axis as $axi) {
-            $this->pdf->SetXY($xInit - ($space / 2), ($yInit + $this->marginTopAxisX));
-            $this->pdf->Cell($space, 0, $axi, '0', 0, 'C');
-            $this->setTickAxisX($xInit);
-            $xInit += $space;
-        }
-    }
 
     /**
      * Set line horizontal x
@@ -34,7 +17,7 @@ class LineLinear extends Line
     protected function setLineAxisX(): void
     {
         $xInit = $this->getX();
-        $yInit = $this->getY();
+        $yInit = $this->getYPosition(0);
         $width = $this->getWidth();
         $space = $this->getWidthAxisLabel();
         $this->pdf->Line($xInit, $yInit, (($xInit + $width) - $space), $yInit);
@@ -72,16 +55,14 @@ class LineLinear extends Line
     }
 
     /**
-     * Return position x
-     * @param string $xPoint X point
-     * @return float
+     * Set default scale x and y
      */
-    protected function getXPosition($xPoint): float
+    protected function setDefaultScales(): void
     {
+        parent::setDefaultScales();
         $axis = $this->getAxisX();
         $width = $this->getWidth();
         $xInit = $this->getX();
-        $scaleBand = new ScaleLinear($axis, $width, $xInit);
-        return $scaleBand->getPosition($xPoint);
+        $this->scaleX = new ScaleLinear($axis, $width, $xInit);
     }
 }
