@@ -653,22 +653,18 @@ class Base extends Chart
         }
         $space = $this->getSpaceAxisY();
         $axis = $this->getAxisY();
-        $qtdRectTurn = (count($axis) - 1);
+        $qtdRect = (count($axis) - 1);
         $color = $this->backgroundColor;
         $xInit = $this->getX();
         $w = $this->getWidth();
         $this->pdf->SetFillColor($color[0], $color[1], $color[2]);
         $alpha = 1;
-        $decrement = $alpha / $qtdRectTurn;
-        $lastKey = array_key_last($axis);
-        foreach ($axis as $key => $axi) {
-            if ($lastKey === $key) {
-                continue;
-            }
-            $y = $this->getYPosition($axi);
+        $decrement = $alpha / $qtdRect;
+        for ($i = 0; $i < count($axis); $i++) {
+            $y = $this->getYPosition($axis[$i]);
             $this->pdf->SetAlpha($alpha);
             $this->pdf->Rect($xInit, ($y - $space), $w, $space, 'F');
-            $alpha = round($alpha, 1) - $decrement;
+            $alpha -= $decrement;
         }
         $this->pdf->SetAlpha(1);
     }
