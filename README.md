@@ -53,7 +53,7 @@ The simplest usage (since version 7.0) of the library would be as follows:
 <?php
 
 require_once __DIR__ . '/vendor/autoload.php';
-$pdf = new ChartPdf();
+$pdf = new Mpdf\Mpdf();
 $pieChart = new Pie($pdf);
 $pieChart->setRadius(35); //radius pie
 $pieChart->setX(50);// init X position
@@ -63,7 +63,7 @@ $pieChart->setData($data);// Data chart pie object represents pieces of chart
 $pieChart->write();// Write chart on the pdf
 $pdf->Output();
 
-$pdf = new ChartPdf();
+$pdf = new Mpdf\Mpdf();
 $bar = new Bar($pdf);
 $bar->setX(35);
 $bar->setY(90);
@@ -78,7 +78,7 @@ $bar->setLineWidth(0.1);
 $bar->write();
 $pdf->Output();
 
-$pdf = new ChartPdf();
+$pdf = new Mpdf\Mpdf();
 $line = new Line($pdf);
 $line->setX(35);
 $line->setY(90);
@@ -92,7 +92,7 @@ $line->setLines($data);
 $line->setLineWidth(0.1);
 $line->write();
 
-$pdf = new ChartPdf();
+$pdf = new Mpdf\Mpdf();
 $line = new LineAreaSvg($pdf);
 $line->setX(35);
 $line->setY(90);
@@ -107,7 +107,7 @@ $line->setLineWidth(0.1);
 $line->setHorizontalGrid(true);
 $line->write();
 
-$pdf = new ChartPdf();
+$pdf = new Mpdf\Mpdf();
 $point = new Point($pdf);
 $point->setX(35);
 $point->setY(90);
