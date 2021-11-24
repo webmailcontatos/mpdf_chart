@@ -112,7 +112,7 @@ class Pie extends Chart
             $radius = empty($item->getRadius()) ? $this->getRadius() : $item->getRadius();
             $percent = $data / $sumData;
             $finishAngle = ($percent * $this->finishArc) + $initAngle;
-            $this->pdf->Sector($xInit, $yInit, $radius, $initAngle, $finishAngle, 'FD', true, $this->startAngle);
+            $this->chartPdf->Sector($xInit, $yInit, $radius, $initAngle, $finishAngle, 'FD', true, $this->startAngle);
             $this->setLegend($item, $finishAngle, $initAngle);
             $this->printedFinishAngle[] = $finishAngle;
             $initAngle = $finishAngle;
@@ -294,6 +294,6 @@ class Pie extends Chart
         $x = $this->getX();
         $y = $this->getY();
         $this->pdf->SetFillColor(255, 255, 255);
-        $this->pdf->Sector($x, $y, $innerRadius, 0, 360, 'F');
+        $this->chartPdf->Sector($x, $y, $innerRadius, 0, 360, 'F');
     }
 }

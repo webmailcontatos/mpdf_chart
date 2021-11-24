@@ -52,7 +52,7 @@ trait SetPoint
         $styleLine = [
             'width' =>  $this->getLineWidth(),
         ];
-        $this->pdf->Circle($x, $y, $size, 0, 360, $stylePoint, $styleLine);
+        $this->chartPdf->Circle($x, $y, $size, 0, 360, $stylePoint, $styleLine);
     }
 
     /**
@@ -82,7 +82,7 @@ trait SetPoint
                 'width' => $this->getLineWidth(),
             ]
         ];
-        $this->pdf->Polygon($points, $stylePoint, $styleLine);
+        $this->chartPdf->Polygon($points, $stylePoint, $styleLine);
     }
 
     /**
@@ -110,9 +110,9 @@ trait SetPoint
                 'width' => $this->getLineWidth(),
             ]
         ];
-        $this->pdf->Polygon($points, $stylePoint, $styleLine);
+        $this->chartPdf->Polygon($points, $stylePoint, $styleLine);
         $this->pdf->Rotate(180, $x + ($size / 2), $y);
-        $this->pdf->Polygon($points, $stylePoint, $styleLine);
+        $this->chartPdf->Polygon($points, $stylePoint, $styleLine);
         $this->pdf->Rotate(0);
     }
 }

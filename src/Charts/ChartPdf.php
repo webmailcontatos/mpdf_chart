@@ -7,8 +7,23 @@ use Mpdf\Mpdf;
 /**
  * Pdf chart
  */
-class ChartPdf extends Mpdf
+class ChartPdf
 {
+    /**
+     * Mpdf lib
+     * @var Mpdf
+     */
+    protected Mpdf $mpdf;
+
+    /**
+     * Construct class
+     * @param Mpdf $mpdf
+     */
+    public function __construct(Mpdf $mpdf)
+    {
+        $this->mpdf = $mpdf;
+        $this->mpdf->k = Mpdf::SCALE;
+    }
 
     // Sets line style
     // Parameters:
@@ -26,7 +41,7 @@ class ChartPdf extends Mpdf
     {
         if (!(false === strpos($style, 'F')) && $fill_color) {
             [$r, $g, $b] = $fill_color;
-            $this->SetFillColor($r, $g, $b);
+            $this->mpdf->SetFillColor($r, $g, $b);
         }
         switch ($style) {
             case 'F':
@@ -46,7 +61,7 @@ class ChartPdf extends Mpdf
 
         $this->_Point($x0, $y0);
         $this->_Curve($x1, $y1, $x2, $y2, $x3, $y3);
-        $this->_out($op);
+        $this->mpdf->_out($op);
     }
 
     // Draws a line
@@ -59,19 +74,19 @@ class ChartPdf extends Mpdf
     {
         extract($style);
         if (isset($width)) {
-            $width_prev = $this->LineWidth;
-            $this->SetLineWidth($width);
-            $this->LineWidth = $width_prev;
+            $width_prev = $this->mpdf->LineWidth;
+            $this->mpdf->SetLineWidth($width);
+            $this->mpdf->LineWidth = $width_prev;
         }
         if (isset($cap)) {
             $ca = ['butt' => 0, 'round' => 1, 'square' => 2];
             if (isset($ca[$cap]))
-                $this->_out($ca[$cap] . ' J');
+                $this->mpdf->_out($ca[$cap] . ' J');
         }
         if (isset($join)) {
             $ja = ['miter' => 0, 'round' => 1, 'bevel' => 2];
             if (isset($ja[$join]))
-                $this->_out($ja[$join] . ' j');
+                $this->mpdf->_out($ja[$join] . ' j');
         }
         if (isset($dash)) {
             $dash_string = '';
@@ -86,11 +101,11 @@ class ChartPdf extends Mpdf
             }
             if (!isset($phase) || !$dash)
                 $phase = 0;
-            $this->_out(sprintf('[%s] %.2F d', $dash_string, $phase));
+            $this->mpdf->_out(sprintf('[%s] %.2F d', $dash_string, $phase));
         }
         if (isset($color)) {
             [$r, $g, $b] = $color;
-            $this->SetDrawColor($r, $g, $b);
+            $this->mpdf->SetDrawColor($r, $g, $b);
         }
     }
 
@@ -109,7 +124,7 @@ class ChartPdf extends Mpdf
 
     public function _Point($x, $y)
     {
-        $this->_out(sprintf('%.2F %.2F m', $x * $this->k, ($this->h - $y) * $this->k));
+        $this->mpdf->_out(sprintf('%.2F %.2F m', $x * $this->mpdf->k, ($this->mpdf->h - $y) * $this->mpdf->k));
     }
 
     // Draws a Bézier curve (the Bézier curve is tangent to the line between the control points at either end of the curve)
@@ -124,7 +139,7 @@ class ChartPdf extends Mpdf
 
     public function _Curve($x1, $y1, $x2, $y2, $x3, $y3)
     {
-        $this->_out(sprintf('%.2F %.2F %.2F %.2F %.2F %.2F c', $x1 * $this->k, ($this->h - $y1) * $this->k, $x2 * $this->k, ($this->h - $y2) * $this->k, $x3 * $this->k, ($this->h - $y3) * $this->k));
+        $this->mpdf->_out(sprintf('%.2F %.2F %.2F %.2F %.2F %.2F c', $x1 * $this->mpdf->k, ($this->mpdf->h - $y1) * $this->mpdf->k, $x2 * $this->mpdf->k, ($this->mpdf->h - $y2) * $this->mpdf->k, $x3 * $this->mpdf->k, ($this->mpdf->h - $y3) * $this->mpdf->k));
     }
 
     // Draws an ellipse
@@ -185,7 +200,7 @@ class ChartPdf extends Mpdf
         if ($rx) {
             if (!(false === strpos($style, 'F')) && $fill_color) {
                 [$r, $g, $b] = $fill_color;
-                $this->SetFillColor($r, $g, $b);
+                $this->mpdf->SetFillColor($r, $g, $b);
             }
             switch ($style) {
                 case 'F':
@@ -207,8 +222,8 @@ class ChartPdf extends Mpdf
                 $this->SetLineStyle($line_style);
             if (!$ry)
                 $ry = $rx;
-            $rx *= $this->k;
-            $ry *= $this->k;
+            $rx *= $this->mpdf->k;
+            $ry *= $this->mpdf->k;
             if ($nSeg < 2)
                 $nSeg = 2;
 
@@ -219,11 +234,11 @@ class ChartPdf extends Mpdf
             $dt = $totalAngle / $nSeg;
             $dtm = $dt / 3;
 
-            $x0 *= $this->k;
-            $y0 = ($this->h - $y0) * $this->k;
+            $x0 *= $this->mpdf->k;
+            $y0 = ($this->mpdf->h - $y0) * $this->mpdf->k;
             if ($angle != 0) {
                 $a = -deg2rad((float) $angle);
-                $this->_out(sprintf('q %.2F %.2F %.2F %.2F %.2F %.2F cm', cos($a), -1 * sin($a), sin($a), cos($a), $x0, $y0));
+                $this->mpdf->_out(sprintf('q %.2F %.2F %.2F %.2F %.2F %.2F cm', cos($a), -1 * sin($a), sin($a), cos($a), $x0, $y0));
                 $x0 = 0;
                 $y0 = 0;
             }
@@ -233,7 +248,7 @@ class ChartPdf extends Mpdf
             $b0 = $y0 + ($ry * sin($t1));
             $c0 = -$rx * sin($t1);
             $d0 = $ry * cos($t1);
-            $this->_Point($a0 / $this->k, $this->h - ($b0 / $this->k));
+            $this->_Point($a0 / $this->mpdf->k, $this->mpdf->h - ($b0 / $this->mpdf->k));
             for ($i = 1; $i <= $nSeg; $i++) {
                 // Draw this bit of the total curve
                 $t1 = ($i * $dt) + $astart;
@@ -241,20 +256,20 @@ class ChartPdf extends Mpdf
                 $b1 = $y0 + ($ry * sin($t1));
                 $c1 = -$rx * sin($t1);
                 $d1 = $ry * cos($t1);
-                $this->_Curve(($a0 + ($c0 * $dtm)) / $this->k,
-                    $this->h - (($b0 + ($d0 * $dtm)) / $this->k),
-                    ($a1 - ($c1 * $dtm)) / $this->k,
-                    $this->h - (($b1 - ($d1 * $dtm)) / $this->k),
-                    $a1 / $this->k,
-                    $this->h - ($b1 / $this->k));
+                $this->_Curve(($a0 + ($c0 * $dtm)) / $this->mpdf->k,
+                    $this->mpdf->h - (($b0 + ($d0 * $dtm)) / $this->mpdf->k),
+                    ($a1 - ($c1 * $dtm)) / $this->mpdf->k,
+                    $this->mpdf->h - (($b1 - ($d1 * $dtm)) / $this->mpdf->k),
+                    $a1 / $this->mpdf->k,
+                    $this->mpdf->h - ($b1 / $this->mpdf->k));
                 $a0 = $a1;
                 $b0 = $b1;
                 $c0 = $c1;
                 $d0 = $d1;
             }
-            $this->_out($op);
+            $this->mpdf->_out($op);
             if ($angle != 0)
-                $this->_out('Q');
+                $this->mpdf->_out('Q');
         }
     }
 
@@ -279,7 +294,7 @@ class ChartPdf extends Mpdf
         $np = count($p) / 2;
         if (!(false === strpos($style, 'F')) && $fill_color) {
             [$r, $g, $b] = $fill_color;
-            $this->SetFillColor($r, $g, $b);
+            $this->mpdf->SetFillColor($r, $g, $b);
         }
         switch ($style) {
             case 'F':
@@ -306,7 +321,7 @@ class ChartPdf extends Mpdf
                     for ($i = 2; $i < ($np * 2); $i = $i + 2)
                         $this->_Line($p[$i], $p[$i + 1]);
                     $this->_Line($p[0], $p[1]);
-                    $this->_out($op);
+                    $this->mpdf->_out($op);
                 }
                 $p[$np * 2] = $p[0];
                 $p[($np * 2) + 1] = $p[1];
@@ -320,7 +335,7 @@ class ChartPdf extends Mpdf
             for ($i = 2; $i < ($np * 2); $i = $i + 2)
                 $this->_Line($p[$i], $p[$i + 1]);
             $this->_Line($p[0], $p[1]);
-            $this->_out($op);
+            $this->mpdf->_out($op);
         }
     }
 
@@ -343,7 +358,7 @@ class ChartPdf extends Mpdf
 
     public function _Line($x, $y)
     {
-        $this->_out(sprintf('%.2F %.2F l', $x * $this->k, ($this->h - $y) * $this->k));
+        $this->mpdf->_out(sprintf('%.2F %.2F l', $x * $this->mpdf->k, ($this->mpdf->h - $y) * $this->mpdf->k));
     }
 
     // Draws a rounded rectangle
@@ -360,7 +375,7 @@ class ChartPdf extends Mpdf
     {
         if ($style)
             $this->SetLineStyle($style);
-        parent::Line($x1, $y1, $x2, $y2);
+        $this->mpdf->Line($x1, $y1, $x2, $y2);
     }
 
     /* PRIVATE METHODS */
@@ -407,7 +422,7 @@ class ChartPdf extends Mpdf
         else { // Rounded
             if (!(false === strpos($style, 'F')) && $fill_color) {
                 [$red, $g, $b] = $fill_color;
-                $this->SetFillColor($red, $g, $b);
+                $this->mpdf->SetFillColor($red, $g, $b);
             }
             switch ($style) {
                 case 'F':
@@ -462,7 +477,7 @@ class ChartPdf extends Mpdf
                 $this->_Line($x, $y);
                 $this->_Line($x + $r, $y);
             }
-            $this->_out($op);
+            $this->mpdf->_out($op);
         }
     }
 
@@ -476,12 +491,12 @@ class ChartPdf extends Mpdf
     {
         if (!(false === strpos($style, 'F')) && $fill_color) {
             [$r, $g, $b] = $fill_color;
-            $this->SetFillColor($r, $g, $b);
+            $this->mpdf->SetFillColor($r, $g, $b);
         }
         switch ($style) {
             case 'F':
                 $border_style = null;
-                parent::Rect($x, $y, $w, $h, $style);
+                $this->mpdf->Rect($x, $y, $w, $h, $style);
                 break;
             case 'DF':
             case 'FD':
@@ -492,7 +507,7 @@ class ChartPdf extends Mpdf
                     }
                 } else
                     $style = 'F';
-                parent::Rect($x, $y, $w, $h, $style);
+            $this->mpdf->Rect($x, $y, $w, $h, $style);
                 break;
             default:
                 if (!$border_style || isset($border_style['all'])) {
@@ -500,7 +515,7 @@ class ChartPdf extends Mpdf
                         $this->SetLineStyle($border_style['all']);
                         $border_style = null;
                     }
-                    parent::Rect($x, $y, $w, $h, $style);
+                    $this->mpdf->Rect($x, $y, $w, $h, $style);
                 }
                 break;
         }
@@ -542,19 +557,19 @@ class ChartPdf extends Mpdf
         $d = $b - $a;
         if ($d == 0 && $d0 != 0)
             $d = 2 * M_PI;
-        $k = $this->k;
-        $hp = $this->h;
+        $k = $this->mpdf->k;
+        $hp = $this->mpdf->h;
         if (sin($d / 2))
             $MyArc = 4 / 3 * (1 - cos($d / 2)) / sin($d / 2) * $r;
         else
             $MyArc = 0;
         //first put the center
-        $this->_out(sprintf('%.2F %.2F m', ($xc) * $k, ($hp - $yc) * $k));
+        $this->mpdf->_out(sprintf('%.2F %.2F m', ($xc) * $k, ($hp - $yc) * $k));
         //put the first point
-        $this->_out(sprintf('%.2F %.2F l', ($xc + $r * cos($a)) * $k, (($hp - ($yc - $r * sin($a))) * $k)));
+        $this->mpdf->_out(sprintf('%.2F %.2F l', ($xc + $r * cos($a)) * $k, (($hp - ($yc - $r * sin($a))) * $k)));
         //draw the arc
         if ($d < M_PI / 2) {
-            $this->_Arc($xc + $r * cos($a) + $MyArc * cos(M_PI / 2 + $a),
+            $this->mpdf->_Arc($xc + $r * cos($a) + $MyArc * cos(M_PI / 2 + $a),
                 $yc - $r * sin($a) - $MyArc * sin(M_PI / 2 + $a),
                 $xc + $r * cos($b) + $MyArc * cos($b - M_PI / 2),
                 $yc - $r * sin($b) - $MyArc * sin($b - M_PI / 2),
@@ -564,7 +579,7 @@ class ChartPdf extends Mpdf
         } else {
             $b = $a + $d / 4;
             $MyArc = 4 / 3 * (1 - cos($d / 8)) / sin($d / 8) * $r;
-            $this->_Arc($xc + $r * cos($a) + $MyArc * cos(M_PI / 2 + $a),
+            $this->mpdf->_Arc($xc + $r * cos($a) + $MyArc * cos(M_PI / 2 + $a),
                 $yc - $r * sin($a) - $MyArc * sin(M_PI / 2 + $a),
                 $xc + $r * cos($b) + $MyArc * cos($b - M_PI / 2),
                 $yc - $r * sin($b) - $MyArc * sin($b - M_PI / 2),
@@ -573,7 +588,7 @@ class ChartPdf extends Mpdf
             );
             $a = $b;
             $b = $a + $d / 4;
-            $this->_Arc($xc + $r * cos($a) + $MyArc * cos(M_PI / 2 + $a),
+            $this->mpdf->_Arc($xc + $r * cos($a) + $MyArc * cos(M_PI / 2 + $a),
                 $yc - $r * sin($a) - $MyArc * sin(M_PI / 2 + $a),
                 $xc + $r * cos($b) + $MyArc * cos($b - M_PI / 2),
                 $yc - $r * sin($b) - $MyArc * sin($b - M_PI / 2),
@@ -582,7 +597,7 @@ class ChartPdf extends Mpdf
             );
             $a = $b;
             $b = $a + $d / 4;
-            $this->_Arc($xc + $r * cos($a) + $MyArc * cos(M_PI / 2 + $a),
+            $this->mpdf->_Arc($xc + $r * cos($a) + $MyArc * cos(M_PI / 2 + $a),
                 $yc - $r * sin($a) - $MyArc * sin(M_PI / 2 + $a),
                 $xc + $r * cos($b) + $MyArc * cos($b - M_PI / 2),
                 $yc - $r * sin($b) - $MyArc * sin($b - M_PI / 2),
@@ -591,7 +606,7 @@ class ChartPdf extends Mpdf
             );
             $a = $b;
             $b = $a + $d / 4;
-            $this->_Arc($xc + $r * cos($a) + $MyArc * cos(M_PI / 2 + $a),
+            $this->mpdf->_Arc($xc + $r * cos($a) + $MyArc * cos(M_PI / 2 + $a),
                 $yc - $r * sin($a) - $MyArc * sin(M_PI / 2 + $a),
                 $xc + $r * cos($b) + $MyArc * cos($b - M_PI / 2),
                 $yc - $r * sin($b) - $MyArc * sin($b - M_PI / 2),
@@ -606,6 +621,6 @@ class ChartPdf extends Mpdf
             $op = 'b';
         else
             $op = 's';
-        $this->_out($op);
+        $this->mpdf->_out($op);
     }
 }

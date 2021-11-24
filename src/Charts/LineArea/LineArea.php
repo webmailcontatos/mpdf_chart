@@ -53,7 +53,7 @@ class LineArea extends Line
             $this->pdf->SetLineWidth($lineWidth);
             $points = $this->getFullPoints($line);
             $this->pdf->SetAlpha($this->alpha);
-            $this->pdf->Polygon($points, 'FD', $styleLine);
+            $this->chartPdf->Polygon($points, 'FD', $styleLine);
             $this->pdf->SetAlpha(1);//remove alpha
         }
     }

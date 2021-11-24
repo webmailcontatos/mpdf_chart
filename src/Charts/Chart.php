@@ -2,6 +2,8 @@
 
 namespace ChartPdf\Charts;
 
+use Mpdf\Mpdf;
+
 /**
  * Chart abstract class
  */
@@ -15,9 +17,13 @@ abstract class Chart
 
     /**
      * Pdf lib
+     * @var Mpdf
+     */
+    protected Mpdf $pdf;
+    /**
      * @var ChartPdf
      */
-    protected ChartPdf $pdf;
+    protected ChartPdf $chartPdf;
     /**
      * X position on pdf
      * @var float
@@ -32,11 +38,12 @@ abstract class Chart
 
     /**
      * Constructor class
-     * @param ChartPdf $pdf Pdf lib
+     * @param Mpdf $pdf Pdf lib
      */
-    public function __construct(ChartPdf $pdf)
+    public function __construct(Mpdf $pdf)
     {
         $this->pdf = $pdf;
+        $this->chartPdf = new ChartPdf($pdf);
     }
 
     /**

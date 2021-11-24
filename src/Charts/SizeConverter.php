@@ -2,6 +2,7 @@
 
 namespace ChartPdf\Charts;
 
+use Mpdf\Mpdf;
 use Mpdf\SizeConverter as Size;
 use Psr\Log\NullLogger;
 
@@ -24,9 +25,9 @@ class SizeConverter
 
     /**
      * Constructor class
-     * @param ChartPdf $pdf
+     * @param Mpdf $pdf
      */
-    public function __construct(ChartPdf $pdf)
+    public function __construct(Mpdf $pdf)
     {
         $this->logger = new NullLogger();
         $this->sizeConverter = new Size($pdf->dpi, $pdf->default_font_size, $pdf, $this->logger);

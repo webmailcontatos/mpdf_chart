@@ -46,12 +46,12 @@ class Velocimeter extends Pie
         $this->setColorPointer();
         $currentPosition = (90 - $this->currentPosition) < -90 ? -90 : (90 - $this->currentPosition);
         $this->pdf->Rotate($currentPosition, $x, $y);
-        $this->pdf->Polygon($position, 'F');
+        $this->chartPdf->Polygon($position, 'F');
         $this->pdf->Rotate(0, $x, $y);
-        $this->pdf->Circle($x, $y, $radius, 0, 360, 'F');
+        $this->chartPdf->Circle($x, $y, $radius, 0, 360, 'F');
         $this->pdf->SetFillColor(255, 255, 255);
         $this->pdf->SetDrawColor(255, 255, 255);
-        $this->pdf->Circle($x, $y, $radius * 0.8, 0, 360, 'F');
+        $this->chartPdf->Circle($x, $y, $radius * 0.8, 0, 360, 'F');
     }
 
     /**

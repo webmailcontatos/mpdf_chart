@@ -23,9 +23,9 @@ trait SetLine
             $styleLine = $this->getStyleLine($line);
             foreach ($points as $point) {
                 if ($conectionX && $conectionY) {
-                    $this->pdf->Line($conectionX, $conectionY, $point[0], $point[1], $styleLine);
+                    $this->chartPdf->Line($conectionX, $conectionY, $point[0], $point[1], $styleLine);
                 }
-                $this->pdf->Line($point[0], $point[1], $point[2], $point[3], $styleLine);
+                $this->chartPdf->Line($point[0], $point[1], $point[2], $point[3], $styleLine);
                 $conectionX = $point[2];
                 $conectionY = $point[3];
             }
