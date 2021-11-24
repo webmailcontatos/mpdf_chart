@@ -18,9 +18,9 @@ class LineLinear extends Line
         if ($this->verticalGrid === false) {
             return;
         }
-        $spaceY = $this->getSpaceAxisY();
+        $space = $this->getSpaceAxisY();
         $axis = $this->getAxisX();
-        $height = $this->getHeight() - $spaceY;
+        $height = $this->getHeight() - $space;
         $yInit = $this->getY();
         foreach ($axis as $axi) {
             $xInit = $this->getXPosition($axi);

@@ -512,13 +512,13 @@ class Base extends Chart
         if ($this->verticalGrid === false) {
             return;
         }
-        $spaceX = $this->getWidthAxisLabel();
+        $space = $this->getWidthAxisLabel();
         $axis = $this->getAxisX();
+        $height = $this->getLineHeightAxisY();
         $yInit = $this->getY();
-        $heightLine = $this->getLineHeightAxisY();
         foreach ($axis as $axi) {
-            $xInit = $this->getXPosition($axi) + ($spaceX / 2);
-            $this->pdf->Line($xInit, $yInit, $xInit, $heightLine);
+            $xInit = $this->getXPosition($axi) + ($space / 2);
+            $this->pdf->Line($xInit, $yInit, $xInit, $height);
         }
     }
 
