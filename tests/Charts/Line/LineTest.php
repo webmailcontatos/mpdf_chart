@@ -204,7 +204,7 @@ class LineTest extends TestCaseChartPdf
      */
     public function testLineFormatYAndXAxis(): void
     {
-        $yFunction = function (Axis $axi) {
+        $yFunction = function (int $key, Axis $axi) {
             $modulo = (int) $axi->getText() % 3;
             if ($modulo === 0) {
                 $axi->setColor([255, 0, 0]);
@@ -212,7 +212,7 @@ class LineTest extends TestCaseChartPdf
             $axi->setText($axi->getText() . '%');
             return $axi;
         };
-        $xFunction = function (Axis $axi) {
+        $xFunction = function (int $key, Axis $axi) {
             $reds = ['Jan', 'Mai', 'Out'];
             if (in_array($axi->getText(), $reds)) {
                 $axi->setColor([100, 255, 100]);
@@ -242,6 +242,48 @@ class LineTest extends TestCaseChartPdf
         $line->write();
         $result = $pdf->Output('line07.pdf', Destination::STRING_RETURN);
         $expected = file_get_contents(__DIR__ . '/../../files/line07.pdf');
+        $this->compararPdf($expected, $result);
+    }
+
+    /**
+     * Test sample line chart
+     */
+    public function testLineFormatYAndXAxisFont(): void
+    {
+        $yFunction = function (int $key, Axis $axi) {
+            $axi->setFont('garuda', 8, 'BI');
+            $axi->setText('R$ ' . $axi->getText() . ',00');
+            return $axi;
+        };
+        $xFunction = function (int $key, Axis $axi) {
+            $number = str_pad(($key + 1), 2, '0', STR_PAD_LEFT);
+            $axi->setText($number . '/' . $axi->getText());
+            $axi->setFont('garuda', 8, 'BI');
+            return $axi;
+        };
+        $data = $this->getDataLine01();
+        $data[0]->setLineWidth(0.01);
+        $data[1]->setLineWidth(0.01);
+        $data[2]->setLineWidth(0.01);
+        $axisX = $this->returnAxisX();
+        $axisY = $this->returnAxisY();
+        $pdf = $this->getPdfInstance();
+        $line = new Line($pdf);
+        $line->setFormatY($yFunction);
+        $line->setFormatX($xFunction);
+        $line->setX(35);
+        $line->setY(90);
+        $line->setWidth(150);
+        $line->setHeight(80);
+        $line->setHorizontalGrid(true);
+        $line->setVerticalGrid(true);
+        $line->setAxisX($axisX);
+        $line->setAxisY($axisY);
+        $line->setLines($data);
+        $line->setLineWidth(0.01);
+        $line->write();
+        $result = $pdf->Output('line08.pdf', Destination::STRING_RETURN);
+        $expected = file_get_contents(__DIR__ . '/../../files/line08.pdf');
         $this->compararPdf($expected, $result);
     }
 }

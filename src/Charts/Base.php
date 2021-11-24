@@ -212,8 +212,8 @@ class Base extends Chart
      */
     protected function load(): void
     {
-        $this->formatY = empty($this->formatY) ? fn(Axis $y) => $y : $this->formatY;
-        $this->formatX = empty($this->formatX) ? fn(Axis $x) => $x : $this->formatX;
+        $this->formatY = empty($this->formatY) ? fn(int $key, Axis $y) => $y : $this->formatY;
+        $this->formatX = empty($this->formatX) ? fn(int $key, Axis $x) => $x : $this->formatX;
         $this->setDefaultScales();
         $this->setLineWidthChart();
         $this->setLineAxisY();
@@ -432,12 +432,11 @@ class Base extends Chart
         if ($isLinear === true) {
             $xInit -= $halfSpace;
         }
-        foreach ($axis as $axi) {
+        foreach ($axis as $key => $axi) {
             $axi = $this->getAxisObject($axi);
-            $this->formatX->call($this, $axi);
-            $color = $axi->getColor();
+            $this->formatX->call($this, $key, $axi);
+            $this->setTextAxisDecorator($axi);
             $this->pdf->SetXY($xInit, ($yInit + $this->marginTopAxisX));
-            $this->pdf->SetTextColor($color[0], $color[1], $color[2]);
             $this->pdf->Cell($space, 0, $axi->getText(), '0', 0, 'C');
             $this->setTickAxisX($xInit + $halfSpace);
             $xInit += $space;
@@ -454,7 +453,20 @@ class Base extends Chart
         $axis = new Axis();
         $axis->setText($text);
         $axis->setColor([0, 0, 0]);
+        $axis->setFont('dejavuserifcondensed', 11, '');
         return $axis;
+    }
+
+    /**
+     * Set font config
+     * @param Axis $axis Axis config
+     * @return void
+     */
+    protected function setTextAxisDecorator(Axis $axis): void
+    {
+        $color = $axis->getColor();
+        $this->pdf->SetTextColor($color[0], $color[1], $color[2]);
+        $this->pdf->SetFont($axis->getFontFamily(), $axis->getFontStyle(), $axis->getFontSize());
     }
 
     /**
@@ -482,12 +494,11 @@ class Base extends Chart
         $heightCell = $space;
         $widthCell = $this->getMaxStringWidthY();
         $xInit -= ($widthCell + ($tickSize * 1.5));
-        foreach ($axis as $axi) {
+        foreach ($axis as $key => $axi) {
             $axi = $this->getAxisObject($axi);
-            $this->formatY->call($this, $axi);
-            $color = $axi->getColor();
+            $this->formatY->call($this, $key, $axi);
+            $this->setTextAxisDecorator($axi);
             $this->pdf->SetXY($xInit, $yInit - ($heightCell / 2));
-            $this->pdf->SetTextColor($color[0], $color[1], $color[2]);
             $this->pdf->Cell($widthCell, $space, $axi->getText(), '0', 0, 'C');
             $this->pdf->Line($xInitLine, $yInit, ($xInitLine + 2), $yInit);
             $yInit -= $space;
@@ -513,9 +524,10 @@ class Base extends Chart
     {
         $sizes = [];
         $axis = $this->getAxisY();
-        foreach ($axis as $axi) {
+        foreach ($axis as $key => $axi) {
             $axi = $this->getAxisObject($axi);
-            $this->formatY->call($this, $axi);
+            $this->formatY->call($this, $key, $axi);
+            $this->setTextAxisDecorator($axi);
             $sizes[] = $this->pdf->GetStringWidth($axi->getText());
         }
         return max($sizes);

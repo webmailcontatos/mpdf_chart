@@ -19,6 +19,24 @@ class Axis
     protected array $color;
 
     /**
+     * Font size in point
+     * @var float
+     */
+    protected float $fontSize;
+
+    /**
+     * Font family
+     * @var string
+     */
+    protected string $fontFamily;
+
+    /**
+     * Font style
+     * @var string
+     */
+    protected string $fontStyle;
+
+    /**
      * Return text axis
      * @return string
      */
@@ -56,6 +74,46 @@ class Axis
     {
         $this->color = $color;
         return $this;
+    }
+
+    /**
+     * Return font size in pt
+     * @return float
+     */
+    public function getFontSize(): float
+    {
+        return $this->fontSize;
+    }
+
+    /**
+     * Set font size
+     * @param float $fontSize Font size in pt
+     * @return Axis
+     */
+    public function setFont(string $family, float $fontSize, string $style = '')
+    {
+        $this->fontSize = $fontSize;
+        $this->fontFamily = $family;
+        $this->fontStyle = $style;
+        return $this;
+    }
+
+    /**
+     * Return font style
+     * @return string
+     */
+    public function getFontStyle(): string
+    {
+        return $this->fontStyle;
+    }
+
+    /**
+     * Return font family
+     * @return string
+     */
+    public function getFontFamily(): string
+    {
+        return $this->fontFamily;
     }
 
 }
