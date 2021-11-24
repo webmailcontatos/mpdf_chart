@@ -516,8 +516,13 @@ class Base extends Chart
         $axis = $this->getAxisX();
         $height = $this->getLineHeightAxisY();
         $yInit = $this->getY();
+        $halfSpace = ($space / 2);
+        $isLinear = $this->isLinearScale($this->scaleX);
+        if ($isLinear) {
+            $halfSpace = 0;
+        }
         foreach ($axis as $axi) {
-            $xInit = $this->getXPosition($axi) + ($space / 2);
+            $xInit = $this->getXPosition($axi) + $halfSpace;
             $this->pdf->Line($xInit, $yInit, $xInit, $height);
         }
     }
