@@ -148,54 +148,7 @@ class Base extends Chart
      */
     protected function getXPosition($xPoint): float
     {
-        $axis = $this->getAxisX();
-        $width = $this->getWidth();
-        $x = $this->getX();
-        $scaleBand = new ScaleBand($axis, $width, $x);
-        if ($this->scaleX) {
-            return $this->scaleX->getPosition($xPoint);
-        }
-        return $scaleBand->getPosition($xPoint);
-    }
-
-    /**
-     * Return axis x values
-     * @return array
-     */
-    public function getAxisX(): array
-    {
-        return $this->axisX;
-    }
-
-    /**
-     * Set axis x
-     * @param array $axisX Axis x list
-     * @return Base
-     */
-    public function setAxisX(array $axisX): Base
-    {
-        $this->axisX = $axisX;
-        return $this;
-    }
-
-    /**
-     * Return width chart
-     * @return float
-     */
-    public function getWidth(): float
-    {
-        return $this->width;
-    }
-
-    /**
-     * Set width chart
-     * @param float $width Width chart
-     * @return Base
-     */
-    public function setWidth(float $width): Base
-    {
-        $this->width = $width;
-        return $this;
+        return $this->scaleX->getPosition($xPoint);
     }
 
     /**
@@ -233,6 +186,7 @@ class Base extends Chart
      */
     protected function load(): void
     {
+        $this->setDefaultScales();
         $this->setLineWidthChart();
         $this->setLineAxisY();
         $this->setLineAxisX();
@@ -240,6 +194,100 @@ class Base extends Chart
         $this->setAxisYchart();
         $this->setGridHorizontal();
         $this->setGridVertical();
+    }
+
+    /**
+     * Set default scale x and y
+     */
+    protected function setDefaultScales(): void
+    {
+        $width = $this->getWidth();
+        $x = $this->getX();
+        $this->scaleX = new ScaleBand($this->getAxisX(), $width, $x);
+
+        $y = $this->getY();
+        $height = -$this->getHeight();
+        $this->scaleY = new ScaleLinear($this->getAxisY(), $height, $y);
+    }
+
+    /**
+     * Return width chart
+     * @return float
+     */
+    public function getWidth(): float
+    {
+        return $this->width;
+    }
+
+    /**
+     * Set width chart
+     * @param float $width Width chart
+     * @return Base
+     */
+    public function setWidth(float $width): Base
+    {
+        $this->width = $width;
+        return $this;
+    }
+
+    /**
+     * Return axis x values
+     * @return array
+     */
+    public function getAxisX(): array
+    {
+        return $this->axisX;
+    }
+
+    /**
+     * Set axis x
+     * @param array $axisX Axis x list
+     * @return Base
+     */
+    public function setAxisX(array $axisX): Base
+    {
+        $this->axisX = $axisX;
+        return $this;
+    }
+
+    /**
+     * Return height chart
+     * @return float
+     */
+    public function getHeight(): float
+    {
+        return $this->height;
+    }
+
+    /**
+     * Set height chart
+     * @param float $height Height chart
+     * @return Base
+     */
+    public function setHeight(float $height): Base
+    {
+        $this->height = $height;
+        return $this;
+    }
+
+    /**
+     * Return axis y list
+     * @return array
+     */
+    public function getAxisY(): array
+    {
+        return $this->axisY;
+    }
+
+    /**
+     * Set attribute y list
+     * @param array $axisY List axis y
+     * @return Base
+     */
+    public function setAxisY(array $axisY): Base
+    {
+        $this->axisY = $axisY;
+        return $this;
     }
 
     /**
@@ -287,46 +335,6 @@ class Base extends Chart
     }
 
     /**
-     * Return height chart
-     * @return float
-     */
-    public function getHeight(): float
-    {
-        return $this->height;
-    }
-
-    /**
-     * Set height chart
-     * @param float $height Height chart
-     * @return Base
-     */
-    public function setHeight(float $height): Base
-    {
-        $this->height = $height;
-        return $this;
-    }
-
-    /**
-     * Return axis y list
-     * @return array
-     */
-    public function getAxisY(): array
-    {
-        return $this->axisY;
-    }
-
-    /**
-     * Set attribute y list
-     * @param array $axisY List axis y
-     * @return Base
-     */
-    public function setAxisY(array $axisY): Base
-    {
-        $this->axisY = $axisY;
-        return $this;
-    }
-
-    /**
      * Set line horizontal x
      * @return void
      */
@@ -345,14 +353,7 @@ class Base extends Chart
      */
     protected function getYPosition($yPoint): float
     {
-        $axis = $this->getAxisY();
-        $y = $this->getY();
-        $height = -$this->getHeight();
-        $scale = new ScaleLinear($axis, $height, $y);
-        if ($this->scaleY) {
-            return $this->scaleY->getPosition($yPoint);
-        }
-        return $scale->getPosition($yPoint);
+        return $this->scaleY->getPosition($yPoint);
     }
 
     /**
