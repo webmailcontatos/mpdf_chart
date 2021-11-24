@@ -9,21 +9,6 @@ use ChartPdf\Charts\ScaleLinear;
  */
 class LineLinear extends Line
 {
-
-    /**
-     * Set line horizontal x
-     * @return void
-     */
-    protected function setLineAxisX(): void
-    {
-        $xInit = $this->getX();
-        $yInit = $this->getYPosition(0);
-        $width = $this->getWidth();
-        $space = $this->getWidthAxisLabel();
-        $widthLine = (($xInit + $width) - $space);
-        $this->pdf->Line($xInit, $yInit, $widthLine, $yInit);
-    }
-
     /**
      * Return width line on axis x
      * @return float

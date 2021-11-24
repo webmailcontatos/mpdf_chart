@@ -340,11 +340,26 @@ class Base extends Chart
      */
     protected function setLineAxisX(): void
     {
+        $isLinear = $this->isLinearScale($this->scaleX);
         $xInit = $this->getX();
         $yInit = $this->getYPosition(0);
         $width = $this->getWidth();
+        $space = $this->getWidthAxisLabel();
         $widthLine = ($xInit + $width);
+        if ($isLinear) {
+            $widthLine -= $space;
+        }
         $this->pdf->Line($xInit, $yInit, $widthLine, $yInit);
+    }
+
+    /**
+     * Return true if scale is type scale linear
+     * @param ScaleLinear $scale Current scale
+     * @return boolean
+     */
+    protected function isLinearScale(ScaleLinear $scale): bool
+    {
+        return get_class($scale) === 'ChartPdf\Charts\ScaleLinear';
     }
 
     /**
@@ -355,6 +370,17 @@ class Base extends Chart
     protected function getYPosition($yPoint): float
     {
         return $this->scaleY->getPosition($yPoint);
+    }
+
+    /**
+     * Return width label axis x
+     * @return float
+     */
+    protected function getWidthAxisLabel(): float
+    {
+        $axis = $this->getAxisX();
+        $width = $this->getWidth();
+        return ($width / count($axis));
     }
 
     /**
@@ -381,27 +407,6 @@ class Base extends Chart
             $this->setTickAxisX($xInit + $halfSpace);
             $xInit += $space;
         }
-    }
-
-    /**
-     * Return width label axis x
-     * @return float
-     */
-    protected function getWidthAxisLabel(): float
-    {
-        $axis = $this->getAxisX();
-        $width = $this->getWidth();
-        return ($width / count($axis));
-    }
-
-    /**
-     * Return true if scale is type scale linear
-     * @param ScaleLinear $scale Current scale
-     * @return boolean
-     */
-    protected function isLinearScale(ScaleLinear $scale): bool
-    {
-        return get_class($scale) === 'ChartPdf\Charts\ScaleLinear';
     }
 
     /**
