@@ -8,17 +8,18 @@ use ChartPdf\Charts\Point\DataPoint;
 use ChartPdf\Charts\Point\Symbol;
 use Imagick;
 use ImagickException;
+use Mpdf\Mpdf;
 use PHPUnit\Framework\TestCase;
 
 class TestCaseChartPdf extends TestCase
 {
     /**
      * Chart pdf instance
-     * @return ChartPdf
+     * @return Mpdf
      */
-    protected function getPdfInstance(): ChartPdf
+    protected function getPdfInstance(): Mpdf
     {
-        $pdf = new ChartPdf();
+        $pdf = new Mpdf();
         $pdf->AddPage();
         return $pdf;
     }
