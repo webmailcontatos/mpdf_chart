@@ -73,6 +73,28 @@ class Base extends Chart
     protected bool $showAxisX = true;
 
     /**
+     * Show line axis x
+     * @var boolean
+     */
+    protected bool $showLineAxisX = true;
+    /**
+     * Flag show ticksy
+     * @var boolean
+     */
+    protected bool $showTicksY = true;
+
+    /**
+     * Flag show axis y
+     * @var boolean
+     */
+    protected bool $showAxisY = true;
+
+    /**
+     * Show line axis x
+     * @var boolean
+     */
+    protected bool $showLineAxisY = true;
+    /**
      * Scale x
      * @var ScaleLinear|null
      */
@@ -95,6 +117,17 @@ class Base extends Chart
      * @var \Closure
      */
     protected \Closure $formatX;
+
+    /**
+     * Back ground color gradient
+     * @var array|int[]
+     */
+    protected array $backgroundColor = [54, 170, 255];
+    /**
+     * Flag background color
+     * @var boolean
+     */
+    protected bool $drawBackGroundColor = false;
 
     /**
      * Return true if flag horizontalGrid printed
@@ -208,6 +241,58 @@ class Base extends Chart
     }
 
     /**
+     * Set flag show line x axis
+     * @param boolean $showLineAxisX Flag show line axis x
+     * @return Base
+     */
+    public function setShowLineAxisX(bool $showLineAxisX): Base
+    {
+        $this->showLineAxisX = $showLineAxisX;
+        return $this;
+    }
+
+    /**
+     * Set flag show ticks y
+     * @param boolean $showTicksY Show tick y flag
+     * @return void
+     */
+    public function setShowTicksY(bool $showTicksY): void
+    {
+        $this->showTicksY = $showTicksY;
+    }
+
+    /**
+     * Set flag show ticks y
+     * @param boolean $showAxisY Show tick y flag
+     * @return void
+     */
+    public function setShowAxisY(bool $showAxisY): void
+    {
+        $this->showAxisY = $showAxisY;
+    }
+
+    /**
+     * Set flag show line y axis
+     * @param boolean $showLineAxisY Flag show line axis y
+     * @return Base
+     */
+    public function setShowLineAxisY(bool $showLineAxisY): Base
+    {
+        $this->showLineAxisY = $showLineAxisY;
+        return $this;
+    }
+
+    /**
+     * Set background color flag
+     * @param boolean $background Background flag
+     * @return void
+     */
+    public function setBackgroundColor(bool $background): void
+    {
+        $this->drawBackGroundColor = $background;
+    }
+
+    /**
      * Write chart on the pdf
      */
     protected function load(): void
@@ -220,6 +305,7 @@ class Base extends Chart
         $this->setLineAxisX();
         $this->setAxisXchart();
         $this->setAxisYchart();
+        $this->drawBackground();
         $this->setGridHorizontal();
         $this->setGridVertical();
     }
@@ -357,6 +443,9 @@ class Base extends Chart
      */
     protected function setLineAxisY(): void
     {
+        if ($this->showLineAxisY === false) {
+            return;
+        }
         $xInit = $this->getX();
         $yInit = $this->getY();
         $height = $this->getHeight();
@@ -371,6 +460,9 @@ class Base extends Chart
      */
     protected function setLineAxisX(): void
     {
+        if ($this->showLineAxisX === false) {
+            return;
+        }
         $isLinear = $this->isLinearScale($this->scaleX);
         $xInit = $this->getX();
         $yInit = $this->getYPosition(0);
@@ -475,6 +567,9 @@ class Base extends Chart
      */
     protected function setTickAxisX(float $xInit): void
     {
+        if ($this->showTicksX === false) {
+            return;
+        }
         $yInit = $this->getYPosition(0);
         $this->pdf->Line($xInit, $yInit, $xInit, ($yInit + $this->tickSize));
     }
@@ -485,7 +580,7 @@ class Base extends Chart
      */
     protected function setAxisYchart(): void
     {
-        $tickSize = $this->tickSize;
+        $tickSize = $this->showTicksY ? $this->tickSize : 1;
         $axis = $this->getAxisY();
         $xInit = $this->getX();
         $yInit = $this->getY();
@@ -500,7 +595,8 @@ class Base extends Chart
             $this->setTextAxisDecorator($axi);
             $this->pdf->SetXY($xInit, $yInit - ($heightCell / 2));
             $this->pdf->Cell($widthCell, $space, $axi->getText(), '0', 0, 'C');
-            $this->pdf->Line($xInitLine, $yInit, ($xInitLine + 2), $yInit);
+            //$this->pdf->Line($xInitLine, $yInit, ($xInitLine + 2), $yInit);
+            $this->setTickAxisY($xInitLine, $yInit);
             $yInit -= $space;
         }
     }
@@ -531,6 +627,51 @@ class Base extends Chart
             $sizes[] = $this->pdf->GetStringWidth($axi->getText());
         }
         return max($sizes);
+    }
+
+    /**
+     * Set tick axis y
+     * @param float $xInit X init
+     * @param float $yInit Y init
+     * @return void
+     */
+    protected function setTickAxisY(float $xInit, float $yInit): void
+    {
+        if ($this->showTicksY === false) {
+            return;
+        }
+        $this->pdf->Line($xInit, $yInit, ($xInit + 2), $yInit);
+    }
+
+    /**
+     * Draw a background gradient
+     * @return void
+     */
+    protected function drawBackground(): void
+    {
+        if ($this->drawBackGroundColor === false) {
+            return;
+        }
+        $space = $this->getSpaceAxisY();
+        $axis = $this->getAxisY();
+        $qtdRectTurn = (count($axis) - 1);
+        $color = $this->backgroundColor;
+        $xInit = $this->getX();
+        $w = $this->getWidth();
+        $this->pdf->SetFillColor($color[0], $color[1], $color[2]);
+        $alpha = 1;
+        $decrement = $alpha / $qtdRectTurn;
+        $lastKey = array_key_last($axis);
+        foreach ($axis as $key => $axi) {
+            if ($lastKey === $key) {
+                continue;
+            }
+            $y = $this->getYPosition($axi);
+            $this->pdf->SetAlpha($alpha);
+            $this->pdf->Rect($xInit, ($y - $space), $w, $space, 'F');
+            $alpha = round($alpha, 1) - $decrement;
+        }
+        $this->pdf->SetAlpha(1);
     }
 
     /**

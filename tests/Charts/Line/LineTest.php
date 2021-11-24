@@ -286,4 +286,38 @@ class LineTest extends TestCaseChartPdf
         $expected = file_get_contents(__DIR__ . '/../../files/line08.pdf');
         $this->compararPdf($expected, $result);
     }
+
+    /**
+     * Test sample line chart
+     */
+    public function testLineBackgroundColor(): void
+    {
+        $data = $this->getDataLine01();
+        $data[0]->setLineWidth(0.01);
+        $data[1]->setLineWidth(0.01);
+        $data[2]->setLineWidth(0.01);
+        $axisX = $this->returnAxisX();
+        $axisY = $this->returnAxisY();
+        $pdf = $this->getPdfInstance();
+        $line = new Line($pdf);
+        $line->setX(35);
+        $line->setY(90);
+        $line->setWidth(150);
+        $line->setHeight(80);
+        $line->setHorizontalGrid(false);
+        $line->setVerticalGrid(false);
+        $line->setAxisX($axisX);
+        $line->setAxisY($axisY);
+        $line->setLines($data);
+        $line->setLineWidth(0.01);
+        $line->setShowTicksX(false);
+        $line->setShowLineAxisX(false);
+        $line->setShowTicksY(false);
+        $line->setShowLineAxisY(false);
+        $line->setBackgroundColor(true);
+        $line->write();
+        $result = $pdf->Output('line09.pdf', Destination::STRING_RETURN);
+        $expected = file_get_contents(__DIR__ . '/../../files/line09.pdf');
+        $this->compararPdf($expected, $result);
+    }
 }
