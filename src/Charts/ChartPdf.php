@@ -192,10 +192,7 @@ class ChartPdf
     public function Ellipse($x0, $y0, $rx, $ry = 0, $angle = 0, $astart = 0, $afinish = 360, $style = '', $line_style = null, $fill_color = null, $nSeg = 8)
     {
         if ($rx) {
-            if (!(false === strpos($style, 'F')) && $fill_color) {
-                [$r, $g, $b] = $fill_color;
-                $this->mpdf->SetFillColor($r, $g, $b);
-            }
+            $this->setFillCollor($style, $fill_color);
             switch ($style) {
                 case 'F':
                     $op = 'f';
@@ -411,10 +408,7 @@ class ChartPdf
         if ('0000' == $round_corner) // Not rounded
             $this->Rect($x, $y, $w, $h, $style, $border_style, $fill_color);
         else { // Rounded
-            if (!(false === strpos($style, 'F')) && $fill_color) {
-                [$red, $g, $b] = $fill_color;
-                $this->mpdf->SetFillColor($red, $g, $b);
-            }
+            $this->setFillCollor($style, $fill_color);
             switch ($style) {
                 case 'F':
                     $border_style = null;
