@@ -2,7 +2,6 @@
 
 namespace ChartPdf\Tests\Charts;
 
-use ChartPdf\Charts\ChartPdf;
 use ChartPdf\Charts\Line\DataLine;
 use ChartPdf\Charts\Point\DataPoint;
 use ChartPdf\Charts\Point\Symbol;
@@ -482,6 +481,63 @@ class TestCaseChartPdf extends TestCase
             ],
             [
                 'x'     => 9,
+                'y'     => 23,
+                'color' => [0, 0, 0]
+            ],
+
+        ];
+    }
+
+    /**
+     * Return data char line
+     * @return array
+     */
+    protected function getDataChartLinearNegativePoint(): array
+    {
+        return [
+
+            [
+                'x'     => -48,
+                'y'     => 13,
+                'color' => [255, 0, 0]
+            ], [
+                'x'     => -37,
+                'y'     => 25,
+                'color' => [0, 0, 0]
+            ], [
+                'x'     => -20,
+                'y'     => 37,
+                'color' => [0, 0, 0]
+            ], [
+                'x'     => -12,
+                'y'     => 22,
+                'color' => [0, 0, 0]
+            ], [
+                'x'     => 4,
+                'y'     => 13,
+                'color' => [0, 0, 0]
+            ], [
+                'x'     => 20,
+                'y'     => 77,
+                'color' => [0, 0, 0]
+            ],
+            [
+                'x'     => 18,
+                'y'     => 54,
+                'color' => [0, 0, 0]
+            ],
+            [
+                'x'     => 30,
+                'y'     => 62,
+                'color' => [0, 0, 0]
+            ],
+            [
+                'x'     => 43,
+                'y'     => 47,
+                'color' => [0, 0, 0]
+            ],
+            [
+                'x'     => 34,
                 'y'     => 23,
                 'color' => [0, 0, 0]
             ],

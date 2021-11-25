@@ -4,6 +4,7 @@ namespace ChartPdf\Tests\Charts\Point;
 
 use ChartPdf\Charts\Point\DataPoint;
 use ChartPdf\Charts\Point\Point;
+use ChartPdf\Charts\ScaleLinear;
 use ChartPdf\Tests\Charts\TestCaseChartPdf;
 use Mpdf\Output\Destination;
 
@@ -78,100 +79,69 @@ class PointTest extends TestCaseChartPdf
     }
 
     /**
-     * Return data char line
-     * @return array
+     * Test sample point chart
      */
-    protected function getDataChart(): array
+    public function testPointNegative(): void
     {
-        return [
-
-            [
-                'x'     => 'Jan',
-                'y'     => 13,
-                'color' => [0, 0, 0]
-            ], [
-                'x'     => 'Fev',
-                'y'     => 25,
-                'color' => [0, 0, 0]
-            ], [
-                'x'     => 'Mar',
-                'y'     => 37,
-                'color' => [0, 0, 0]
-            ], [
-                'x'     => 'Abr',
-                'y'     => 22,
-                'color' => [0, 0, 0]
-            ], [
-                'x'     => 'Mai',
-                'y'     => 13,
-                'color' => [0, 0, 0]
-            ], [
-                'x'     => 'Jun',
-                'y'     => 77,
-                'color' => [0, 0, 0]
-            ],
-            [
-                'x'     => 'Jul',
-                'y'     => 54,
-                'color' => [0, 0, 0]
-            ],
-            [
-                'x'     => 'Ago',
-                'y'     => 62,
-                'color' => [0, 0, 0]
-            ],
-            [
-                'x'     => 'Set',
-                'y'     => 47,
-                'color' => [0, 0, 0]
-            ],
-            [
-                'x'     => 'Out',
-                'y'     => 23,
-                'color' => [0, 0, 0]
-            ],
-
-        ];
+        $data = $this->getDataPoints02();
+        $axisX = $this->returnAxisYNegative();
+        $axisY = $this->returnAxisY();
+        $pdf = $this->getPdfInstance();
+        $scaleX = new ScaleLinear($axisX, 150, 35);
+        $point = new Point($pdf);
+        $point->setX(35);
+        $point->setY(90);
+        $point->setScaleX($scaleX);
+        $point->setWidth(150);
+        $point->setHeight(80);
+        $point->setHorizontalGrid(true);
+        $point->setVerticalGrid(true);
+        $point->setAxisX($axisX);
+        $point->setAxisY($axisY);
+        $point->setPoints($data);
+        $point->setLineWidth(0.1);
+        $point->write();
+        $result = $pdf->Output('point02.pdf', Destination::STRING_RETURN);
+        $expected = file_get_contents(__DIR__ . '/../../files/point02.pdf');
+        $this->compararPdf($expected, $result);
     }
 
     /**
-     * Return x axis
-     * @return string[]
+     * Return lines data
+     * @return DataPoint[]
      */
-    protected function returnAxisX(): array
+    protected function getDataPoints02(): array
     {
-        return [
-            'Jan',
-            'Fev',
-            'Mar',
-            'Abr',
-            'Mai',
-            'Jun',
-            'Jul',
-            'Ago',
-            'Set',
-            'Out',
+        $pointConfig = [
+            0 => [
+                'color'   => [255, 0, 0],
+                'increse' => 1,
+            ],
+            1 => [
+                'color'   => [255, 200, 0],
+                'increse' => 0.5,
+            ],
+            3 => [
+                'color'   => [150, 100, 100],
+                'increse' => 1.2,
+            ]
         ];
-    }
-
-    /**
-     * Return y axis
-     * @return string[]
-     */
-    protected function returnAxisY(): array
-    {
-        return [
-            0,
-            10,
-            20,
-            30,
-            40,
-            50,
-            60,
-            70,
-            80,
-            90,
-            100,
-        ];
+        $points = [];
+        $data = $this->getDataChartLinearNegativePoint();
+        foreach ($pointConfig as $config) {
+            $color = $config['color'];
+            $increse = $config['increse'];
+            foreach ($data as $configPoint) {
+                $point = new DataPoint();
+                $point->setColorDraw($color);
+                $point->setColorFill($color);
+                $point->setY($configPoint['y'] * $increse);
+                $point->setX($configPoint['x']);
+                $point->setFill(true);
+                $point->setSize(0.5);
+                $points[] = $point;
+            }
+        }
+        return $points;
     }
 }
