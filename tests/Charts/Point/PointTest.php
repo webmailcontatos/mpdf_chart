@@ -2,6 +2,7 @@
 
 namespace ChartPdf\Tests\Charts\Point;
 
+use ChartPdf\Charts\Axis;
 use ChartPdf\Charts\Point\DataPoint;
 use ChartPdf\Charts\Point\Point;
 use ChartPdf\Charts\ScaleLinear;
@@ -83,12 +84,21 @@ class PointTest extends TestCaseChartPdf
      */
     public function testPointNegative(): void
     {
+        $formatX = function (int $key, Axis $axi) {
+            $value = (int) $axi->getText();
+            if ($value > 0) {
+                $axi->setColor([0, 0, 255]);
+            } elseif ($value < 0) {
+                $axi->setColor([255, 0, 0]);
+            }
+        };
         $data = $this->getDataPoints02();
         $axisX = $this->returnAxisYNegative();
         $axisY = $this->returnAxisY();
         $pdf = $this->getPdfInstance();
         $scaleX = new ScaleLinear($axisX, 150, 35);
         $point = new Point($pdf);
+        $point->setFormatX($formatX);
         $point->setX(35);
         $point->setY(90);
         $point->setScaleX($scaleX);
