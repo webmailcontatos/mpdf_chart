@@ -73,19 +73,15 @@ class ChartPdf
     {
         extract($style);
         if (isset($width)) {
-            $width_prev = $this->mpdf->LineWidth;
             $this->mpdf->SetLineWidth($width);
-            $this->mpdf->LineWidth = $width_prev;
         }
         if (isset($cap)) {
             $ca = ['butt' => 0, 'round' => 1, 'square' => 2];
-            if (isset($ca[$cap]))
-                $this->mpdf->_out($ca[$cap] . ' J');
+            $this->mpdf->SetLineCap($ca[$cap]);
         }
         if (isset($join)) {
             $ja = ['miter' => 0, 'round' => 1, 'bevel' => 2];
-            if (isset($ja[$join]))
-                $this->mpdf->_out($ja[$join] . ' j');
+            $this->mpdf->SetLineJoin($ja[$join]);
         }
         if (isset($dash)) {
             $dash_string = '';
@@ -506,7 +502,7 @@ class ChartPdf
                     }
                 } else
                     $style = 'F';
-            $this->mpdf->Rect($x, $y, $w, $h, $style);
+                $this->mpdf->Rect($x, $y, $w, $h, $style);
                 break;
             default:
                 if (!$border_style || isset($border_style['all'])) {
