@@ -24,25 +24,28 @@ class ChartPdf
         $this->mpdf = $mpdf;
     }
 
-    // Sets line style
-    // Parameters:
-    // - style: Line style. Array with keys among the following:
-    //   . width: Width of the line in user units
-    //   . cap: Type of cap to put on the line (butt, round, square). The difference between 'square' and 'butt' is that 'square' projects a flat end past the end of the line.
-    //   . join: miter, round or bevel
-    //   . dash: Dash pattern. Is 0 (without dash) or array with series of length values, which are the lengths of the on and off dashes.
-    //           For example: (2) represents 2 on, 2 off, 2 on , 2 off ...
-    //                        (2,1) is 2 on, 1 off, 2 on, 1 off.. etc
-    //   . phase: Modifier of the dash pattern which is used to shift the point at which the pattern starts
-    //   . color: Draw color. Array with components (red, green, blue)
-
-    public function Curve($x0, $y0, $x1, $y1, $x2, $y2, $x3, $y3, $style = '', $line_style = null, $fill_color = null)
+    /**
+     * Bezier curver
+     * @param float       $x0        Point of control 00
+     * @param float       $y0        Point of control 00
+     * @param float       $x1        Point of control 01
+     * @param float       $y1        Point of control 01
+     * @param float       $x2        Point of control 02
+     * @param float       $y2        Point of control 02
+     * @param float       $x3        Point of control 03
+     * @param float       $y3        Point of control 03
+     * @param string      $style     Flag fill color curve
+     * @param string|null $lineStyle Line style color
+     * @param string|null $fillColor Fill color
+     * @return void
+     */
+    public function Curve(float $x0, float $y0, float $x1, float $y1, float $x2, float $y2, float $x3, float $y3, string $style = '', string $lineStyle = null, string $fillColor = null): void
     {
-        $this->setFillCollor($style, $fill_color);
+        $this->setFillCollor($style, $fillColor);
         switch ($style) {
             case 'F':
                 $op = 'f';
-                $line_style = null;
+                $lineStyle = [];
                 break;
             case 'FD':
             case 'DF':
@@ -52,8 +55,8 @@ class ChartPdf
                 $op = 'S';
                 break;
         }
-        if ($line_style)
-            $this->SetLineStyle($line_style);
+        if ($lineStyle)
+            $this->SetLineStyle($lineStyle);
 
         $this->_Point($x0, $y0);
         $this->_Curve($x1, $y1, $x2, $y2, $x3, $y3);
@@ -61,8 +64,10 @@ class ChartPdf
     }
 
     /**
-     * @param string $style
-     * @param string $fillColor
+     * Set fill color
+     * @param string $style     Flag fill color curve
+     * @param string $fillColor Color fill
+     * @return void
      */
     protected function setFillCollor(string $style, string $fillColor = null): void
     {
@@ -72,13 +77,12 @@ class ChartPdf
         }
     }
 
-    // Draws a line
-    // Parameters:
-    // - x1, y1: Start point
-    // - x2, y2: End point
-    // - style: Line style. Array like for SetLineStyle
-
-    public function SetLineStyle($style)
+    /**
+     * Set line style
+     * @param array $style Array with config line style
+     * @return void
+     */
+    public function SetLineStyle(array $style = null): void
     {
         $this->mpdf->SetDash();
         extract($style);
