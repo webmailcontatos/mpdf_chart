@@ -38,10 +38,7 @@ class ChartPdf
 
     public function Curve($x0, $y0, $x1, $y1, $x2, $y2, $x3, $y3, $style = '', $line_style = null, $fill_color = null)
     {
-        if (!(false === strpos($style, 'F')) && $fill_color) {
-            [$r, $g, $b] = $fill_color;
-            $this->mpdf->SetFillColor($r, $g, $b);
-        }
+        $this->setFillCollor($style, $fill_color);
         switch ($style) {
             case 'F':
                 $op = 'f';
@@ -61,6 +58,18 @@ class ChartPdf
         $this->_Point($x0, $y0);
         $this->_Curve($x1, $y1, $x2, $y2, $x3, $y3);
         $this->mpdf->_out($op);
+    }
+
+    /**
+     * @param string $style
+     * @param string $fillColor
+     */
+    protected function setFillCollor(string $style, string $fillColor = null): void
+    {
+        if (!(false === strpos($style, 'F')) && $fillColor) {
+            [$r, $g, $b] = $fillColor;
+            $this->mpdf->SetFillColor($r, $g, $b);
+        }
     }
 
     // Draws a line
@@ -277,10 +286,7 @@ class ChartPdf
     public function Polygon($p, $style = '', $line_style = null, $fill_color = null)
     {
         $np = count($p) / 2;
-        if (!(false === strpos($style, 'F')) && $fill_color) {
-            [$r, $g, $b] = $fill_color;
-            $this->mpdf->SetFillColor($r, $g, $b);
-        }
+        $this->setFillCollor($style, $fill_color);
         switch ($style) {
             case 'F':
                 $line_style = null;
@@ -474,10 +480,7 @@ class ChartPdf
 
     public function Rect($x, $y, $w, $h, $style = '', $border_style = null, $fill_color = null)
     {
-        if (!(false === strpos($style, 'F')) && $fill_color) {
-            [$r, $g, $b] = $fill_color;
-            $this->mpdf->SetFillColor($r, $g, $b);
-        }
+        $this->setFillCollor($style, $fill_color);
         switch ($style) {
             case 'F':
                 $border_style = null;
