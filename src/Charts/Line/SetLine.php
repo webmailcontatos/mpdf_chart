@@ -57,7 +57,7 @@ trait SetLine
     {
         $styleLineDefault = ['dash' => 0, 'width' => $line->getLineWidth()];
         if ($line->isDashed()) {
-            $styleLineDefault['dash'] = '3,3';
+            $styleLineDefault['dash'] = '1,1';
         }
         return $styleLineDefault;
     }

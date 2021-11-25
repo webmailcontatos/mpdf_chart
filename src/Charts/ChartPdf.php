@@ -71,6 +71,7 @@ class ChartPdf
 
     public function SetLineStyle($style)
     {
+        $this->mpdf->SetDash();
         extract($style);
         if (isset($width)) {
             $this->mpdf->SetLineWidth($width);
@@ -83,20 +84,9 @@ class ChartPdf
             $ja = ['miter' => 0, 'round' => 1, 'bevel' => 2];
             $this->mpdf->SetLineJoin($ja[$join]);
         }
-        if (isset($dash)) {
-            $dash_string = '';
-            if ($dash) {
-                $tab = explode(',', $dash);
-                $dash_string = '';
-                foreach ($tab as $i => $v) {
-                    if ($i > 0)
-                        $dash_string .= ' ';
-                    $dash_string .= sprintf('%.2F', $v);
-                }
-            }
-            if (!isset($phase) || !$dash)
-                $phase = 0;
-            $this->mpdf->_out(sprintf('[%s] %.2F d', $dash_string, $phase));
+        if (isset($dash) && !empty($dash)) {
+            $dash = explode(',', $dash);
+            $this->mpdf->SetDash($dash[0], $dash[1]);
         }
         if (isset($color)) {
             [$r, $g, $b] = $color;
