@@ -555,50 +555,20 @@ class ChartPdf
         $this->mpdf->_out(sprintf('%.2F %.2F l', ($xc + $r * cos($a)) * $k, (($hp - ($yc - $r * sin($a))) * $k)));
         //draw the arc
         if ($d < M_PI / 2) {
-            $this->mpdf->_Arc($xc + $r * cos($a) + $MyArc * cos(M_PI / 2 + $a),
-                $yc - $r * sin($a) - $MyArc * sin(M_PI / 2 + $a),
-                $xc + $r * cos($b) + $MyArc * cos($b - M_PI / 2),
-                $yc - $r * sin($b) - $MyArc * sin($b - M_PI / 2),
-                $xc + $r * cos($b),
-                $yc - $r * sin($b)
-            );
+            $this->setArc($xc, $r, $a, $MyArc, $yc, $b);
         } else {
             $b = $a + $d / 4;
             $MyArc = 4 / 3 * (1 - cos($d / 8)) / sin($d / 8) * $r;
-            $this->mpdf->_Arc($xc + $r * cos($a) + $MyArc * cos(M_PI / 2 + $a),
-                $yc - $r * sin($a) - $MyArc * sin(M_PI / 2 + $a),
-                $xc + $r * cos($b) + $MyArc * cos($b - M_PI / 2),
-                $yc - $r * sin($b) - $MyArc * sin($b - M_PI / 2),
-                $xc + $r * cos($b),
-                $yc - $r * sin($b)
-            );
+            $this->setArc($xc, $r, $a, $MyArc, $yc, $b);
             $a = $b;
             $b = $a + $d / 4;
-            $this->mpdf->_Arc($xc + $r * cos($a) + $MyArc * cos(M_PI / 2 + $a),
-                $yc - $r * sin($a) - $MyArc * sin(M_PI / 2 + $a),
-                $xc + $r * cos($b) + $MyArc * cos($b - M_PI / 2),
-                $yc - $r * sin($b) - $MyArc * sin($b - M_PI / 2),
-                $xc + $r * cos($b),
-                $yc - $r * sin($b)
-            );
+            $this->setArc($xc, $r, $a, $MyArc, $yc, $b);
             $a = $b;
             $b = $a + $d / 4;
-            $this->mpdf->_Arc($xc + $r * cos($a) + $MyArc * cos(M_PI / 2 + $a),
-                $yc - $r * sin($a) - $MyArc * sin(M_PI / 2 + $a),
-                $xc + $r * cos($b) + $MyArc * cos($b - M_PI / 2),
-                $yc - $r * sin($b) - $MyArc * sin($b - M_PI / 2),
-                $xc + $r * cos($b),
-                $yc - $r * sin($b)
-            );
+            $this->setArc($xc, $r, $a, $MyArc, $yc, $b);
             $a = $b;
             $b = $a + $d / 4;
-            $this->mpdf->_Arc($xc + $r * cos($a) + $MyArc * cos(M_PI / 2 + $a),
-                $yc - $r * sin($a) - $MyArc * sin(M_PI / 2 + $a),
-                $xc + $r * cos($b) + $MyArc * cos($b - M_PI / 2),
-                $yc - $r * sin($b) - $MyArc * sin($b - M_PI / 2),
-                $xc + $r * cos($b),
-                $yc - $r * sin($b)
-            );
+            $this->setArc($xc, $r, $a, $MyArc, $yc, $b);
         }
         //terminate drawing
         if ($style == 'F')
@@ -608,5 +578,25 @@ class ChartPdf
         else
             $op = 's';
         $this->mpdf->_out($op);
+    }
+
+    /**
+     * Draw arc
+     * @param float $xc
+     * @param float $r
+     * @param float $a
+     * @param float $MyArc
+     * @param float $yc
+     * @param float $b
+     */
+    public function setArc(float $xc, float $r, float $a, float $MyArc, float $yc, float $b): void
+    {
+        $this->mpdf->_Arc($xc + $r * cos($a) + $MyArc * cos(M_PI / 2 + $a),
+            $yc - $r * sin($a) - $MyArc * sin(M_PI / 2 + $a),
+            $xc + $r * cos($b) + $MyArc * cos($b - M_PI / 2),
+            $yc - $r * sin($b) - $MyArc * sin($b - M_PI / 2),
+            $xc + $r * cos($b),
+            $yc - $r * sin($b)
+        );
     }
 }
