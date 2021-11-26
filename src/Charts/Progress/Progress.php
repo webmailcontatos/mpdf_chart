@@ -14,7 +14,7 @@ class Progress extends Chart
      * @var float
      */
     protected float $width;
-    protected float $height          = 10;
+    protected float $radius          = 10;
     protected float $lineWidth       = 0.1;
     protected float $percent         = 0;
     protected array $backgroundColor = [245, 245, 245];
@@ -26,8 +26,8 @@ class Progress extends Chart
     protected function load(): void
     {
         $width = $this->getWidth();
-        $defaultHeight = $this->getHeight();
-        $defaultRadius = ($defaultHeight / 2);
+        $defaultRadius = $this->getRadius();
+        $defaultHeight = 2 * ($defaultRadius);
         $defaultColor = $this->getBackgroundColor();
         $lineWidth = $this->getLineWidth();
         $progressColor = $this->getProgressColor();
@@ -62,18 +62,18 @@ class Progress extends Chart
     /**
      * @return float|int
      */
-    public function getHeight()
+    public function getRadius()
     {
-        return $this->height;
+        return $this->radius;
     }
 
     /**
-     * @param float|int $height
+     * @param float|int $radius
      * @return Progress
      */
-    public function setHeight($height)
+    public function setRadius($radius)
     {
-        $this->height = $height;
+        $this->radius = $radius;
         return $this;
     }
 
