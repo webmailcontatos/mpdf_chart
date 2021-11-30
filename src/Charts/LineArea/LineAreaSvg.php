@@ -66,8 +66,9 @@ class LineAreaSvg extends LineArea
      */
     protected function getTemplateSvg(string $points): string
     {
+        $isLinear = $this->isLinearScale($this->scaleX);
         $converter = $this->getConverter();
-        $widthLabelX = $converter->mmToPx($this->getWidthAxisLabel());
+        $widthLabelX = $isLinear ? 0 : $converter->mmToPx($this->getWidthAxisLabel());
         $pointsSepare = explode(' ', trim($points));
         $firstPoint = (float) explode(',', $pointsSepare[0])[0];
         $lastPoint = (float) explode(',', end($pointsSepare))[1];
