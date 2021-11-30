@@ -66,12 +66,9 @@ class LineArea extends Line
     protected function getFullPoints(DataLine $line): array
     {
         $points = $this->getPointsLine($line);
-        $axisX = $this->getAxisX();
-        $maxX = end($axisX);
-        $minX = reset($axisX);
-        $points[] = $this->getXPosition($maxX);
+        $points[] = $this->getDataMaxX($line);
         $points[] = $this->getYPosition(0);
-        $points[] = $this->getXPosition($minX);
+        $points[] = $this->getDataMinX($line);
         $points[] = $this->getYPosition(0);
         return $points;
     }

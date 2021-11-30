@@ -84,4 +84,34 @@ class Line extends Base
             }
         }
     }
+
+    protected function getDataMaxX(DataLine $line): float
+    {
+        $isLinear = $this->isLinearScale($this->scaleX);
+        $map = [];
+        $points = $line->getPoints();
+        foreach ($points as $point) {
+            $map[] = $point->getX();
+        }
+        $point = max($map);
+        if ($isLinear === false) {
+            $point = end($map);
+        }
+        return $this->getXPosition($point);
+    }
+
+    protected function getDataMinX(DataLine $line): float
+    {
+        $isLinear = $this->isLinearScale($this->scaleX);
+        $map = [];
+        $points = $line->getPoints();
+        foreach ($points as $point) {
+            $map[] = $point->getX();
+        }
+        $point = min($map);
+        if ($isLinear === false) {
+            $point = reset($map);
+        }
+        return $this->getXPosition($point);
+    }
 }
