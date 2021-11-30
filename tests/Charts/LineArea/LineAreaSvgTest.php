@@ -77,7 +77,7 @@ class LineAreaSvgTest extends TestCaseChartPdf
         $line->setScaleX($scaleX);
         $line->setLineWidth(0.1);
         $line->write();
-        $result = $pdf->Output('lineAreaSvg02.pdf', Destination::FILE);
+        $result = $pdf->Output('lineAreaSvg02.pdf', Destination::STRING_RETURN);
         $expected = file_get_contents(__DIR__ . '/../../files/lineAreaSvg02.pdf');
         $this->compararPdf($expected, $result);
     }
