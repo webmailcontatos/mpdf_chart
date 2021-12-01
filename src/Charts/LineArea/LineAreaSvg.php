@@ -76,14 +76,14 @@ class LineAreaSvg extends LineArea
         $converter = $this->getConverter();
         $xMin = $this->getDataMinX($line);
         $xInit = $this->getMinX();
-        $widthLabelX = $isLinear ? $converter->mmToPx($xMin - $xInit) * 2 : $converter->mmToPx($this->getWidthAxisLabel());
+        $widthLabelX = $isLinear ? $converter->mmToPx($xMin - $xInit) : ($converter->mmToPx($this->getWidthAxisLabel()) / 2);
         $pointsSepare = explode(' ', trim($points));
         $firstPoint = (float) explode(',', $pointsSepare[0])[0];
         $lastPoint = (float) explode(',', end($pointsSepare))[1];
         $spaceY = $this->getSpaceAxisY();
         $height = $converter->mmToPx($this->getHeight() - $spaceY);
         $width = $converter->mmToPx($this->getWidth());
-        $defaultWidth = $firstPoint - ($widthLabelX / 2);
+        $defaultWidth = $firstPoint - $widthLabelX;
         $defaultHeight = $lastPoint - $height;
         $gradient = (string) $this->getGradientSvg();
         return Twig::render(
