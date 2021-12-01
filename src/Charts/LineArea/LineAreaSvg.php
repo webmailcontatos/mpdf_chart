@@ -36,7 +36,7 @@ class LineAreaSvg extends LineArea
         $lines = $this->getLines();
         foreach ($lines as $line) {
             $svgPoints = $this->getFullPointsSvg($line);
-            $svg = $this->getTemplateSvg($svgPoints);
+            $svg = $this->getTemplateSvg($svgPoints, $line);
             $this->pdf->WriteFixedPosHTML($svg, $xInit, ($yInit - $height), $width, $height, 'hidden');
         }
     }
@@ -64,11 +64,13 @@ class LineAreaSvg extends LineArea
      * @param string $points Points polygon
      * @return string
      */
-    protected function getTemplateSvg(string $points): string
+    protected function getTemplateSvg(string $points, DataLine $line): string
     {
         $isLinear = $this->isLinearScale($this->scaleX);
         $converter = $this->getConverter();
-        $widthLabelX = $isLinear ? 0 : $converter->mmToPx($this->getWidthAxisLabel());
+        $xMin = $this->getDataMinX($line);
+        $xInit = $this->getMinX();
+        $widthLabelX = $isLinear ? $converter->mmToPx($xMin - $xInit) * 2 : $converter->mmToPx($this->getWidthAxisLabel());
         $pointsSepare = explode(' ', trim($points));
         $firstPoint = (float) explode(',', $pointsSepare[0])[0];
         $lastPoint = (float) explode(',', end($pointsSepare))[1];
