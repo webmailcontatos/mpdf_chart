@@ -5,6 +5,7 @@ namespace ChartPdf\Tests\Charts\LineArea;
 use ChartPdf\Charts\Line\DataLine;
 use ChartPdf\Charts\LineArea\LineArea;
 use ChartPdf\Charts\Point\DataPoint;
+use ChartPdf\Charts\ScaleLinear;
 use ChartPdf\Tests\Charts\TestCaseChartPdf;
 use Mpdf\Output\Destination;
 
@@ -77,5 +78,34 @@ class LineAreaTest extends TestCaseChartPdf
             $lines[] = $lineData;
         }
         return $lines;
+    }
+
+    /**
+     * Test sample line chart
+     */
+    public function testLineLinear(): void
+    {
+        $data = [$this->getDataLine06()[0]];
+        $axisX = range(0, 9);
+        $axisY = $this->returnAxisY();
+        $pdf = $this->getPdfInstance();
+        $scaleX = new ScaleLinear($axisX, 150, 35);
+        $line = new LineArea($pdf);
+        $line->setScaleX($scaleX);
+        $line->setX(35);
+        $line->setY(90);
+        $line->setWidth(150);
+        $line->setHeight(80);
+        $line->setHorizontalGrid(true);
+        $line->setVerticalGrid(true);
+        $line->setAxisX($axisX);
+        $line->setAxisY($axisY);
+        $line->setLines($data);
+        $line->setLineWidth(0.1);
+        $line->setAlpha(0.5);
+        $line->write();
+        $result = $pdf->Output('lineArea02.pdf', Destination::STRING_RETURN);
+        $expected = file_get_contents(__DIR__ . '/../../files/lineArea02.pdf');
+        $this->compararPdf($expected, $result);
     }
 }
