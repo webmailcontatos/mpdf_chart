@@ -59,7 +59,7 @@ class LineAreaSvgTest extends TestCaseChartPdf
         $gradient = new GradientSvg();
         $gradient->setX1(100);
         $gradient->setX2(100);
-        $gradient->setY1(100);
+        $gradient->setY1(10);
         $gradient->setY2(100);
         $stop1 = new Stop();
         $stop1->setOffset(0);
