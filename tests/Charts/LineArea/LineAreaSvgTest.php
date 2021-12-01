@@ -115,6 +115,14 @@ class LineAreaSvgTest extends TestCaseChartPdf
     public function testLineScaleLinear02(): void
     {
         $gradient = $this->getGradientObject();
+        $stops = $gradient->getStops();
+        $gradient->setX1(0);
+        $gradient->setY1(50);
+        $gradient->setX2(100);
+        $gradient->setY2(50);
+        $stops[0]->setStyle('stop-color:rgb(255,255,0);stop-opacity:1');
+        $stops[1]->setStyle('stop-color:rgb(255,59,0);stop-opacity:1');
+
         $data = [$this->getDataLine06()[0]];
         $data[0]->setColor([247, 148, 137]);
         $data[0]->setLineWidth(0.5);
