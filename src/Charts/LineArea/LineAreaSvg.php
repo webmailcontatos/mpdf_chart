@@ -11,6 +11,12 @@ use ChartPdf\Charts\Twig;
 class LineAreaSvg extends LineArea
 {
     /**
+     * Gradient svg
+     * @var GradientSvg
+     */
+    protected ?GradientSvg $gradientSvg = null;
+
+    /**
      * Set simple line chart
      * @param DataLine[] $lines Line
      * @return void
@@ -79,6 +85,7 @@ class LineAreaSvg extends LineArea
         $width = $converter->mmToPx($this->getWidth());
         $defaultWidth = $firstPoint - ($widthLabelX / 2);
         $defaultHeight = $lastPoint - $height;
+        $gradient = (string) $this->getGradientSvg();
         return Twig::render(
             'svg.html.twig',
             [
@@ -88,7 +95,29 @@ class LineAreaSvg extends LineArea
                 'defaultWidth'  => $defaultWidth,
                 'opacity'       => 0.8,
                 'points'        => $points,
+                'gradient'      => $gradient,
             ]
         );
     }
+
+    /**
+     * Return gradient
+     * @return GradientSvg
+     */
+    public function getGradientSvg(): ?GradientSvg
+    {
+        return $this->gradientSvg;
+    }
+
+    /**
+     * Set gradient svg
+     * @param GradientSvg $gradientSvg Gradient
+     * @return LineAreaSvg
+     */
+    public function setGradientSvg(GradientSvg $gradientSvg): LineAreaSvg
+    {
+        $this->gradientSvg = $gradientSvg;
+        return $this;
+    }
+
 }

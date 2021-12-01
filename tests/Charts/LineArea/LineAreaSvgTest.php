@@ -2,7 +2,9 @@
 
 namespace ChartPdf\Tests\Charts\LineArea;
 
+use ChartPdf\Charts\LineArea\GradientSvg;
 use ChartPdf\Charts\LineArea\LineAreaSvg;
+use ChartPdf\Charts\LineArea\Stop;
 use ChartPdf\Charts\ScaleLinear;
 use ChartPdf\Tests\Charts\TestCaseChartPdf;
 use Mpdf\Output\Destination;
@@ -17,6 +19,7 @@ class LineAreaSvgTest extends TestCaseChartPdf
      */
     public function testLine(): void
     {
+        $gradient = $this->getGradientObject();
         $data = [$this->getDataLine01()[0]];
         $data[0]->setColor([247, 148, 137]);
         $data[0]->setLineWidth(0.5);
@@ -29,6 +32,7 @@ class LineAreaSvgTest extends TestCaseChartPdf
         $axisY = $this->returnAxisY();
         $pdf = $this->getPdfInstance();
         $line = new LineAreaSvg($pdf);
+        $line->setGradientSvg($gradient);
         $line->setX(35);
         $line->setY(90);
         $line->setWidth(150);
@@ -47,10 +51,32 @@ class LineAreaSvgTest extends TestCaseChartPdf
     }
 
     /**
+     * Return gradient object
+     * @return GradientSvg
+     */
+    protected function getGradientObject(): GradientSvg
+    {
+        $gradient = new GradientSvg();
+        $gradient->setX1(100);
+        $gradient->setX2(100);
+        $gradient->setY1(100);
+        $gradient->setY2(100);
+        $stop1 = new Stop();
+        $stop1->setOffset(0);
+        $stop1->setStyle('stop-color:rgb(249, 241, 240);stop-opacity:1');
+        $stop2 = new Stop();
+        $stop2->setOffset(100);
+        $stop2->setStyle('stop-color:rgb(247, 148, 137);stop-opacity:1');
+        $gradient->setStops([$stop1, $stop2]);
+        return $gradient;
+    }
+
+    /**
      * Test sample line chart
      */
     public function testLineScaleLinear(): void
     {
+        $gradient = $this->getGradientObject();
         $data = [$this->getDataLine05()[0]];
         $data[0]->setColor([247, 148, 137]);
         $data[0]->setLineWidth(0.5);
@@ -65,6 +91,7 @@ class LineAreaSvgTest extends TestCaseChartPdf
         $pdf = $this->getPdfInstance();
         $scaleX = new ScaleLinear($axisX, 150, 35);
         $line = new LineAreaSvg($pdf);
+        $line->setGradientSvg($gradient);
         $line->setX(35);
         $line->setY(90);
         $line->setWidth(150);
@@ -87,6 +114,7 @@ class LineAreaSvgTest extends TestCaseChartPdf
      */
     public function testLineScaleLinear02(): void
     {
+        $gradient = $this->getGradientObject();
         $data = [$this->getDataLine06()[0]];
         $data[0]->setColor([247, 148, 137]);
         $data[0]->setLineWidth(0.5);
@@ -101,6 +129,7 @@ class LineAreaSvgTest extends TestCaseChartPdf
         $pdf = $this->getPdfInstance();
         $scaleX = new ScaleLinear($axisX, 150, 35);
         $line = new LineAreaSvg($pdf);
+        $line->setGradientSvg($gradient);
         $line->setX(35);
         $line->setY(90);
         $line->setWidth(150);
