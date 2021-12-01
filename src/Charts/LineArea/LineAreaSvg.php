@@ -93,7 +93,7 @@ class LineAreaSvg extends LineArea
                 'height'        => $height,
                 'defaultHeight' => $defaultHeight,
                 'defaultWidth'  => $defaultWidth,
-                'opacity'       => 0.8,
+                'opacity'       => $this->alpha,
                 'points'        => $points,
                 'gradient'      => $gradient,
             ]

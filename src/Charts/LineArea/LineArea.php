@@ -52,7 +52,7 @@ class LineArea extends Line
             $this->pdf->SetFillColor($color[0], $color[1], $color[2]);
             $this->pdf->SetLineWidth($lineWidth);
             $points = $this->getFullPoints($line);
-            $this->pdf->SetAlpha($this->alpha);
+            $this->pdf->SetAlpha($this->getAlpha());
             $this->chartPdf->Polygon($points, 'FD', $styleLine);
             $this->pdf->SetAlpha(1);//remove alpha
         }
@@ -87,6 +87,24 @@ class LineArea extends Line
             $return[] = $this->getYPosition($point->getY());
         }
         return $return;
+    }
+
+    /**
+     * @return float
+     */
+    public function getAlpha(): float
+    {
+        return $this->alpha;
+    }
+
+    /**
+     * @param float $alpha
+     * @return LineArea
+     */
+    public function setAlpha(float $alpha): LineArea
+    {
+        $this->alpha = $alpha;
+        return $this;
     }
 
     /**
