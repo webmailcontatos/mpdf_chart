@@ -47,8 +47,8 @@ class ScaleLinear
         $space = $this->getWidthAxisLabel();
         $x = $this->getXInit();
         $axisX = $this->getAxisX();
-        $width = ($x + $this->getWidth()) - $space;
-        $range = ($width - $x);
+        $width = $this->getWidth() - $space;
+        $range = $width;
         $rangeX = end($axisX) - $axisX[0];
         return (($point * $range) / $rangeX) + $x;
     }
