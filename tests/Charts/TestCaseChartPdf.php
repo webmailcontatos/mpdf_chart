@@ -549,7 +549,7 @@ class TestCaseChartPdf extends TestCase
      * Return lines data
      * @return DataLine[]
      */
-    protected function getDataLine05(): array
+    protected function getDataLine06(): array
     {
         $linesConfig = [
             0 => [
@@ -575,7 +575,7 @@ class TestCaseChartPdf extends TestCase
             ]
         ];
         $lines = [];
-        $data = $this->getDataChartLinear02();
+        $data = $this->getDataChartLinear03();
         foreach ($linesConfig as $line) {
             $lineData = new DataLine();
             $lineData->setColor($line['color']);
@@ -655,5 +655,117 @@ class TestCaseChartPdf extends TestCase
             ],
 
         ];
+    }
+
+    /**
+     * Return data char line
+     * @return array
+     */
+    protected function getDataChartLinear03(): array
+    {
+        return [
+
+            [
+                'x'     => 0.8,
+                'y'     => 10,
+                'color' => [0, 0, 0]
+            ], [
+                'x'     => 1.2,
+                'y'     => 20,
+                'color' => [0, 0, 0]
+            ], [
+                'x'     => 2.9,
+                'y'     => 30,
+                'color' => [0, 0, 0]
+            ], [
+                'x'     => 3.4,
+                'y'     => 40,
+                'color' => [0, 0, 0]
+            ], [
+                'x'     => 4.1,
+                'y'     => 50,
+                'color' => [0, 0, 0]
+            ], [
+                'x'     => 5.9,
+                'y'     => 60,
+                'color' => [0, 0, 0]
+            ],
+            [
+                'x'     => 6.3,
+                'y'     => 70,
+                'color' => [0, 0, 0]
+            ],
+            [
+                'x'     => 7.6,
+                'y'     => 80,
+                'color' => [0, 0, 0]
+            ],
+            [
+                'x'     => 8.1,
+                'y'     => 90,
+                'color' => [0, 0, 0]
+            ],
+            [
+                'x'     => 8.8,
+                'y'     => 90,
+                'color' => [0, 0, 0]
+            ],
+
+        ];
+    }
+
+    /**
+     * Return lines data
+     * @return DataLine[]
+     */
+    protected function getDataLine05(): array
+    {
+        $linesConfig = [
+            0 => [
+                'color'     => [255, 100, 100],
+                'lineWidth' => 0.5,
+                'increse'   => 1,
+                'symbol'    => Symbol::CIRCLE,
+                'size'      => 1,
+            ],
+            1 => [
+                'color'     => [255, 200, 0],
+                'lineWidth' => 0.5,
+                'increse'   => 2,
+                'symbol'    => Symbol::TRIANGLE,
+                'size'      => 2,
+            ],
+            3 => [
+                'color'     => [150, 100, 100],
+                'lineWidth' => 0.5,
+                'increse'   => 1.5,
+                'symbol'    => Symbol::DIAMOND,
+                'size'      => 1.5,
+            ]
+        ];
+        $lines = [];
+        $data = $this->getDataChartLinear02();
+        foreach ($linesConfig as $line) {
+            $lineData = new DataLine();
+            $lineData->setColor($line['color']);
+            $lineData->setLineWidth($line['lineWidth']);
+            $pointsList = [];
+            $increse = $line['increse'];
+            foreach ($data as $points) {
+                $point = new DataPoint();
+                $point->setX($points['x']);
+                $point->setY($points['y'] * $increse);
+                $point->setSymbol($line['symbol']);
+                $point->setSize($line['size']);
+                $point->setFill(true);
+                $point->setColorDraw($line['color']);
+                $point->setColorFill($line['color']);
+                $pointsList[] = $point;
+            }
+            $lineData->setPoints($pointsList);
+            $lines[] = $lineData;
+        }
+
+        return $lines;
     }
 }
