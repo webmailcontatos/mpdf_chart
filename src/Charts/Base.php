@@ -463,9 +463,10 @@ class Base extends Chart
         if ($this->showLineAxisX === false) {
             return;
         }
+        $axisY = $this->getAxisY();
         $isLinear = $this->isLinearScale($this->scaleX);
         $xInit = $this->getX();
-        $yInit = $this->getYPosition(0);
+        $yInit = $this->getYPosition($axisY[0]);
         $width = $this->getWidth();
         $space = $this->getWidthAxisLabel();
         $widthLine = ($xInit + $width);
@@ -570,7 +571,8 @@ class Base extends Chart
         if ($this->showTicksX === false) {
             return;
         }
-        $yInit = $this->getYPosition(0);
+        $axisY = $this->getAxisY();
+        $yInit = $this->getYPosition($axisY[0]);
         $this->pdf->Line($xInit, $yInit, $xInit, ($yInit + $this->tickSize));
     }
 

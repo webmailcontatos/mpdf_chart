@@ -44,33 +44,12 @@ class ScaleLinear
      */
     public function getPosition($point): float
     {
+        $width = abs($this->getWidth());
+        $xInit = $this->getXInit();
         $space = $this->getWidthAxisLabel();
-        $x = $this->getXInit();
-        $axisX = $this->getAxisX();
-        $width = $this->getWidth() - $space;
-        $range = $width;
-        $rangeX = end($axisX) - $axisX[0];
-        return (($point * $range) / $rangeX) + $x;
-    }
-
-    /**
-     * Return width label axis x
-     * @return float
-     */
-    protected function getWidthAxisLabel(): float
-    {
         $axis = $this->getAxisX();
-        $width = $this->getWidth();
-        return ($width / count($axis));
-    }
-
-    /**
-     * Return axis x values
-     * @return array
-     */
-    protected function getAxisX(): array
-    {
-        return $this->axisX;
+        $range = end($axis) - $axis[0];
+        return $xInit - ((($point - $axis[0]) / $range) * ($width + $space));
     }
 
     /**
@@ -95,6 +74,26 @@ class ScaleLinear
             return $this->getX() + ($this->getWidth() / 2) - ($space / 2);
         }
         return $this->getX();
+    }
+
+    /**
+     * Return axis x values
+     * @return array
+     */
+    protected function getAxisX(): array
+    {
+        return $this->axisX;
+    }
+
+    /**
+     * Return width label axis x
+     * @return float
+     */
+    protected function getWidthAxisLabel(): float
+    {
+        $axis = $this->getAxisX();
+        $width = $this->getWidth();
+        return ($width / count($axis));
     }
 
     /**
