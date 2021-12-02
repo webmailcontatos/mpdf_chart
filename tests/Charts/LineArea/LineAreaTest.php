@@ -89,7 +89,7 @@ class LineAreaTest extends TestCaseChartPdf
         $axisX = range(0, 9);
         $axisY = $this->returnAxisY();
         $pdf = $this->getPdfInstance();
-        $scaleX = new ScaleLinear($axisX, 150, 35);
+        $scaleX = new ScaleLinear($axisX, 150, 35, 2);
         $line = new LineArea($pdf);
         $line->setScaleX($scaleX);
         $line->setX(35);

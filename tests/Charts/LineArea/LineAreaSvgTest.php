@@ -90,7 +90,7 @@ class LineAreaSvgTest extends TestCaseChartPdf
         $axisX = range(0, 9);
         $axisY = $this->returnAxisY();
         $pdf = $this->getPdfInstance();
-        $scaleX = new ScaleLinear($axisX, 150, 35);
+        $scaleX = new ScaleLinear($axisX, 150, 35,2);
         $line = new LineAreaSvg($pdf);
         $line->setGradientSvg($gradient);
         $line->setAlpha(0.8);
@@ -137,7 +137,7 @@ class LineAreaSvgTest extends TestCaseChartPdf
         $axisX = range(0, 9);
         $axisY = $this->returnAxisY();
         $pdf = $this->getPdfInstance();
-        $scaleX = new ScaleLinear($axisX, 150, 35);
+        $scaleX = new ScaleLinear($axisX, 150, 35,2);
         $line = new LineAreaSvg($pdf);
         $line->setGradientSvg($gradient);
         $line->setX(35);

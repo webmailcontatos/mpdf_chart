@@ -23,6 +23,7 @@ class ScaleLinear
      * @var float
      */
     protected float $x;
+    protected int   $orientarion;
 
     /**
      * Constructor class
@@ -30,11 +31,12 @@ class ScaleLinear
      * @param float $width Width chart
      * @param float $xInit Init x position
      */
-    public function __construct(array $axis, float $width, float $xInit)
+    public function __construct(array $axis, float $width, float $xInit, int $orientation = 1)
     {
         $this->axisX = $axis;
         $this->width = $width;
         $this->x = $xInit;
+        $this->orientarion = $orientation;
     }
 
     /**
@@ -49,7 +51,12 @@ class ScaleLinear
         $space = $this->getWidthAxisLabel();
         $axis = $this->getAxisX();
         $range = end($axis) - $axis[0];
-        return $xInit - ((($point - $axis[0]) / $range) * ($width + $space));
+        if ($this->orientarion === 1) {
+            return $xInit - ((($point - $axis[0]) / $range) * ($width + $space));
+        }
+        $calc = ($point - $axis[0]) / $range;
+        $width = ($width - $space);
+        return $xInit + $width * $calc;
     }
 
     /**

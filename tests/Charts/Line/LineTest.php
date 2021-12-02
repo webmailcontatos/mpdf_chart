@@ -120,7 +120,7 @@ class LineTest extends TestCaseChartPdf
         $axisX = range(0, 9);
         $axisY = $this->returnAxisY();
         $pdf = $this->getPdfInstance();
-        $scaleX = new ScaleLinear($axisX, 150, 35);
+        $scaleX = new ScaleLinear($axisX, 150, 35,2);
         $line = new Line($pdf);
         $line->setX(35);
         $line->setY(90);
@@ -179,7 +179,7 @@ class LineTest extends TestCaseChartPdf
         $axisY = $this->returnAxisY();
         $pdf = $this->getPdfInstance();
         $line = new LineArea($pdf);
-        $scaleX = new ScaleLinear($axisX, 150, 35);
+        $scaleX = new ScaleLinear($axisX, 150, 35,2);
         $line->setX(35);
         $line->setY(90);
         $line->setWidth(150);
