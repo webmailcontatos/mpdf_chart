@@ -51,12 +51,11 @@ class ScaleLinear
         $space = $this->getWidthAxisLabel();
         $axis = $this->getAxisX();
         $range = end($axis) - $axis[0];
+        $calc = (($point - $axis[0]) / $range);
         if ($this->orientarion === 1) {
-            return $xInit - ((($point - $axis[0]) / $range) * ($width + $space));
+            return $xInit - ($calc * ($width + $space));
         }
-        $calc = ($point - $axis[0]) / $range;
-        $width = ($width - $space);
-        return $xInit + $width * $calc;
+        return $xInit + ($calc * ($width - $space));
     }
 
     /**
