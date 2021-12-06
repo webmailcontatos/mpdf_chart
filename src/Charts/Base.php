@@ -414,8 +414,8 @@ class Base extends Chart
     protected function setLineWidthChart(): void
     {
         $lineWidth = $this->getLineWidth();
-        $this->pdf->SetLineWidth($lineWidth);
-        $this->pdf->SetLineCap(0);
+        $this->pdf->setLineWidth($lineWidth);
+        $this->pdf->setLineCap(0);
     }
 
     /**
@@ -451,7 +451,7 @@ class Base extends Chart
         $height = $this->getHeight();
         $axis = $this->getAxisY();
         $space = ($height / count($axis));
-        $this->pdf->Line($xInit, $yInit, $xInit, ($yInit - ($height - $space)));
+        $this->pdf->line($xInit, $yInit, $xInit, ($yInit - ($height - $space)));
     }
 
     /**
@@ -543,8 +543,9 @@ class Base extends Chart
             $axi = $this->getAxisObject($axi);
             $this->formatX->call($this, $key, $axi);
             $this->setTextAxisDecorator($axi);
-            $this->pdf->SetXY($xInit, ($yInit + $this->marginTopAxisX));
-            $this->pdf->Cell($space, 0, $axi->getText(), '0', 0, 'C');
+            $this->pdf->setY(($yInit + $this->marginTopAxisX));
+            $this->pdf->setX($xInit);
+            $this->pdf->cell($space, 0, $axi->getText(), '0', 0, 'C');
             $this->setTickAxisX($xInit + $halfSpace);
             $xInit += $space;
         }
@@ -572,8 +573,8 @@ class Base extends Chart
     protected function setTextAxisDecorator(Axis $axis): void
     {
         $color = $axis->getColor();
-        $this->pdf->SetTextColor($color[0], $color[1], $color[2]);
-        $this->pdf->SetFont($axis->getFontFamily(), $axis->getFontStyle(), $axis->getFontSize());
+        $this->pdf->setTextColor($color[0], $color[1], $color[2]);
+        $this->pdf->setFont($axis->getFontFamily(), $axis->getFontStyle(), $axis->getFontSize());
     }
 
     /**
@@ -609,8 +610,9 @@ class Base extends Chart
             $axi = $this->getAxisObject($axi);
             $this->formatY->call($this, $key, $axi);
             $this->setTextAxisDecorator($axi);
-            $this->pdf->SetXY($xInit, $yInit - ($heightCell / 2));
-            $this->pdf->Cell($widthCell, $space, $axi->getText(), '0', 0, 'C');
+            $this->pdf->setY($yInit - ($heightCell / 2));
+            $this->pdf->setX($xInit);
+            $this->pdf->cell($widthCell, $space, $axi->getText(), '0', 0, 'C');
             $this->setTickAxisY($xInitLine, $yInit);
             $yInit -= $space;
         }
@@ -639,7 +641,7 @@ class Base extends Chart
             $axi = $this->getAxisObject($axi);
             $this->formatY->call($this, $key, $axi);
             $this->setTextAxisDecorator($axi);
-            $sizes[] = $this->pdf->GetStringWidth($axi->getText());
+            $sizes[] = $this->pdf->getStringWidth($axi->getText());
         }
         return max($sizes);
     }

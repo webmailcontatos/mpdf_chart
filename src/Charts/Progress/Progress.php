@@ -33,9 +33,9 @@ class Progress extends Chart
         $progressColor = $this->getProgressColor();
         $percentProgress = ($this->getPercent() / 100);
         $style = ['width' => $lineWidth];
-        $this->pdf->SetFillColor($defaultColor[0], $defaultColor[1], $defaultColor[2]);
+        $this->pdf->setFillColor($defaultColor[0], $defaultColor[1], $defaultColor[2]);
         $this->setRect($width, $defaultHeight, $defaultRadius, $style);
-        $this->pdf->SetFillColor($progressColor[0], $progressColor[1], $progressColor[2]);
+        $this->pdf->setFillColor($progressColor[0], $progressColor[1], $progressColor[2]);
         $this->setFillProgress($percentProgress, $defaultRadius);
     }
 

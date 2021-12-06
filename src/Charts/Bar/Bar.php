@@ -39,9 +39,9 @@ class Bar extends Base
             $y = $this->getYPosition($bar->getY());
             $yInit = ($baseY < $y) ? ($baseY + $lineWidth) : ($baseY - $lineWidth);
             $color = $bar->getColor();
-            $this->pdf->SetFillColor($color[0], $color[1], $color[2]);
-            $this->pdf->SetDrawColor($color[0], $color[1], $color[2]);
-            $this->pdf->Rect($x - ($width / 2), $y, $width, $yInit - $y, 'FD');
+            $this->pdf->setFillColor($color[0], $color[1], $color[2]);
+            $this->pdf->setDrawColor($color[0], $color[1], $color[2]);
+            $this->pdf->rect($x - ($width / 2), $y, $width, $yInit - $y, 'FD');
         }
     }
 

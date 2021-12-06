@@ -17,9 +17,9 @@ abstract class Chart
 
     /**
      * Pdf lib
-     * @var Mpdf
+     * @var Pdf
      */
-    protected Mpdf $pdf;
+    protected Pdf $pdf;
     /**
      * @var ChartPdf
      */
@@ -38,9 +38,9 @@ abstract class Chart
 
     /**
      * Constructor class
-     * @param Mpdf $pdf Pdf lib
+     * @param Pdf $pdf Pdf lib
      */
-    public function __construct(Mpdf $pdf)
+    public function __construct(Pdf $pdf)
     {
         $this->pdf = $pdf;
         $this->chartPdf = new ChartPdf($pdf);
@@ -54,7 +54,8 @@ abstract class Chart
     {
         $x = $this->getX();
         $y = $this->getY();
-        $this->pdf->SetXY($x, $y);
+        $this->pdf->setX($x);
+        $this->pdf->setY($y);
         $this->load();
     }
 
@@ -109,6 +110,7 @@ abstract class Chart
      */
     protected function getConverter(): SizeConverter
     {
-        return new SizeConverter($this->pdf);
+        $mpdf = new Mpdf();
+        return new SizeConverter($mpdf);
     }
 }

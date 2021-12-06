@@ -43,7 +43,7 @@ class LineAreaSvg extends LineArea
         foreach ($lines as $line) {
             $svgPoints = $this->getFullPointsSvg($line);
             $svg = $this->getTemplateSvg($svgPoints, $line);
-            $this->pdf->WriteFixedPosHTML($svg, $xInit, ($yInit - $height), $width, $height, 'hidden');
+            $this->pdf->writeFixedPosHtml($svg, $xInit, ($yInit - $height), $width, $height, 'hidden');
         }
     }
 

@@ -111,8 +111,8 @@ trait SetPoint
             ]
         ];
         $this->chartPdf->Polygon($points, $stylePoint, $styleLine);
-        $this->pdf->Rotate(180, $x + ($size / 2), $y);
+        $this->pdf->rotate(180, $x + ($size / 2), $y);
         $this->chartPdf->Polygon($points, $stylePoint, $styleLine);
-        $this->pdf->Rotate(0);
+        $this->pdf->rotate(0);
     }
 }

@@ -3,8 +3,10 @@
 namespace ChartPdf\Tests\Charts;
 
 use ChartPdf\Charts\Line\DataLine;
+use ChartPdf\Charts\Pdf;
 use ChartPdf\Charts\Point\DataPoint;
 use ChartPdf\Charts\Point\Symbol;
+use ChartPdf\Charts\WriteMpdf;
 use Imagick;
 use ImagickException;
 use Mpdf\Mpdf;
@@ -14,12 +16,13 @@ class TestCaseChartPdf extends TestCase
 {
     /**
      * Chart pdf instance
-     * @return Mpdf
+     * @return Pdf
      */
-    protected function getPdfInstance(): Mpdf
+    protected function getPdfInstance(): Pdf
     {
-        $pdf = new Mpdf();
-        $pdf->AddPage();
+        $mpdf = new Mpdf();
+        $mpdf->AddPage();
+        $pdf = new WriteMpdf($mpdf);
         return $pdf;
     }
 
@@ -169,62 +172,7 @@ class TestCaseChartPdf extends TestCase
 
         ];
     }
-    /**
-     * Return data char line
-     * @return array
-     */
-    protected function getDataChart01(): array
-    {
-        return [
 
-            [
-                'x'     => 'Jan',
-                'y'     => 50,
-                'color' => [239, 124, 142]
-            ], [
-                'x'     => 'Fev',
-                'y'     => 35,
-                'color' => [250, 232, 224]
-            ], [
-                'x'     => 'Mar',
-                'y'     => 35,
-                'color' => [182, 226, 211]
-            ], [
-                'x'     => 'Abr',
-                'y'     => 40,
-                'color' => [216, 167, 177]
-            ], [
-                'x'     => 'Mai',
-                'y'     => 45,
-                'color' => [255, 244, 189]
-            ], [
-                'x'     => 'Jun',
-                'y'     => 56,
-                'color' => [244, 185, 184]
-            ],
-            [
-                'x'     => 'Jul',
-                'y'     => 60,
-                'color' => [133, 210, 208]
-            ],
-            [
-                'x'     => 'Ago',
-                'y'     => 62,
-                'color' => [136, 123, 176]
-            ],
-            [
-                'x'     => 'Set',
-                'y'     => 80,
-                'color' => [113, 0, 25]
-            ],
-            [
-                'x'     => 'Out',
-                'y'     => 80,
-                'color' => [212, 55, 144]
-            ],
-
-        ];
-    }
     /**
      * Return data char line
      * @return array
@@ -428,6 +376,7 @@ class TestCaseChartPdf extends TestCase
         }
         return $lines;
     }
+
     /**
      * Return lines data
      * @return DataLine[]
@@ -476,6 +425,64 @@ class TestCaseChartPdf extends TestCase
         }
         return $lines;
     }
+
+    /**
+     * Return data char line
+     * @return array
+     */
+    protected function getDataChart01(): array
+    {
+        return [
+
+            [
+                'x'     => 'Jan',
+                'y'     => 50,
+                'color' => [239, 124, 142]
+            ], [
+                'x'     => 'Fev',
+                'y'     => 35,
+                'color' => [250, 232, 224]
+            ], [
+                'x'     => 'Mar',
+                'y'     => 35,
+                'color' => [182, 226, 211]
+            ], [
+                'x'     => 'Abr',
+                'y'     => 40,
+                'color' => [216, 167, 177]
+            ], [
+                'x'     => 'Mai',
+                'y'     => 45,
+                'color' => [255, 244, 189]
+            ], [
+                'x'     => 'Jun',
+                'y'     => 56,
+                'color' => [244, 185, 184]
+            ],
+            [
+                'x'     => 'Jul',
+                'y'     => 60,
+                'color' => [133, 210, 208]
+            ],
+            [
+                'x'     => 'Ago',
+                'y'     => 62,
+                'color' => [136, 123, 176]
+            ],
+            [
+                'x'     => 'Set',
+                'y'     => 80,
+                'color' => [113, 0, 25]
+            ],
+            [
+                'x'     => 'Out',
+                'y'     => 80,
+                'color' => [212, 55, 144]
+            ],
+
+        ];
+    }
+
     /**
      * Return lines data
      * @return DataLine[]
@@ -706,63 +713,6 @@ class TestCaseChartPdf extends TestCase
      * Return data char line
      * @return array
      */
-    protected function getDataChartLinear02(): array
-    {
-        return [
-
-            [
-                'x'     => 0,
-                'y'     => 20,
-                'color' => [0, 0, 0]
-            ], [
-                'x'     => 1,
-                'y'     => 30,
-                'color' => [0, 0, 0]
-            ], [
-                'x'     => 2,
-                'y'     => 20,
-                'color' => [0, 0, 0]
-            ], [
-                'x'     => 3,
-                'y'     => 30,
-                'color' => [0, 0, 0]
-            ], [
-                'x'     => 4,
-                'y'     => 20,
-                'color' => [0, 0, 0]
-            ], [
-                'x'     => 5,
-                'y'     => 30,
-                'color' => [0, 0, 0]
-            ],
-            [
-                'x'     => 6,
-                'y'     => 20,
-                'color' => [0, 0, 0]
-            ],
-            [
-                'x'     => 7,
-                'y'     => 30,
-                'color' => [0, 0, 0]
-            ],
-            [
-                'x'     => 8,
-                'y'     => 20,
-                'color' => [0, 0, 0]
-            ],
-            [
-                'x'     => 9,
-                'y'     => 30,
-                'color' => [0, 0, 0]
-            ],
-
-        ];
-    }
-
-    /**
-     * Return data char line
-     * @return array
-     */
     protected function getDataChartLinear03(): array
     {
         return [
@@ -869,5 +819,62 @@ class TestCaseChartPdf extends TestCase
         }
 
         return $lines;
+    }
+
+    /**
+     * Return data char line
+     * @return array
+     */
+    protected function getDataChartLinear02(): array
+    {
+        return [
+
+            [
+                'x'     => 0,
+                'y'     => 20,
+                'color' => [0, 0, 0]
+            ], [
+                'x'     => 1,
+                'y'     => 30,
+                'color' => [0, 0, 0]
+            ], [
+                'x'     => 2,
+                'y'     => 20,
+                'color' => [0, 0, 0]
+            ], [
+                'x'     => 3,
+                'y'     => 30,
+                'color' => [0, 0, 0]
+            ], [
+                'x'     => 4,
+                'y'     => 20,
+                'color' => [0, 0, 0]
+            ], [
+                'x'     => 5,
+                'y'     => 30,
+                'color' => [0, 0, 0]
+            ],
+            [
+                'x'     => 6,
+                'y'     => 20,
+                'color' => [0, 0, 0]
+            ],
+            [
+                'x'     => 7,
+                'y'     => 30,
+                'color' => [0, 0, 0]
+            ],
+            [
+                'x'     => 8,
+                'y'     => 20,
+                'color' => [0, 0, 0]
+            ],
+            [
+                'x'     => 9,
+                'y'     => 30,
+                'color' => [0, 0, 0]
+            ],
+
+        ];
     }
 }

@@ -31,10 +31,11 @@ class ProgressTest extends TestCaseChartPdf
             $progress->setPercent($percent);
             $progress->setRadius($radius);
             $progress->write();
-            $pdf->SetXY($xInit + $width, $yInit);
-            $pdf->Cell($widthText, (2 * $radius), $stringPercent, '0', '', 'L');
+            $pdf->setY($yInit);
+            $pdf->setX($xInit + $width);
+            $pdf->cell($widthText, (2 * $radius), $stringPercent, '0', '', 'L');
             $yInit += (2 * $radius) * 1.5;
-            if ($pdf->y >= $yLimit) {
+            if ($pdf->getCurrentY() >= $yLimit) {
                 $pdf->AddPage();
                 $yInit = 10;
             }
@@ -71,12 +72,13 @@ class ProgressTest extends TestCaseChartPdf
                 $progress->setPercent($percent);
                 $progress->setRadius($radius);
                 $progress->write();
-                $pdf->SetXY($xInit - ($widthCell / 2), $yInit);
+                $pdf->setY($yInit);
+                $pdf->setX($xInit - ($widthCell / 2));
                 $pdf->Cell($widthCell, 0, $stringPercent, '0', 0, 'C');
                 $xInit += $space;
             }
             $yInit += $space;
-            if ($pdf->y > $yLimit && $percent != 100) {
+            if ($pdf->getCurrentY() > $yLimit && $percent != 100) {
                 $pdf->AddPage();
                 $yInit = 50;
             }

@@ -216,9 +216,10 @@ class Pie extends Chart
         $angleLegend = ($start + $angle) + (($finishAngle - $angle) / 2);
         $x = $radius * $percentLegendRadius * cos(deg2rad($angleLegend)) + $xInit;
         $y = $radius * $percentLegendRadius * sin(deg2rad($angleLegend)) + $yInit;
-        $this->pdf->SetAlpha(1);
-        $this->pdf->SetXY(($x - $offSetTextX), ($y - $offSetTextY));
-        $this->pdf->Cell($textWidth, $heightLegend, $text);
+        $this->pdf->setAlpha(1);
+        $this->pdf->setY(($y - $offSetTextY));
+        $this->pdf->setX(($x - $offSetTextX));
+        $this->pdf->cell($textWidth, $heightLegend, $text);
     }
 
     /**
