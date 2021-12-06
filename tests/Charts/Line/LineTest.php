@@ -120,7 +120,7 @@ class LineTest extends TestCaseChartPdf
         $axisX = range(0, 9);
         $axisY = $this->returnAxisY();
         $pdf = $this->getPdfInstance();
-        $scaleX = new ScaleLinear($axisX, 150, 35,2);
+        $scaleX = new ScaleLinear($axisX, 150, 35, 2);
         $line = new Line($pdf);
         $line->setX(35);
         $line->setY(90);
@@ -179,7 +179,7 @@ class LineTest extends TestCaseChartPdf
         $axisY = $this->returnAxisY();
         $pdf = $this->getPdfInstance();
         $line = new LineArea($pdf);
-        $scaleX = new ScaleLinear($axisX, 150, 35,2);
+        $scaleX = new ScaleLinear($axisX, 150, 35, 2);
         $line->setX(35);
         $line->setY(90);
         $line->setWidth(150);
@@ -318,6 +318,90 @@ class LineTest extends TestCaseChartPdf
         $line->write();
         $result = $pdf->Output('line09.pdf', Destination::STRING_RETURN);
         $expected = file_get_contents(__DIR__ . '/../../files/line09.pdf');
+        $this->compararPdf($expected, $result);
+    }
+
+    /**
+     * Test sample line chart
+     */
+    public function testLineGridAxisYDiff01(): void
+    {
+        $data = [$this->getDataLine07()[0]];
+        $data[0]->setDashed(true);
+        $data[0]->setLineWidth(0.2);
+        $axisX = $this->returnAxisX();
+        $axisY = range(30, 100, 10);
+        $pdf = $this->getPdfInstance();
+        $line = new Line($pdf);
+        $line->setX(35);
+        $line->setY(90);
+        $line->setWidth(150);
+        $line->setHeight(80);
+        $line->setHorizontalGrid(true);
+        $line->setVerticalGrid(true);
+        $line->setAxisX($axisX);
+        $line->setAxisY($axisY);
+        $line->setLines($data);
+        $line->setLineWidth(0.1);
+        $line->write();
+        $result = $pdf->Output('line10.pdf', Destination::STRING_RETURN);
+        $expected = file_get_contents(__DIR__ . '/../../files/line10.pdf');
+        $this->compararPdf($expected, $result);
+    }
+
+    /**
+     * Test sample line chart
+     */
+    public function testLineGridAxisYDiff02(): void
+    {
+        $data = [$this->getDataLine07()[0]];
+        $data[0]->setDashed(true);
+        $data[0]->setLineWidth(0.2);
+        $axisX = $this->returnAxisX();
+        $axisY = range(30, 100, 5);
+        $pdf = $this->getPdfInstance();
+        $line = new Line($pdf);
+        $line->setX(35);
+        $line->setY(90);
+        $line->setWidth(150);
+        $line->setHeight(80);
+        $line->setHorizontalGrid(true);
+        $line->setVerticalGrid(true);
+        $line->setAxisX($axisX);
+        $line->setAxisY($axisY);
+        $line->setLines($data);
+        $line->setLineWidth(0.1);
+        $line->write();
+        $result = $pdf->Output('line11.pdf', Destination::STRING_RETURN);
+        $expected = file_get_contents(__DIR__ . '/../../files/line11.pdf');
+        $this->compararPdf($expected, $result);
+    }
+
+    /**
+     * Test sample line chart
+     */
+    public function testLineGridAxisYDiff03(): void
+    {
+        $data = [$this->getDataLine07()[1]];
+        $data[0]->setDashed(true);
+        $data[0]->setLineWidth(0.2);
+        $axisX = $this->returnAxisX();
+        $axisY = range(10, 50, 5);
+        $pdf = $this->getPdfInstance();
+        $line = new Line($pdf);
+        $line->setX(35);
+        $line->setY(90);
+        $line->setWidth(150);
+        $line->setHeight(80);
+        $line->setHorizontalGrid(true);
+        $line->setVerticalGrid(true);
+        $line->setAxisX($axisX);
+        $line->setAxisY($axisY);
+        $line->setLines($data);
+        $line->setLineWidth(0.1);
+        $line->write();
+        $result = $pdf->Output('line12.pdf', Destination::STRING_RETURN);
+        $expected = file_get_contents(__DIR__ . '/../../files/line12.pdf');
         $this->compararPdf($expected, $result);
     }
 }

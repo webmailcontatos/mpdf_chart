@@ -169,7 +169,62 @@ class TestCaseChartPdf extends TestCase
 
         ];
     }
+    /**
+     * Return data char line
+     * @return array
+     */
+    protected function getDataChart01(): array
+    {
+        return [
 
+            [
+                'x'     => 'Jan',
+                'y'     => 50,
+                'color' => [239, 124, 142]
+            ], [
+                'x'     => 'Fev',
+                'y'     => 35,
+                'color' => [250, 232, 224]
+            ], [
+                'x'     => 'Mar',
+                'y'     => 35,
+                'color' => [182, 226, 211]
+            ], [
+                'x'     => 'Abr',
+                'y'     => 40,
+                'color' => [216, 167, 177]
+            ], [
+                'x'     => 'Mai',
+                'y'     => 45,
+                'color' => [255, 244, 189]
+            ], [
+                'x'     => 'Jun',
+                'y'     => 56,
+                'color' => [244, 185, 184]
+            ],
+            [
+                'x'     => 'Jul',
+                'y'     => 60,
+                'color' => [133, 210, 208]
+            ],
+            [
+                'x'     => 'Ago',
+                'y'     => 62,
+                'color' => [136, 123, 176]
+            ],
+            [
+                'x'     => 'Set',
+                'y'     => 80,
+                'color' => [113, 0, 25]
+            ],
+            [
+                'x'     => 'Out',
+                'y'     => 80,
+                'color' => [212, 55, 144]
+            ],
+
+        ];
+    }
     /**
      * Return data char line
      * @return array
@@ -373,7 +428,54 @@ class TestCaseChartPdf extends TestCase
         }
         return $lines;
     }
+    /**
+     * Return lines data
+     * @return DataLine[]
+     */
+    protected function getDataLine07(): array
+    {
+        $linesConfig = [
+            0 => [
+                'color'     => [255, 0, 0],
+                'lineWidth' => 0.5,
+                'increse'   => 1,
+            ],
+            1 => [
+                'color'     => [255, 200, 0],
+                'lineWidth' => 0.5,
+                'increse'   => 0.5,
+            ],
+            3 => [
+                'color'     => [150, 100, 100],
+                'lineWidth' => 0.5,
+                'increse'   => 1.2,
+            ]
+        ];
+        $lines = [];
+        $data = $this->getDataChart01();
 
+        foreach ($linesConfig as $line) {
+            $lineData = new DataLine();
+            $lineData->setColor($line['color']);
+            $lineData->setLineWidth($line['lineWidth']);
+            $lineData->showPoint();
+            $pointsList = [];
+            $increse = $line['increse'];
+            foreach ($data as $points) {
+                $point = new DataPoint();
+                $point->setX($points['x']);
+                $point->setY($points['y'] * $increse);
+                $point->setColorDraw($line['color']);
+                $point->setColorFill([255, 255, 255]);
+                $point->setFill(true);
+                $point->setSize(1);
+                $pointsList[] = $point;
+            }
+            $lineData->setPoints($pointsList);
+            $lines[] = $lineData;
+        }
+        return $lines;
+    }
     /**
      * Return lines data
      * @return DataLine[]
