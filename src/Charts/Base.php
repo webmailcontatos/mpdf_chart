@@ -463,10 +463,9 @@ class Base extends Chart
         if ($this->showLineAxisX === false) {
             return;
         }
-        $axisY = $this->getAxisY();
         $isLinear = $this->isLinearScale($this->scaleX);
         $xInit = $this->getX();
-        $yInit = $this->getYPosition($axisY[0]);
+        $yInit = $this->getInitPointY();
         $width = $this->getWidth();
         $space = $this->getWidthAxisLabel();
         $widthLine = ($xInit + $width);
@@ -484,6 +483,21 @@ class Base extends Chart
     protected function isLinearScale(ScaleLinear $scale): bool
     {
         return get_class($scale) === 'ChartPdf\Charts\ScaleLinear';
+    }
+
+    /**
+     * Return init point y axis
+     * @return float
+     */
+    protected function getInitPointY(): float
+    {
+        $axisY = $this->getAxisY();
+        foreach ($axisY as $axis) {
+            if ($axis < 0) {
+                return $this->getYPosition(0);//Negative case
+            }
+        }
+        return $this->getYPosition($axisY[0]);
     }
 
     /**

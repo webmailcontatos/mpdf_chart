@@ -75,10 +75,10 @@ class ScaleLinear
     {
         $axis = $this->getAxisX();
         $first = reset($axis);
-        if ($first < 0) {
-            $space = $this->getWidthAxisLabel();
-            return $this->getX() + ($this->getWidth() / 2) - ($space / 2);
-        }
+//        if ($first < 0) {
+//            $space = $this->getWidthAxisLabel();
+//            return $this->getX() + ($this->getWidth() / 2) - ($space / 2);
+//        }
         return $this->getX();
     }
 
