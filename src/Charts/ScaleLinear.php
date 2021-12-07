@@ -31,12 +31,11 @@ class ScaleLinear
      * @param float $width Width chart
      * @param float $xInit Init x position
      */
-    public function __construct(array $axis, float $width, float $xInit, int $orientation = 1)
+    public function __construct(array $axis, float $width, float $xInit)
     {
         $this->axisX = $axis;
         $this->width = $width;
         $this->x = $xInit;
-        $this->orientarion = $orientation;
     }
 
     /**
@@ -46,15 +45,12 @@ class ScaleLinear
      */
     public function getPosition($point): float
     {
-        $width = abs($this->getWidth());
-        $xInit = $this->getXInit();
+        $width = $this->getWidth();
+        $xInit = $this->getX();
         $space = $this->getWidthAxisLabel();
         $axis = $this->getAxisX();
         $range = end($axis) - $axis[0];
         $calc = (($point - $axis[0]) / $range);
-        if ($this->orientarion === 1) {
-            return $xInit - ($calc * ($width + $space));
-        }
         return $xInit + ($calc * ($width - $space));
     }
 
@@ -65,21 +61,6 @@ class ScaleLinear
     protected function getWidth(): float
     {
         return $this->width;
-    }
-
-    /**
-     * Return x init
-     * @return float
-     */
-    protected function getXInit(): float
-    {
-        $axis = $this->getAxisX();
-        $first = reset($axis);
-//        if ($first < 0) {
-//            $space = $this->getWidthAxisLabel();
-//            return $this->getX() + ($this->getWidth() / 2) - ($space / 2);
-//        }
-        return $this->getX();
     }
 
     /**
