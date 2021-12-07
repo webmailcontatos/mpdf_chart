@@ -9,13 +9,13 @@
     "php": ">=7.4",
     "ext-ctype": "*",
     "ext-iconv": "*",
-    "mpdf/mpdf": "^8.0",
     "twig/twig": "^3.0"
   },
   "require-dev": {
+    "ext-imagick": "*",
+    "mpdf/mpdf": "^8.0",
     "phpunit/phpunit": "^9.5",
-    "symfony/var-dumper": "^5.3",
-    "ext-imagick": "*"
+    "symfony/var-dumper": "^5.3"
   },
   "config": {
     "optimize-autoloader": true,
