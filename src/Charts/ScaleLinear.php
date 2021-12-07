@@ -13,28 +13,28 @@ class ScaleLinear
     protected float $width;
 
     /**
-     * Axis x
+     * Axis
      * @var array
      */
-    protected array $axisX = [];
+    protected array $axis = [];
 
     /**
-     * X init position
+     * Init position
      * @var float
      */
-    protected float $x;
+    protected float $initPosition;
 
     /**
      * Constructor class
-     * @param array $axis  List axis elements
-     * @param float $width Width chart
-     * @param float $xInit Init x position
+     * @param array $axis         List axis elements
+     * @param float $width        Width chart
+     * @param float $initPosition Init position
      */
-    public function __construct(array $axis, float $width, float $xInit)
+    public function __construct(array $axis, float $width, float $initPosition)
     {
-        $this->axisX = $axis;
+        $this->axis = $axis;
         $this->width = $width;
-        $this->x = $xInit;
+        $this->initPosition = $initPosition;
     }
 
     /**
@@ -45,9 +45,9 @@ class ScaleLinear
     public function getPosition($point): float
     {
         $width = $this->getWidth();
-        $xInit = $this->getX();
+        $xInit = $this->getInitPosition();
         $space = $this->getWidthAxisLabel();
-        $axis = $this->getAxisX();
+        $axis = $this->getAxis();
         $range = end($axis) - $axis[0];
         $calc = (($point - $axis[0]) / $range);
         return $xInit + ($calc * ($width - $space));
@@ -63,12 +63,12 @@ class ScaleLinear
     }
 
     /**
-     * Return axis x values
-     * @return array
+     * Return x init
+     * @return float
      */
-    protected function getAxisX(): array
+    protected function getInitPosition(): float
     {
-        return $this->axisX;
+        return $this->initPosition;
     }
 
     /**
@@ -77,17 +77,17 @@ class ScaleLinear
      */
     protected function getWidthAxisLabel(): float
     {
-        $axis = $this->getAxisX();
+        $axis = $this->getAxis();
         $width = $this->getWidth();
         return ($width / count($axis));
     }
 
     /**
-     * Return x init
-     * @return float
+     * Return axis x values
+     * @return array
      */
-    protected function getX(): float
+    protected function getAxis(): array
     {
-        return $this->x;
+        return $this->axis;
     }
 }
