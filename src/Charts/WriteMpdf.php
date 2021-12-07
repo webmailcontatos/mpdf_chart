@@ -178,7 +178,7 @@ class WriteMpdf implements Pdf
      * Return current height
      * @return float
      */
-    public function getCurrentHeight(): float
+    public function getCurrentHeightPage(): float
     {
         return $this->mpdf->h;
     }

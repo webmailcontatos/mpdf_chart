@@ -122,7 +122,7 @@ class ChartPdf
 
     public function _Point($x, $y)
     {
-        $this->mpdf->write(sprintf('%.2F %.2F m', $x * Mpdf::SCALE, ($this->mpdf->getCurrentHeight() - $y) * Mpdf::SCALE));
+        $this->mpdf->write(sprintf('%.2F %.2F m', $x * Mpdf::SCALE, ($this->mpdf->getCurrentHeightPage() - $y) * Mpdf::SCALE));
     }
 
     // Draws a Bézier curve (the Bézier curve is tangent to the line between the control points at either end of the curve)
@@ -137,7 +137,7 @@ class ChartPdf
 
     public function _Curve($x1, $y1, $x2, $y2, $x3, $y3)
     {
-        $this->mpdf->write(sprintf('%.2F %.2F %.2F %.2F %.2F %.2F c', $x1 * Mpdf::SCALE, ($this->mpdf->getCurrentHeight() - $y1) * Mpdf::SCALE, $x2 * Mpdf::SCALE, ($this->mpdf->getCurrentHeight() - $y2) * Mpdf::SCALE, $x3 * Mpdf::SCALE, ($this->mpdf->getCurrentHeight() - $y3) * Mpdf::SCALE));
+        $this->mpdf->write(sprintf('%.2F %.2F %.2F %.2F %.2F %.2F c', $x1 * Mpdf::SCALE, ($this->mpdf->getCurrentHeightPage() - $y1) * Mpdf::SCALE, $x2 * Mpdf::SCALE, ($this->mpdf->getCurrentHeightPage() - $y2) * Mpdf::SCALE, $x3 * Mpdf::SCALE, ($this->mpdf->getCurrentHeightPage() - $y3) * Mpdf::SCALE));
     }
 
     // Draws an ellipse
@@ -230,7 +230,7 @@ class ChartPdf
             $dtm = $dt / 3;
 
             $x0 *= Mpdf::SCALE;
-            $y0 = ($this->mpdf->getCurrentHeight() - $y0) * Mpdf::SCALE;
+            $y0 = ($this->mpdf->getCurrentHeightPage() - $y0) * Mpdf::SCALE;
             if ($angle != 0) {
                 $a = -deg2rad((float) $angle);
                 $this->mpdf->write(sprintf('q %.2F %.2F %.2F %.2F %.2F %.2F cm', cos($a), -1 * sin($a), sin($a), cos($a), $x0, $y0));
@@ -243,7 +243,7 @@ class ChartPdf
             $b0 = $y0 + ($ry * sin($t1));
             $c0 = -$rx * sin($t1);
             $d0 = $ry * cos($t1);
-            $this->_Point($a0 / Mpdf::SCALE, $this->mpdf->getCurrentHeight() - ($b0 / Mpdf::SCALE));
+            $this->_Point($a0 / Mpdf::SCALE, $this->mpdf->getCurrentHeightPage() - ($b0 / Mpdf::SCALE));
             for ($i = 1; $i <= $nSeg; $i++) {
                 // Draw this bit of the total curve
                 $t1 = ($i * $dt) + $astart;
@@ -252,11 +252,11 @@ class ChartPdf
                 $c1 = -$rx * sin($t1);
                 $d1 = $ry * cos($t1);
                 $this->_Curve(($a0 + ($c0 * $dtm)) / Mpdf::SCALE,
-                    $this->mpdf->getCurrentHeight() - (($b0 + ($d0 * $dtm)) / Mpdf::SCALE),
+                    $this->mpdf->getCurrentHeightPage() - (($b0 + ($d0 * $dtm)) / Mpdf::SCALE),
                     ($a1 - ($c1 * $dtm)) / Mpdf::SCALE,
-                    $this->mpdf->getCurrentHeight() - (($b1 - ($d1 * $dtm)) / Mpdf::SCALE),
+                    $this->mpdf->getCurrentHeightPage() - (($b1 - ($d1 * $dtm)) / Mpdf::SCALE),
                     $a1 / Mpdf::SCALE,
-                    $this->mpdf->getCurrentHeight() - ($b1 / Mpdf::SCALE));
+                    $this->mpdf->getCurrentHeightPage() - ($b1 / Mpdf::SCALE));
                 $a0 = $a1;
                 $b0 = $b1;
                 $c0 = $c1;
@@ -350,7 +350,7 @@ class ChartPdf
 
     public function _Line($x, $y)
     {
-        $this->mpdf->write(sprintf('%.2F %.2F l', $x * Mpdf::SCALE, ($this->mpdf->getCurrentHeight() - $y) * Mpdf::SCALE));
+        $this->mpdf->write(sprintf('%.2F %.2F l', $x * Mpdf::SCALE, ($this->mpdf->getCurrentHeightPage() - $y) * Mpdf::SCALE));
     }
 
     // Draws a rounded rectangle
@@ -544,7 +544,7 @@ class ChartPdf
         if ($d == 0 && $d0 != 0)
             $d = 2 * M_PI;
         $k = Mpdf::SCALE;
-        $hp = $this->mpdf->getCurrentHeight();
+        $hp = $this->mpdf->getCurrentHeightPage();
         if (sin($d / 2))
             $MyArc = 4 / 3 * (1 - cos($d / 2)) / sin($d / 2) * $r;
         else

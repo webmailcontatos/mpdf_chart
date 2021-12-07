@@ -70,7 +70,7 @@ interface Pdf
      * @param float|integer $h      Height
      * @param string        $txt    Text
      * @param integer       $border Border
-     * @param integer       $ln     Line
+     * @param string        $ln     Line
      * @param string        $align  Align
      * @param integer       $fill   Fill
      */
@@ -128,7 +128,7 @@ interface Pdf
      * Return current height
      * @return float
      */
-    public function getCurrentHeight(): float;
+    public function getCurrentHeightPage(): float;
 
     /**
      * Write in pdf
