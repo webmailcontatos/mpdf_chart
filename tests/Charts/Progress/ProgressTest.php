@@ -36,7 +36,7 @@ class ProgressTest extends TestCaseChartPdf
             $pdf->cell($widthText, (2 * $radius), $stringPercent, '0', '', 'L');
             $yInit += (2 * $radius) * 1.5;
             if ($pdf->getCurrentY() >= $yLimit) {
-                $pdf->AddPage();
+                $pdf->getLibPdf()->AddPage();
                 $yInit = 10;
             }
         }
@@ -79,7 +79,7 @@ class ProgressTest extends TestCaseChartPdf
             }
             $yInit += $space;
             if ($pdf->getCurrentY() > $yLimit && $percent != 100) {
-                $pdf->AddPage();
+                $pdf->getLibPdf()->AddPage();
                 $yInit = 50;
             }
         }

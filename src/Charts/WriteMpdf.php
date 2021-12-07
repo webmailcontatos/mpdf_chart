@@ -260,15 +260,6 @@ class WriteMpdf implements Pdf
     }
 
     /**
-     * Add page on pdf
-     * @return void
-     */
-    public function addPage($orientation = ''): void
-    {
-        $this->mpdf->AddPage($orientation);
-    }
-
-    /**
      * Out put pdf file or return string with content pdf
      * @param string $name File name
      * @param string $dest Destination
@@ -277,5 +268,14 @@ class WriteMpdf implements Pdf
     public function output(string $name = '', string $dest = Destination::FILE)
     {
         return $this->mpdf->Output($name, $dest);
+    }
+
+    /**
+     * Return current lib pdf writer
+     * @return mixed
+     */
+    public function getLibPdf(): Mpdf
+    {
+        return $this->mpdf;
     }
 }

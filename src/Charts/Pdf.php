@@ -175,11 +175,6 @@ interface Pdf
     public function getCurrentY(): float;
 
     /**
-     * Add page on pdf
-     */
-    public function addPage($orientation = ''): void;
-
-    /**
      * Write arc on pdf
      * @param float $x1 X1
      * @param float $y1 Y1
@@ -189,4 +184,10 @@ interface Pdf
      * @param float $y3 y3
      */
     public function arc(float $x1, float $y1, float $x2, float $y2, float $x3, float $y3): void;
+
+    /**
+     * Return current lib pdf writer
+     * @return mixed
+     */
+    public function getLibPdf();
 }
