@@ -13,6 +13,7 @@
   },
   "require-dev": {
     "ext-imagick": "*",
+    "dompdf/dompdf": "^1.1",
     "mpdf/mpdf": "^8.0",
     "phpunit/phpunit": "^9.5",
     "symfony/var-dumper": "^5.3"
