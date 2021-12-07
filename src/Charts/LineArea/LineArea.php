@@ -67,9 +67,9 @@ class LineArea extends Line
     {
         $points = $this->getPointsLine($line);
         $points[] = $this->getDataMaxX($line);
-        $points[] = $this->getYPosition(0);
+        $points[] = $this->getInitPointY();
         $points[] = $this->getDataMinX($line);
-        $points[] = $this->getYPosition(0);
+        $points[] = $this->getInitPointY();
         return $points;
     }
 

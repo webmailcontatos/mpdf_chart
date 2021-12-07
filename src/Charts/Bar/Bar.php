@@ -33,7 +33,7 @@ class Bar extends Base
         $bars = $this->getDataBar();
         $width = ($this->getWidthAxisLabel() * 0.5);
         $lineWidth = $this->getLineWidth();
-        $baseY = $this->getYPosition(0);
+        $baseY = $this->getInitPointY();
         foreach ($bars as $bar) {
             $x = $this->getXPosition($bar->getX());
             $y = $this->getYPosition($bar->getY());
