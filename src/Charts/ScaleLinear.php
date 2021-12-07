@@ -23,7 +23,6 @@ class ScaleLinear
      * @var float
      */
     protected float $x;
-    protected int   $orientarion;
 
     /**
      * Constructor class

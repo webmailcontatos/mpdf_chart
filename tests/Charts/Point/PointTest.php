@@ -96,7 +96,7 @@ class PointTest extends TestCaseChartPdf
         $axisX = $this->returnAxisYNegative();
         $axisY = $this->returnAxisY();
         $pdf = $this->getPdfInstance();
-        $scaleX = new ScaleLinear($axisX, 150, 35,2);
+        $scaleX = new ScaleLinear($axisX, 150, 35);
         $point = new Point($pdf);
         $point->setFormatX($formatX);
         $point->setX(35);
