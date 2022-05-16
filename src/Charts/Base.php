@@ -540,7 +540,6 @@ class Base extends Chart
             $xInit -= $halfSpace;
         }
         foreach ($axis as $key => $axi) {
-           // $axi = $this->getAxisObject($axi);
             $this->formatX->call($this, $key, $axi);
             $this->setTextAxisDecorator($axi);
             $this->pdf->setY(($yInit + $this->marginTopAxisX));
@@ -549,20 +548,6 @@ class Base extends Chart
             $this->setTickAxisX($xInit + $halfSpace);
             $xInit += $space;
         }
-    }
-
-    /**
-     * Return default axis config
-     * @param string $text Text axis
-     * @return Axis
-     */
-    protected function getAxisObject(string $text): Axis
-    {
-        $axis = new Axis();
-        $axis->setText($text);
-        $axis->setColor([0, 0, 0]);
-        $axis->setFont('dejavuserifcondensed', 11, '');
-        return $axis;
     }
 
     /**
@@ -607,7 +592,6 @@ class Base extends Chart
         $widthCell = $this->getMaxStringWidthY();
         $xInit -= ($widthCell + ($tickSize * 1.5));
         foreach ($axis as $key => $axi) {
-      //      $axi = $this->getAxisObject($axi);
             $this->formatY->call($this, $key, $axi);
             $this->setTextAxisDecorator($axi);
             $this->pdf->setY($yInit - ($heightCell / 2));
@@ -638,7 +622,6 @@ class Base extends Chart
         $sizes = [];
         $axis = $this->getAxisY();
         foreach ($axis as $key => $axi) {
-       //     $axi = $this->getAxisObject($axi);
             $axi = clone $axi;
             $this->formatY->call($this, $key, $axi);
             $this->setTextAxisDecorator($axi);
@@ -757,17 +740,6 @@ class Base extends Chart
         $height = $this->getHeight();
         $space = $this->getSpaceAxisY();
         return ($yInit - $height) + $space;
-    }
-
-    /**
-     * Return max x position
-     * @return float
-     */
-    protected function getMaxX(): float
-    {
-        $axis = $this->getAxisX();
-        $max = end($axis);
-        return $this->getXPosition($max);
     }
 
     /**

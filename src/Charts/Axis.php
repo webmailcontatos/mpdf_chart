@@ -132,6 +132,10 @@ class Axis
         $this->value = $value;
     }
 
+    /**
+     * Retorna o valor
+     * @return string
+     */
     public function getValue(): string
     {
         return $this->value;

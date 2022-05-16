@@ -44,7 +44,7 @@ class Velocimeter extends Pie
         $radius = 3;
         $position = $this->getPolygonPointer($radius);
         $this->setColorPointer();
-        $currentPosition = (90 - $this->currentPosition) < -90 ? -90 : (90 - $this->currentPosition);
+        $currentPosition = max((90 - $this->currentPosition), -90);
         $this->pdf->Rotate($currentPosition, $x, $y);
         $this->chartPdf->Polygon($position, 'F');
         $this->pdf->Rotate(0, $x, $y);
