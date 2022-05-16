@@ -45,12 +45,12 @@ class Base extends Chart
     protected bool $verticalGrid = false;
     /**
      * Axis x
-     * @var array
+     * @var Axis[]
      */
     protected array $axisX = [];
     /**
      * Axis y
-     * @var array
+     * @var Axis[]
      */
     protected array $axisY = [];
 
@@ -349,7 +349,7 @@ class Base extends Chart
 
     /**
      * Return axis x values
-     * @return array
+     * @return Axis[]
      */
     public function getAxisX(): array
     {
@@ -358,7 +358,7 @@ class Base extends Chart
 
     /**
      * Set axis x
-     * @param array $axisX Axis x list
+     * @param Axis[] $axisX Axis x list
      * @return Base
      */
     public function setAxisX(array $axisX): Base
@@ -389,7 +389,7 @@ class Base extends Chart
 
     /**
      * Return axis y list
-     * @return array
+     * @return Axis[]
      */
     public function getAxisY(): array
     {
@@ -398,7 +398,7 @@ class Base extends Chart
 
     /**
      * Set attribute y list
-     * @param array $axisY List axis y
+     * @param Axis[] $axisY List axis y
      * @return Base
      */
     public function setAxisY(array $axisY): Base

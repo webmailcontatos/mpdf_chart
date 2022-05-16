@@ -55,7 +55,7 @@ class TestCaseChartPdf extends TestCase
 
     /**
      * Return x axis
-     * @return string[]
+     * @return Axis[]
      */
     protected function returnAxisX(): array
     {
@@ -243,7 +243,7 @@ class TestCaseChartPdf extends TestCase
 
     /**
      * Return y axis
-     * @return string[]
+     * @return Axis[]
      */
     protected function returnAxisY(): array
     {
@@ -272,7 +272,12 @@ class TestCaseChartPdf extends TestCase
         return $retorno;
     }
 
-    protected function dataToAxis(array $data)
+    /**
+     * Retorna os dados convertidos
+     * @param array $data
+     * @return Axis[]
+     */
+    protected function dataToAxis(array $data):array
     {
         $retorno = [];
         foreach ($data as $item) {

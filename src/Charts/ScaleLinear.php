@@ -26,7 +26,7 @@ class ScaleLinear
 
     /**
      * Constructor class
-     * @param array $axis         List axis elements
+     * @param Axis[] $axis         List axis elements
      * @param float $width        Width chart
      * @param float $initPosition Init position
      */
