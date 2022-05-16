@@ -47,7 +47,7 @@ class ScaleLinear
         $width = $this->getWidth();
         $xInit = $this->getInitPosition();
         $space = $this->getWidthAxisLabel();
-        $axis = $this->getAxis();
+        $axis = array_map(fn(Axis $axis) => $axis->getValue(), $this->getAxis());
         $range = end($axis) - $axis[0];
         $calc = (($point - $axis[0]) / $range);
         return $xInit + ($calc * ($width - $space));

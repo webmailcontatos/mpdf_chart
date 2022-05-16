@@ -148,8 +148,8 @@ class BarTest extends TestCaseChartPdf
         $bar->setShowTicksX(false);
         $bar->setHorizontalGrid(true);
         $bar->setVerticalGrid(false);
-        $bar->setAxisX($axisX);
-        $bar->setAxisY($axisY);
+        $bar->setAxisX($this->dataToAxis($axisX));
+        $bar->setAxisY($this->dataToAxis($axisY));
         $bar->setDataBar($data);
         $bar->setLineWidth(0.1);
         $bar->write();

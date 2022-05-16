@@ -493,11 +493,11 @@ class Base extends Chart
     {
         $axisY = $this->getAxisY();
         foreach ($axisY as $axis) {
-            if ($axis < 0) {
+            if ($axis->getText() < 0) {
                 return $this->getYPosition(0);//Negative case
             }
         }
-        return $this->getYPosition($axisY[0]);
+        return $this->getYPosition($axisY[0]->getText());
     }
 
     /**
@@ -540,7 +540,7 @@ class Base extends Chart
             $xInit -= $halfSpace;
         }
         foreach ($axis as $key => $axi) {
-            $axi = $this->getAxisObject($axi);
+           // $axi = $this->getAxisObject($axi);
             $this->formatX->call($this, $key, $axi);
             $this->setTextAxisDecorator($axi);
             $this->pdf->setY(($yInit + $this->marginTopAxisX));
@@ -587,7 +587,7 @@ class Base extends Chart
             return;
         }
         $axisY = $this->getAxisY();
-        $yInit = $this->getYPosition($axisY[0]);
+        $yInit = $this->getYPosition($axisY[0]->getText());
         $this->pdf->Line($xInit, $yInit, $xInit, ($yInit + $this->tickSize));
     }
 
@@ -607,7 +607,7 @@ class Base extends Chart
         $widthCell = $this->getMaxStringWidthY();
         $xInit -= ($widthCell + ($tickSize * 1.5));
         foreach ($axis as $key => $axi) {
-            $axi = $this->getAxisObject($axi);
+      //      $axi = $this->getAxisObject($axi);
             $this->formatY->call($this, $key, $axi);
             $this->setTextAxisDecorator($axi);
             $this->pdf->setY($yInit - ($heightCell / 2));
@@ -638,7 +638,8 @@ class Base extends Chart
         $sizes = [];
         $axis = $this->getAxisY();
         foreach ($axis as $key => $axi) {
-            $axi = $this->getAxisObject($axi);
+       //     $axi = $this->getAxisObject($axi);
+            $axi = clone $axi;
             $this->formatY->call($this, $key, $axi);
             $this->setTextAxisDecorator($axi);
             $sizes[] = $this->pdf->getStringWidth($axi->getText());
@@ -670,7 +671,7 @@ class Base extends Chart
             return;
         }
         $space = $this->getSpaceAxisY();
-        $axis = $this->getAxisY();
+        $axis = array_map(fn(Axis $axis) => $axis->getValue(), $this->getAxisY());
         $qtdRect = (count($axis) - 1);
         $color = $this->backgroundColor;
         $xInit = $this->getX();
@@ -700,7 +701,7 @@ class Base extends Chart
         $xInit = $this->getX();
         $widthLine = $this->getLineWidthAxisX();
         foreach ($axis as $axi) {
-            $yInit = $this->getYPosition($axi);
+            $yInit = $this->getYPosition($axi->getValue());
             $this->pdf->Line($xInit, $yInit, $widthLine, $yInit);
 
         }
@@ -741,7 +742,7 @@ class Base extends Chart
             $halfSpace = 0;
         }
         foreach ($axis as $axi) {
-            $xInit = $this->getXPosition($axi) + $halfSpace;
+            $xInit = $this->getXPosition($axi->getValue()) + $halfSpace;
             $this->pdf->Line($xInit, $yInit, $xInit, $height);
         }
     }
@@ -777,6 +778,6 @@ class Base extends Chart
     {
         $axis = $this->getAxisX();
         $max = reset($axis);
-        return $this->getXPosition($max);
+        return $this->getXPosition($max->getValue());
     }
 }

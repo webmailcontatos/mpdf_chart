@@ -2,6 +2,7 @@
 
 namespace ChartPdf\Tests\Charts;
 
+use ChartPdf\Charts\Axis;
 use ChartPdf\Charts\Line\DataLine;
 use ChartPdf\Charts\Pdf;
 use ChartPdf\Charts\Point\DataPoint;
@@ -58,7 +59,7 @@ class TestCaseChartPdf extends TestCase
      */
     protected function returnAxisX(): array
     {
-        return [
+        $data = [
             'Jan',
             'Fev',
             'Mar',
@@ -70,6 +71,16 @@ class TestCaseChartPdf extends TestCase
             'Set',
             'Out',
         ];
+        $retorno = [];
+        foreach ($data as $item) {
+            $axis = new Axis();
+            $axis->setText($item);
+            $axis->setValue($item);
+            $axis->setColor([0, 0, 0]);
+            $axis->setFont('dejavuserifcondensed', 11, '');
+            $retorno[] = $axis;
+        }
+        return $retorno;
     }
 
     /**
@@ -236,7 +247,7 @@ class TestCaseChartPdf extends TestCase
      */
     protected function returnAxisY(): array
     {
-        return [
+        $data = [
             0,
             10,
             20,
@@ -249,6 +260,30 @@ class TestCaseChartPdf extends TestCase
             90,
             100,
         ];
+        $retorno = [];
+        foreach ($data as $item) {
+            $axis = new Axis();
+            $axis->setText($item);
+            $axis->setValue($item);
+            $axis->setColor([0, 0, 0]);
+            $axis->setFont('dejavuserifcondensed', 11, '');
+            $retorno[] = $axis;
+        }
+        return $retorno;
+    }
+
+    protected function dataToAxis(array $data)
+    {
+        $retorno = [];
+        foreach ($data as $item) {
+            $axis = new Axis();
+            $axis->setText($item);
+            $axis->setValue($item);
+            $axis->setColor([0, 0, 0]);
+            $axis->setFont('dejavuserifcondensed', 11, '');
+            $retorno[] = $axis;
+        }
+        return $retorno;
     }
 
     /**
@@ -257,7 +292,7 @@ class TestCaseChartPdf extends TestCase
      */
     protected function returnAxisYNegative(): array
     {
-        return [
+        return $this->dataToAxis([
             -50,
             -40,
             -30,
@@ -269,7 +304,7 @@ class TestCaseChartPdf extends TestCase
             30,
             40,
             50,
-        ];
+        ]);
     }
 
     /**

@@ -87,7 +87,7 @@ class LineAreaSvgTest extends TestCaseChartPdf
             $point->setColorFill([255, 255, 255]);
             $point->setColorDraw([247, 148, 137]);
         }
-        $axisX = range(0, 9);
+        $axisX = $this->dataToAxis(range(0, 9));
         $axisY = $this->returnAxisY();
         $pdf = $this->getPdfInstance();
         $scaleX = new ScaleLinear($axisX, 150, 35);
@@ -134,7 +134,7 @@ class LineAreaSvgTest extends TestCaseChartPdf
             $point->setColorFill([255, 255, 255]);
             $point->setColorDraw([247, 148, 137]);
         }
-        $axisX = range(0, 9);
+        $axisX = $this->dataToAxis(range(0, 9));
         $axisY = $this->returnAxisY();
         $pdf = $this->getPdfInstance();
         $scaleX = new ScaleLinear($axisX, 150, 35);
@@ -178,14 +178,14 @@ class LineAreaSvgTest extends TestCaseChartPdf
         $data[0]->showPoint();
         $points = $data[0]->getPoints();
         $initY = 25;
-        $axisY = range($initY, 75, 15);
+        $axisY = $this->dataToAxis(range($initY, 75, 15));
         foreach ($points as $point) {
             $point->setColorFill([255, 255, 255]);
             $point->setColorDraw([247, 148, 137]);
             $point->setY($initY);
             $initY += 5;
         }
-        $axisX = range(0, 9);
+        $axisX = $this->dataToAxis(range(0, 9));
 
         $pdf = $this->getPdfInstance();
         $scaleX = new ScaleLinear($axisX, 150, 35);

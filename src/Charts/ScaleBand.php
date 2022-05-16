@@ -14,7 +14,7 @@ class ScaleBand extends ScaleLinear
     public function getPosition($point): float
     {
         $x = $this->getInitPosition();
-        $axis = $this->getAxis();
+        $axis = array_map(fn(Axis $axis) => $axis->getValue(), $this->getAxis());
         $axisFlip = array_flip($axis);
         $space = $this->getWidthAxisLabel();
         $position = $axisFlip[$point];

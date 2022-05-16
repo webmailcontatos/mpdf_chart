@@ -13,6 +13,12 @@ class Axis
     protected string $text;
 
     /**
+     * Valor
+     * @var string
+     */
+    protected string $value;
+
+    /**
      * Rgb color
      * @var array
      */
@@ -116,4 +122,18 @@ class Axis
         return $this->fontFamily;
     }
 
+    /**
+     * Valor
+     * @param string $value
+     * @return void
+     */
+    public function setValue(string $value): void
+    {
+        $this->value = $value;
+    }
+
+    public function getValue(): string
+    {
+        return $this->value;
+    }
 }

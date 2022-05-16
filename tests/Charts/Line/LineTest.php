@@ -117,7 +117,7 @@ class LineTest extends TestCaseChartPdf
         $pointsList[] = $point02;
         $lineData->setPoints($pointsList);
         $data[] = $lineData;
-        $axisX = range(0, 9);
+        $axisX = $this->dataToAxis(range(0, 9));
         $axisY = $this->returnAxisY();
         $pdf = $this->getPdfInstance();
         $scaleX = new ScaleLinear($axisX, 150, 35);
@@ -175,7 +175,7 @@ class LineTest extends TestCaseChartPdf
     public function testLineLinearScaleFill(): void
     {
         $data = $this->getDataLine05();
-        $axisX = range(0, 9);
+        $axisX = $this->dataToAxis(range(0, 9));
         $axisY = $this->returnAxisY();
         $pdf = $this->getPdfInstance();
         $line = new LineArea($pdf);
@@ -205,7 +205,7 @@ class LineTest extends TestCaseChartPdf
     public function testLineFormatYAndXAxis(): void
     {
         $yFunction = function (int $key, Axis $axi) {
-            $modulo = (int) $axi->getText() % 3;
+            $modulo = (int) $axi->getValue() % 3;
             if ($modulo === 0) {
                 $axi->setColor([255, 0, 0]);
             }
@@ -214,7 +214,7 @@ class LineTest extends TestCaseChartPdf
         };
         $xFunction = function (int $key, Axis $axi) {
             $reds = ['Jan', 'Mai', 'Out'];
-            if (in_array($axi->getText(), $reds)) {
+            if (in_array($axi->getValue(), $reds)) {
                 $axi->setColor([100, 255, 100]);
             }
             return $axi;
@@ -330,7 +330,7 @@ class LineTest extends TestCaseChartPdf
         $data[0]->setDashed(true);
         $data[0]->setLineWidth(0.2);
         $axisX = $this->returnAxisX();
-        $axisY = range(30, 100, 10);
+        $axisY = $this->dataToAxis(range(30, 100, 10));
         $pdf = $this->getPdfInstance();
         $line = new Line($pdf);
         $line->setX(35);
@@ -358,7 +358,7 @@ class LineTest extends TestCaseChartPdf
         $data[0]->setDashed(true);
         $data[0]->setLineWidth(0.2);
         $axisX = $this->returnAxisX();
-        $axisY = range(30, 100, 5);
+        $axisY = $this->dataToAxis(range(30, 100, 5));
         $pdf = $this->getPdfInstance();
         $line = new Line($pdf);
         $line->setX(35);
@@ -386,7 +386,7 @@ class LineTest extends TestCaseChartPdf
         $data[0]->setDashed(true);
         $data[0]->setLineWidth(0.2);
         $axisX = $this->returnAxisX();
-        $axisY = range(10, 50, 5);
+        $axisY = $this->dataToAxis(range(10, 50, 5));
         $pdf = $this->getPdfInstance();
         $line = new Line($pdf);
         $line->setX(35);
